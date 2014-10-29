@@ -1,7 +1,6 @@
 #ifndef CityCoordinate_H
 #define CityCoordinate_H
 
-
 typedef struct Coordinate City;
 
 struct Coordinate{

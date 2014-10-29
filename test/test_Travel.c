@@ -22,13 +22,12 @@ void tearDown(void)
 {
 }
 
-void test_city_Initilization_should_set_correctly_acoording_the_given_value(){
-
-  TEST_ASSERT_EQUAL( city1.x_axis, 1);
-  TEST_ASSERT_EQUAL( city1.y_axis, 1);
-  TEST_ASSERT_EQUAL( city6.x_axis, 3);
-  TEST_ASSERT_EQUAL( city6.y_axis, 6);
-  TEST_ASSERT_EQUAL( city9.x_axis, 9);
-  TEST_ASSERT_EQUAL( city9.y_axis, 2);
-
+void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
+  TEST_ASSERT_EQUAL(city1.x_axis, 1);
+  TEST_ASSERT_EQUAL(city1.y_axis, 1);
+  TEST_ASSERT_EQUAL(city6.x_axis, 3);
+  TEST_ASSERT_EQUAL(city6.y_axis, 6);
+  TEST_ASSERT_EQUAL(city9.x_axis, 9);
+  TEST_ASSERT_EQUAL(city9.y_axis, 2);
 }
+
