@@ -2,7 +2,7 @@
 #define CityCoordinate_H
 
 
-typedef struct City Coordinate;
+typedef struct Coordinate City;
 
 struct Coordinate{
   int x_axis;

@@ -2,6 +2,6 @@
 #define Travel_H
 #include "CityCoordinate.h"
 
-void fitnessScore(Coordinate city1, Coordinate city2);
+void fitnessScore(City city1, City city2);
 
 #endif // Travel_H
