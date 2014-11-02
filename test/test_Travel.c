@@ -31,3 +31,7 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(city9.y_axis, 2);
 }
 
+void test_fitnessScore_to_find_the_distance_of_2_city(void){
+  float ans = fitnessScore(city1, city2);
+  TEST_ASSERT_EQUAL( ans, 7.21);
+}
