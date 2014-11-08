@@ -73,7 +73,8 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
  //printf("random :%d\n", rand());
 }
 
+// Travel distance start sequence from city1 till city10;
 void test_distanceForTravel_should_calculate_Total_travel_distance(void){
   float ans = distanceForTravel(city1, city2, city3, city4, city5, city6, city7, city8, city9, city10);
-  TEST_ASSERT_EQUAL( ans, 43.65);
+  TEST_ASSERT_EQUAL(ans, 43.65);
 }

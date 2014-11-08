@@ -16,11 +16,10 @@ float fitnessScore(City A, City B){
   powY = y*y;
   ans = sqrt(powX + powY);
   rounded = ((int)(ans * 100 + .5) / 100.0);
+  return rounded;
   // printf("%d\n",powX + powY);
   // printf("%f\n",ans);
   // printf("%f\n",rounded);
-  return rounded;
-
 }
 
 float distanceForTravel(City A, City B ,City C, City D, City E,
@@ -30,7 +29,6 @@ float distanceForTravel(City A, City B ,City C, City D, City E,
   TotalDistance = fitnessScore(A,B) + fitnessScore(B,C) + fitnessScore(C,D) +
                   fitnessScore(D,E) + fitnessScore(E,F) + fitnessScore(F,G) +
                   fitnessScore(G,H) + fitnessScore(H,I) + fitnessScore(I,J) ;
-  printf( "%f\n", TotalDistance );
   return ((int)(TotalDistance * 100 + .5) / 100.0);
-
+  printf("%f\n", TotalDistance);
 }
