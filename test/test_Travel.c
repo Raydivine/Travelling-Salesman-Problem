@@ -7,7 +7,7 @@
 City city1,city2,city3,city4,city5,city6,city7,city8,city9,city10;
 
 /**
-*
+*  y
 *  ^
 *10|   (2,10)
 *  |
@@ -29,7 +29,7 @@ City city1,city2,city3,city4,city5,city6,city7,city8,city9,city10;
 * 2|                                 (9,2)
 *  |
 * 1| (1,1)
-*  |__________________________________________>
+*  |__________________________________________> x
 * 0   1   2   3   4   5   6   7   8   9   10
 *
 */
@@ -60,21 +60,17 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(city9.y_axis, 2);
 }
 
+/**
+* city1(1,1)    city(5,7)
+* x = 5-1 = 4
+* y = 7-1 = 6
+* distance = square root ( 4^2 + 6^2 )
+* distance  = 7.21
+*/
 void test_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = fitnessScore(city1, city2);
   TEST_ASSERT_EQUAL( ans, 7.21);
 
   printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
-  printf("random :%d\n", rand());
+
 }
