@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 #include "CityCoordinate.h"
+#include <stdlib.h>
+
 
 float fitnessScore(City city1, City city2){
   int x,y, powX, powY;
