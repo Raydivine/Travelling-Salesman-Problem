@@ -70,7 +70,10 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 void test_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = fitnessScore(city1, city2);
   TEST_ASSERT_EQUAL( ans, 7.21);
+ //printf("random :%d\n", rand());
+}
 
-  printf("random :%d\n", rand());
-
+void test_distanceForTravel_should_calculate_Total_travel_distance(void){
+  float ans = distanceForTravel(city1, city2, city3, city4, city5, city6, city7, city8, city9, city10);
+  TEST_ASSERT_EQUAL( ans, 43.65);
 }
