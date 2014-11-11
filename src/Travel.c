@@ -34,9 +34,8 @@ float distanceForTravel(City A, City B ,City C, City D, City E,
   float link6 = fitnessScore(F,G);
   float link7 = fitnessScore(G,H);
   float link8 = fitnessScore(H,I);
-  float link9 = fitnessScore(I,J);
-  
+  float link9 = fitnessScore(I,J); 
   float TotalDistance = link1 + link2 + link3 + link4 + link5 + link6 + link7 + link8 + link9; 
-  return ((int)(TotalDistance * 100 + .5) / 100.0);
+  return TotalDistance; 
   printf("%f\n", TotalDistance);
 }
