@@ -25,10 +25,18 @@ float fitnessScore(City A, City B){
 float distanceForTravel(City A, City B ,City C, City D, City E,
                         City F, City G, City H, City I, City J)
 {
-  float TotalDistance;
-  TotalDistance = fitnessScore(A,B) + fitnessScore(B,C) + fitnessScore(C,D) +
-                  fitnessScore(D,E) + fitnessScore(E,F) + fitnessScore(F,G) +
-                  fitnessScore(G,H) + fitnessScore(H,I) + fitnessScore(I,J) ;
+
+  float link1 = fitnessScore(A,B);
+  float link2 = fitnessScore(B,C);
+  float link3 = fitnessScore(C,D);
+  float link4 = fitnessScore(D,E);
+  float link5 = fitnessScore(E,F);
+  float link6 = fitnessScore(F,G);
+  float link7 = fitnessScore(G,H);
+  float link8 = fitnessScore(H,I);
+  float link9 = fitnessScore(I,J);
+  
+  float TotalDistance = link1 + link2 + link3 + link4 + link5 + link6 + link7 + link8 + link9; 
   return ((int)(TotalDistance * 100 + .5) / 100.0);
   printf("%f\n", TotalDistance);
 }
