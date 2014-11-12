@@ -4,7 +4,7 @@
 #include "CityCoordinate.h"
 #include <stdlib.h>
 
-
+// Cartesian formula 
 float fitnessScore(City A, City B){
   int x,y, powX, powY;
   float ans, rounded;
