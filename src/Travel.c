@@ -1,19 +1,31 @@
 #include "Travel.h"
-#include <stdio.h>
+#include <malloc.h>
 #include <math.h>
+#include "InitCity.h"
 #include "CityCoordinate.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-// Cartesian formula 
-double findDistance (City *first, City *second){
-  int     x,y, powX, powY;
-  double ans, rounded;
+
+// Cartesian formula
+float findDistance(City *first, City *second){
+  float  x,y, powX, powY;
+  float ans, rounded;
   x    = (*second).x_axis - (*first).x_axis;
   y    = (*second).y_axis - (*first).y_axis;
   powX = x*x;
   powY = y*y;
   ans  = sqrt(powX + powY);
 
-  return ((int)(ans * 100 + .5) / 100.0);
+  return ((int)(ans * 1000 + .5) / 1000.0); // correct number to 3 significant
 }
 
+Path TotalDistanceCities (City cities[]){
+  int i;
+  float distance, TotalDistance =0 ;
+  for(i=0; i<sizeof(cities); i++){
+    distance = findDistance( &cities[i], &cities[i+1]);
+    TotalDistance = TotalDistance + distance;
+  }
+
+}

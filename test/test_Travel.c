@@ -4,7 +4,7 @@
 #include "InitCity.h"
 #include <stdlib.h>
 
-City city1,city2,city3,city4,city5,city6,city7,city8,city9,city10;
+City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
 
 /**
 *  y
@@ -35,16 +35,16 @@ City city1,city2,city3,city4,city5,city6,city7,city8,city9,city10;
 */
 
 void setUp(void){
-  setCity(&city1, 1, 1);
-  setCity(&city2, 5, 7);
-  setCity(&city3, 10, 9);
-  setCity(&city4, 7, 3);
-  setCity(&city5, 8, 5);
-  setCity(&city6, 3, 6);
-  setCity(&city7, 2, 10);
-  setCity(&city8, 4, 8);
-  setCity(&city9, 9, 2);
-  setCity(&city10,10,4);
+  setCity(&cityA,  1,  1, 'A');
+  setCity(&cityB,  5,  7, 'B');
+  setCity(&cityC, 10,  9, 'C');
+  setCity(&cityD,  7,  3, 'D');
+  setCity(&cityE,  8,  5, 'E');
+  setCity(&cityF,  3,  6, 'F');
+  setCity(&cityG,  2, 10, 'G');
+  setCity(&cityH,  4,  8, 'H');
+  setCity(&cityI,  9,  2, 'I');
+  setCity(&cityJ, 10,  4, 'J');
 }
 
 void tearDown(void)
@@ -52,12 +52,12 @@ void tearDown(void)
 }
 
 void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
-  TEST_ASSERT_EQUAL(city1.x_axis, 1);
-  TEST_ASSERT_EQUAL(city1.y_axis, 1);
-  TEST_ASSERT_EQUAL(city6.x_axis, 3);
-  TEST_ASSERT_EQUAL(city6.y_axis, 6);
-  TEST_ASSERT_EQUAL(city9.x_axis, 9);
-  TEST_ASSERT_EQUAL(city9.y_axis, 2);
+  TEST_ASSERT_EQUAL(cityA.x_axis, 1);
+  TEST_ASSERT_EQUAL(cityA.y_axis, 1);
+  TEST_ASSERT_EQUAL(cityF.x_axis, 3);
+  TEST_ASSERT_EQUAL(cityF.y_axis, 6);
+  TEST_ASSERT_EQUAL(cityI.x_axis, 9);
+  TEST_ASSERT_EQUAL(cityI.y_axis, 2);
 }
 
 /**
@@ -65,12 +65,19 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 * x = 5-1 = 4
 * y = 7-1 = 6
 * distance = square root ( 4^2 + 6^2 )
-* distance  = 7.21
+* distance  = 7.211
 */
 void test_fitnessScore_to_find_the_distance_of_2_city(void){
-  double ans = findDistance(&city1, &city2);
-  TEST_ASSERT_EQUAL( ans, 7.21);
+  float ans = findDistance(&cityA, &cityB);
+  TEST_ASSERT_EQUAL( ans, 7.211);
 }
  //printf("random :%d\n", rand());
 // Travel distance start sequence from city1 till city10;
 
+/**     
+*      CityF(3,6)----> CityB(5,7)----> CityH(4,8)----> CityG(2,10)----> CityC(10,9)----> CityF(3,6)
+*
+*/
+void TEST_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+  City arrayCity[]= {cityF, cityB, cityH, cityG, cityC};
+}

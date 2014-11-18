@@ -2,8 +2,7 @@
 #define Travel_H
 #include "CityCoordinate.h"
 
-double findDistance (City *first, City *second);
-double visitGetDistance( Visit *visit);
-
+float findDistance(City *first, City *second);
+Path TotalDistanceCities (City cities[]);
 
 #endif // Travel_H

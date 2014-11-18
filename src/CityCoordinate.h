@@ -1,24 +1,19 @@
 #ifndef CityCoordinate_H
 #define CityCoordinate_H
+#include <malloc.h>
 
 typedef struct City City;
-typedef struct Visit Visit;
-typedef struct Travel Travel;
+typedef struct Path Path;
+
 
 struct City{
-  int x_axis;
-  int y_axis;
+  float x_axis;
+  float y_axis;
+  char cityID;
 };
 
-struct Visit{
-  Visit *next;
-  City  *city;
+struct Path{
+  float distance;
 };
-
-struct Travel{
-  Visit *firstVisit;
-  double distance;
-};
-
 
 #endif // CityCoordinate_H
