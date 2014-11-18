@@ -14,6 +14,8 @@ struct City{
 
 struct Path{
   float distance;
+  City cities;
+  int size;
 };
 
 #endif // CityCoordinate_H

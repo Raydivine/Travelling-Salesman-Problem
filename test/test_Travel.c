@@ -4,6 +4,9 @@
 #include "InitCity.h"
 #include <stdlib.h>
 
+#define SIZE 1000000
+
+
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
 
 /**
@@ -54,10 +57,13 @@ void tearDown(void)
 void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
   TEST_ASSERT_EQUAL(cityA.x_axis, 1);
   TEST_ASSERT_EQUAL(cityA.y_axis, 1);
+  TEST_ASSERT_EQUAL(cityA.cityID,'A');
   TEST_ASSERT_EQUAL(cityF.x_axis, 3);
   TEST_ASSERT_EQUAL(cityF.y_axis, 6);
+  TEST_ASSERT_EQUAL(cityF.cityID,'F');
   TEST_ASSERT_EQUAL(cityI.x_axis, 9);
   TEST_ASSERT_EQUAL(cityI.y_axis, 2);
+  TEST_ASSERT_EQUAL(cityI.cityID,'I');
 }
 
 /**
@@ -71,13 +77,37 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = findDistance(&cityA, &cityB);
   TEST_ASSERT_EQUAL( ans, 7.211);
 }
- //printf("random :%d\n", rand());
-// Travel distance start sequence from city1 till city10;
 
-/**     
-*      CityF(3,6)----> CityB(5,7)----> CityH(4,8)----> CityG(2,10)----> CityC(10,9)----> CityF(3,6)
+void test_createPathOfCityVisit_should_init_cities_as_array_size_10(void){
+  int size;
+  City *city;
+  city = createPathOfCityVisit(10);
+ // size = 
+}
+
+
+
+/**
+*      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
 *
 */
 void TEST_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
-  City arrayCity[]= {cityF, cityB, cityH, cityG, cityC};
+  City arrayCity[] = {cityF, cityB, cityH, cityG, cityC};
+  TotalDistanceCities(arrayCity);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
