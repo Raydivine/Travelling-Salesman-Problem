@@ -33,10 +33,15 @@ Path formPathFromCities(City **cities, int size){
   for(i=0; i<size; i++){
     distance = findDistance( &(*cities[i]), &(*cities[i+1]));
     totalDistance = totalDistance + distance;
-    printf("%f\n", distance);
+    printf("distance:  %f\n", distance);
   }
-  printf("%f\n", totalDistance);
+  printf("%Total   : %f\n", totalDistance);
   rounded = ((int)(totalDistance * 1000 + .5) / 1000.0); // correct number to 3 significant
   path = setPath(path,rounded,cities,size);
   return path;
+}
+
+Path formNewPath(Path path){
+
+
 }

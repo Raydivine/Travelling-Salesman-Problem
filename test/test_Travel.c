@@ -83,7 +83,7 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 *   Total Distance = 22.1
 */
 void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
-  Path path1;
+  Path path;
   City **cities = createPathOfCityVisit(5);
         cities[0] = &cityF;
         cities[1] = &cityB;
@@ -92,12 +92,30 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
         cities[4] = &cityC;
         cities[5] = &cityF;
   City *city = *(cities);
+
   printf("start\n");
-  path1 = formPathFromCities(cities, 5);
-  TEST_ASSERT_EQUAL(path1.distance , 22.156);
-  TEST_ASSERT_EQUAL(path1.size  , 5);
+  path = formPathFromCities(cities, 5);
+  TEST_ASSERT_EQUAL(path.distance , 22.156);
+  TEST_ASSERT_EQUAL(path.size  , 5);
+  TEST_ASSERT_EQUAL(path.cities  , cities);
 }
 
+/**
+*   path      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
+*                                                         to
+*   newPath   CityB(5,7)------> CityG(2,10)------> CityC(10,9)------> CityH(4,8)------> CityF(3,6)------> CityB(5,7)
+*/
+void test_formNewPath_should_form_a_newPath_by_input_a_example_path(void){
+  City **cities = createPathOfCityVisit(5);
+      cities[0] = &cityF;
+      cities[1] = &cityB;
+      cities[2] = &cityH;
+      cities[3] = &cityG;
+      cities[4] = &cityC;
+      cities[5] = &cityF;
+  Path path = setPath(path,22.156,cities,5);
+
+}
 
 
 
