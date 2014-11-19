@@ -14,7 +14,7 @@ struct City{
 
 struct Path{
   float distance;
-  City cities;
+  City **cities;
   int size;
 };
 

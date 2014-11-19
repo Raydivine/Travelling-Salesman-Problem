@@ -3,5 +3,6 @@
 #include "CityCoordinate.h"
 
 void setCity(City *target, float x_line, float y_line, int ID);
+Path setPath(Path target, float distance, City **cities, int size);
 
 #endif // InitCity_H

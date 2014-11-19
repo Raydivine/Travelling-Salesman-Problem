@@ -5,3 +5,10 @@ void setCity(City *target, float x_line, float y_line, int ID){
   target->y_axis = y_line;
   target->ID = ID;
 }
+
+Path setPath(Path target, float distance, City **cities, int size){
+  target.distance = distance;
+  target.cities = cities;
+  target.size = size;
+  return target;
+}

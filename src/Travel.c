@@ -14,12 +14,10 @@ City **createPathOfCityVisit(int numOfCities){
 
 // Cartesian formula
 float findDistance(City *first, City *second){
-  float  x,y, powX, powY;
-  float ans, rounded;
-  // x    = second.x_axis - first.x_axis;
-  // y    = second.y_axis - first.y_axis;
-  x    = (*second).x_axis - (*first).x_axis;
-  y    = (*second).y_axis - (*first).y_axis;
+  float  x,y, powX, powY, ans, rounded;
+
+     x = (*second).x_axis - (*first).x_axis;
+     y = (*second).y_axis - (*first).y_axis;
   powX = x*x;
   powY = y*y;
   ans  = sqrt(powX + powY);
@@ -31,16 +29,20 @@ float findDistance(City *first, City *second){
 
 
 
-Path *TotalDistanceCities(City **cities, int arraySize){
+Path TotalDistanceCities(City **cities, int size){
   int i;
   float distance, TotalDistance = 0;
+  Path path;
 
-  for(i=0; i<arraySize; i++){
+  for(i=0; i<size; i++){
     distance = findDistance( &(*cities[i]), &(*cities[i+1]));
     TotalDistance = TotalDistance + distance;
     printf("%f\n", distance);
   }
-  
-  printf("%f\n", TotalDistance); 
-  
+  printf("%f\n", TotalDistance);
+
+  path = setPath(path,TotalDistance,cities,size);
+  printf("%f\n", path.distance);
+  printf("%d\n", path.size);
+  return path;
 }
