@@ -38,16 +38,16 @@ City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
 */
 
 void setUp(void){
-  setCity(&cityA,  1,  1, 'A');
-  setCity(&cityB,  5,  7, 'B');
-  setCity(&cityC, 10,  9, 'C');
-  setCity(&cityD,  7,  3, 'D');
-  setCity(&cityE,  8,  5, 'E');
-  setCity(&cityF,  3,  6, 'F');
-  setCity(&cityG,  2, 10, 'G');
-  setCity(&cityH,  4,  8, 'H');
-  setCity(&cityI,  9,  2, 'I');
-  setCity(&cityJ, 10,  4, 'J');
+  setCity(&cityA,  1,  1, 100);
+  setCity(&cityB,  5,  7, 101);
+  setCity(&cityC, 10,  9, 102);
+  setCity(&cityD,  7,  3, 103);
+  setCity(&cityE,  8,  5, 104);
+  setCity(&cityF,  3,  6, 105);
+  setCity(&cityG,  2, 10, 106);
+  setCity(&cityH,  4,  8, 107);
+  setCity(&cityI,  9,  2, 108);
+  setCity(&cityJ, 10,  4, 109);
 }
 
 void tearDown(void)
@@ -57,13 +57,13 @@ void tearDown(void)
 void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
   TEST_ASSERT_EQUAL(cityA.x_axis, 1);
   TEST_ASSERT_EQUAL(cityA.y_axis, 1);
-  TEST_ASSERT_EQUAL(cityA.cityID,'A');
+  TEST_ASSERT_EQUAL(cityA.ID  , 100);
   TEST_ASSERT_EQUAL(cityF.x_axis, 3);
   TEST_ASSERT_EQUAL(cityF.y_axis, 6);
-  TEST_ASSERT_EQUAL(cityF.cityID,'F');
+  TEST_ASSERT_EQUAL(cityF.ID  , 105);
   TEST_ASSERT_EQUAL(cityI.x_axis, 9);
   TEST_ASSERT_EQUAL(cityI.y_axis, 2);
-  TEST_ASSERT_EQUAL(cityI.cityID,'I');
+  TEST_ASSERT_EQUAL(cityI.ID  , 108);
 }
 
 /**
@@ -78,17 +78,22 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
   TEST_ASSERT_EQUAL( ans, 7.211);
 }
 
-/**
+/**               2.2               1.4               2.8                 8.1               7.6
 *      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
-*
+*   Total Distance = 22.1
 */
 void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   City **cities = createPathOfCityVisit(5);
-        cities[0] = &CityF;
+        cities[0] = &cityF;
+        cities[1] = &cityB;
+        cities[2] = &cityH;
+        cities[3] = &cityG;
+        cities[4] = &cityC;
+        cities[5] = &cityF;
   City *city = *(cities);
+  printf("start\n");
+  TotalDistanceCities (cities, 5);
 
- // City arrayCity[] = {cityF, cityB, cityH, cityG, cityC};
- // TotalDistanceCities(arrayCity);
 }
 
 

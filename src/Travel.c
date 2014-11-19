@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 City **createPathOfCityVisit(int numOfCities){
-  City **cities = malloc(sizeof(City**)*numOfCities);
+  City **cities = malloc(sizeof(City**) * numOfCities);
   City *city = *cities;
   return cities;
 }
@@ -16,6 +16,8 @@ City **createPathOfCityVisit(int numOfCities){
 float findDistance(City *first, City *second){
   float  x,y, powX, powY;
   float ans, rounded;
+  // x    = second.x_axis - first.x_axis;
+  // y    = second.y_axis - first.y_axis;
   x    = (*second).x_axis - (*first).x_axis;
   y    = (*second).y_axis - (*first).y_axis;
   powX = x*x;
@@ -29,14 +31,16 @@ float findDistance(City *first, City *second){
 
 
 
-Path TotalDistanceCities(City cities[]){
-printf("fds\n");
+Path *TotalDistanceCities(City **cities, int arraySize){
   int i;
-  float distance, TotalDistance =0 ;
-  for(i=0; i<sizeof(cities); i++){
-    distance = findDistance( &cities[i], &cities[i+1]);
-    TotalDistance = TotalDistance + distance;
-  }
-  printf("%d\n",TotalDistance);
+  float distance, TotalDistance = 0;
 
+  for(i=0; i<arraySize; i++){
+    distance = findDistance( &(*cities[i]), &(*cities[i+1]));
+    TotalDistance = TotalDistance + distance;
+    printf("%f\n", distance);
+  }
+  
+  printf("%f\n", TotalDistance); 
+  
 }
