@@ -70,7 +70,6 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 void test_fitnessScore_to_find_the_distance_of_2_city(void){
   double ans = findDistance(&city1, &city2);
   TEST_ASSERT_EQUAL( ans, 7.21);
-
 }
  //printf("random :%d\n", rand());
 // Travel distance start sequence from city1 till city10;

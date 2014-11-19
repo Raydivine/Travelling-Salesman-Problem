@@ -8,17 +8,12 @@
 double findDistance (City *first, City *second){
   int     x,y, powX, powY;
   double ans, rounded;
-
   x    = (*second).x_axis - (*first).x_axis;
   y    = (*second).y_axis - (*first).y_axis;
   powX = x*x;
   powY = y*y;
-  ans = sqrt(powX + powY);
-  rounded = ((int)(ans * 100 + .5) / 100.0);
-  
-  printf("%d\n",powX + powY);
-  printf("%f\n",ans);
-  printf("%f\n",rounded);
-  return rounded;
+  ans  = sqrt(powX + powY);
+
+  return ((int)(ans * 100 + .5) / 100.0);
 }
 
