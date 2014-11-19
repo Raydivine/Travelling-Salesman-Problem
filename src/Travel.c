@@ -25,24 +25,18 @@ float findDistance(City *first, City *second){
   return ((int)(ans * 1000 + .5) / 1000.0); // correct number to 3 significant
 }
 
-
-
-
-
-Path TotalDistanceCities(City **cities, int size){
+Path formPathFromCities(City **cities, int size){
   int i;
-  float distance, TotalDistance = 0;
+  float distance, rounded, totalDistance = 0;
   Path path;
 
   for(i=0; i<size; i++){
     distance = findDistance( &(*cities[i]), &(*cities[i+1]));
-    TotalDistance = TotalDistance + distance;
+    totalDistance = totalDistance + distance;
     printf("%f\n", distance);
   }
-  printf("%f\n", TotalDistance);
-
-  path = setPath(path,TotalDistance,cities,size);
-  printf("%f\n", path.distance);
-  printf("%d\n", path.size);
+  printf("%f\n", totalDistance);
+  rounded = ((int)(totalDistance * 1000 + .5) / 1000.0); // correct number to 3 significant
+  path = setPath(path,rounded,cities,size);
   return path;
 }

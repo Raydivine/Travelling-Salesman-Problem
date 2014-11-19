@@ -4,6 +4,6 @@
 
 float findDistance(City *first, City *second);
 City **createPathOfCityVisit(int numOfCities);
-Path TotalDistanceCities (City **cities, int size);
+Path formPathFromCities(City **cities, int size);
 
 #endif // Travel_H

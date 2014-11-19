@@ -93,7 +93,7 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
         cities[5] = &cityF;
   City *city = *(cities);
   printf("start\n");
-  path1 = TotalDistanceCities(cities, 5);
+  path1 = formPathFromCities(cities, 5);
   TEST_ASSERT_EQUAL(path1.distance , 22.156);
   TEST_ASSERT_EQUAL(path1.size  , 5);
 }
