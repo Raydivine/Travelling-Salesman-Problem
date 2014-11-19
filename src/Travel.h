@@ -2,6 +2,7 @@
 #define Travel_H
 #include "CityCoordinate.h"
 
+void bubbleSort(float iarr[], int num);
 float findDistance(City *first, City *second);
 City **createPathOfCityVisit(int numOfCities);
 Path formPathFromCities(City **cities, int size);
