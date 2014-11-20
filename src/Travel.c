@@ -7,10 +7,11 @@
 #include <stdlib.h>
 
 City **createPathOfCityVisit(int numOfCities){
-  City cities[numOfCities];
-  City *city = cities;
-  
+  City **cities = malloc(sizeof(City**)*numOfCities);
+  City *city = *cities;
+  return cities;
 }
+
 // Cartesian formula
 float findDistance(City *first, City *second){
   float  x,y, powX, powY;

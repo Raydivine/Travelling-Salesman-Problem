@@ -78,22 +78,17 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
   TEST_ASSERT_EQUAL( ans, 7.211);
 }
 
-void test_createPathOfCityVisit_should_init_cities_as_array_size_10(void){
-  int size;
-  City *city;
-  city = createPathOfCityVisit(10);
- // size = 
-}
-
-
-
 /**
 *      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
 *
 */
-void TEST_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
-  City arrayCity[] = {cityF, cityB, cityH, cityG, cityC};
-  TotalDistanceCities(arrayCity);
+void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+  City **cities = createPathOfCityVisit(5);
+        cities[0] = &CityF;
+  City *city = *(cities);
+
+ // City arrayCity[] = {cityF, cityB, cityH, cityG, cityC};
+ // TotalDistanceCities(arrayCity);
 }
 
 
