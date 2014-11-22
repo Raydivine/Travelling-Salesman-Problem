@@ -17,6 +17,22 @@ Path *createArrayOfPath(int numOfPath){
   return paths;
 }
 
+
+//-------------------------------------------------Sorting Function-----------------------------------------------------------------
+float compare(void *v1, void *v2){
+	float *A = (float *)v1;
+	float *B = (float *)v2;
+	return *A>*B ? 1 : *A<=*B ? -1 : 0; // A>b then return 1, A<=B then return -1, default is return 0
+}
+
+void swap(void *array, int index1, int index2){
+	Path temp;
+	Path *PathArray = (Path *)array;
+	temp= PathArray[index2];
+	PathArray[index2] = PathArray[index1];
+	PathArray[index1] = temp;
+}
+
 Path genericBubbleSort(void *table, int size){
   int i,j;
    for (i = 1; i < size; i++) {
@@ -26,21 +42,7 @@ Path genericBubbleSort(void *table, int size){
          }
       }
 }
-
-float compare(void *v1, void *v2){
-	float *A = (float *)v1;
-	float *B = (float *)v2;
-	return *A>*B ? 1 : *A<=*B ? -1 : 0; // A>b then return 1, A<=B then return -1, default is return 0
-}
-
-void swap(void *array, int index1, int index2){
-	float temp;
-	float *floatArray = (float *)array;
-	temp= floatArray[index2];
-	floatArray[index2] = floatArray[index1];
-	floatArray[index1] = temp;
-}
-
+//---------------------------------------------------------------------------------------------------------------------------------------
 
 // Cartesian formula
 float findDistance(City *first, City *second){
