@@ -6,9 +6,8 @@ void setCity(City *target, float x_line, float y_line, int ID){
   target->ID = ID;
 }
 
-Path setPath(Path target, float distance, City **cities, int size){
-  target.distance = distance;
-  target.cities = cities;
-  target.size = size;
-  return target;
+void setPath(Path *target, float distance, City **cities, int size){
+  target->distance = distance;
+  target->cities = cities;
+  target->size = size;
 }

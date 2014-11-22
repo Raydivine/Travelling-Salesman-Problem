@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
+
 /**
 *  y
 *  ^
@@ -62,21 +63,53 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(cityI.ID, 108);
 }
 /**
-* path1->distance = 22.156
-* path2->distance = 15.156
+* path1->distance = 22.156, path2->distance = 15.156
 *
 *                 sort
 *  path1-path2  -------> path2-path1
 */
 void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance(void){
-  Path path1 = setPath(path1,22.156,NULL,5);
-  Path path2 = setPath(path1,15.156,NULL,5);
-  Path *path = createArrayOfPath(5);
-  path[0] = path1;
-  path[1] = path2;
-  printf("path1 distance: %f\n", path[0].distance);
-  printf("path2 distance: %f\n", path[1].distance);
-//  path = genericBubbleSort();
+  Path path1, path2, *pathArray = createArrayOfPath(2);
+  free(pathArray);
+  setPath(&path1, 25.156, NULL, 9);
+  setPath(&path2, 15.156, NULL, 9);
+  pathArray[0] = path1;
+  pathArray[1] = path2;
+  
+  genericBubbleSort( pathArray,2);
+  TEST_ASSERT_EQUAL( pathArray[0].distance, path2.distance);
+  TEST_ASSERT_EQUAL( pathArray[1].distance, path1.distance);
+   free(pathArray);
+}
+
+/**
+*
+*           
+*  path1 ---> path2 ---> path3 ---> path4 ---> path5 
+*                     |
+*                     v
+*  path2 ---> path4 ---> path1 ---> path5 ---> path3 
+*/
+void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance(void){
+  Path path1, path2, path3, path4, path5, *pathArray = createArrayOfPath(5);
+  setPath(&path1, 35.156, NULL, 9);
+  setPath(&path2, 15.156, NULL, 9);
+  setPath(&path3, 55.156, NULL, 9);
+  setPath(&path4, 25.156, NULL, 9);
+  setPath(&path5, 45.156, NULL, 9);
+  pathArray[0] = path1;
+  pathArray[1] = path2;
+  pathArray[2] = path3;
+  pathArray[3] = path4;
+  pathArray[4] = path5;
+  
+  genericBubbleSort( pathArray,5);
+  TEST_ASSERT_EQUAL( pathArray[0].distance, path2.distance);
+  TEST_ASSERT_EQUAL( pathArray[3].distance, path5.distance);
+  TEST_ASSERT_EQUAL( pathArray[4].distance, path3.distance);
+  TEST_ASSERT_EQUAL( pathArray[1].distance, path4.distance);
+  TEST_ASSERT_EQUAL( pathArray[2].distance, path1.distance);
+  free(pathArray);
 }
 
 /**
@@ -95,7 +128,7 @@ void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
 *      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
 *   Total Distance = 22.1
 */
-void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   Path path;
   City **cities = createPathOfCityVisit(5);
   cities[0] = &cityF;
@@ -108,8 +141,8 @@ void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(
 
   path = formPathFromCities(cities, 5);
   TEST_ASSERT_EQUAL(path.distance , 22.156);
-  TEST_ASSERT_EQUAL(path.size  , 5);
-  TEST_ASSERT_EQUAL(path.cities  , cities);
+  TEST_ASSERT_EQUAL(path.size     , 5);
+  TEST_ASSERT_EQUAL(path.cities   , cities);
 }
 
 /**
@@ -126,9 +159,9 @@ void xtest_formNewPath_should_form_a_newPath_by_input_a_example_path(void){
   cities[4] = &cityC;
   cities[5] = &cityF;
 
-  printf("start\n");
-  Path path = setPath(path,22.156,cities,5);
-  formNewPath(path);
+  // printf("start\n");
+  // Path path = setPath(path,22.156,cities,5);
+  // formNewPath(path);
 }
 
 
