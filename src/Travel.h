@@ -3,6 +3,7 @@
 #include "CityCoordinate.h"
 
 void bubbleSort(float iarr[], int num);
+Path genericBubbleSort(void *table, int size, int(*comapare(void*,void*)));
 float findDistance(City *first, City *second);
 City **createPathOfCityVisit(int numOfCities);
 Path formPathFromCities(City **cities, int size);

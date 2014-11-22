@@ -6,30 +6,60 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void bubbleSort(float iarr[], int num){
-  int i, j, k, temp;
- 
-  for (i = 1; i < num; i++){
-    for (j = 0; j < num - 1; j++) {
-      if (iarr[j] > iarr[j + 1]) {
-        temp = iarr[j];
-        iarr[j] = iarr[j + 1];
-        iarr[j + 1] = temp;
-      }
-    }
+Path genericBubbleSort(void *table, int size, int(*comapare(void*,void*))){
 
-    }
-  
 }
 
+int compare(void *v1, void *v2){
+	int *A,*B;
+	A= (int *)v1;
+	B= (int *)v2;
+
+  if(*A>*B)
+    return 1;
+  if (*A<*B)
+    return -1;
+  return 0;
+}
+
+void swap( float *x, float *y ){
+  float temp;
+   temp = *x;
+   *x    = *y;
+   *x    = temp;
+}
+
+
+
+void bubbleSortD(double iarr[], int num) {
+   int i, j, k, temp;
+ 
+   printf("\nUnsorted Data:");
+   for (k = 0; k < num; k++) {
+      printf("%5d", iarr[k]);
+   }
+ 
+   for (i = 1; i < num; i++) {
+      for (j = 0; j < num - 1; j++) {
+         if (iarr[j] > iarr[j + 1]) {
+            temp = iarr[j];
+            iarr[j] = iarr[j + 1];
+            iarr[j + 1] = temp;
+         }
+      }
+ 
+      printf("\nAfter pass %d : ", i);
+      for (k = 0; k < num; k++) {
+         printf("%5d", iarr[k]);
+      }
+   }
+}
 
 City **createPathOfCityVisit(int numOfCities){
   City **cities = malloc(sizeof(City**) * numOfCities);
   City  *city   = *cities;
   return cities;
 }
-
-
 
 // Cartesian formula
 float findDistance(City *first, City *second){
