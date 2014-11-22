@@ -70,7 +70,6 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 */
 void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance(void){
   Path path1, path2, *pathArray = createArrayOfPath(2);
-  free(pathArray);
   setPath(&path1, 25.156, NULL, 9);
   setPath(&path2, 15.156, NULL, 9);
   pathArray[0] = path1;
@@ -79,7 +78,7 @@ void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance
   genericBubbleSort( pathArray,2);
   TEST_ASSERT_EQUAL( pathArray[0].distance, path2.distance);
   TEST_ASSERT_EQUAL( pathArray[1].distance, path1.distance);
-   free(pathArray);
+  freeArrayPath(pathArray);
 }
 
 /**
@@ -92,6 +91,7 @@ void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance
 */
 void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance(void){
   Path path1, path2, path3, path4, path5, *pathArray = createArrayOfPath(5);
+  free(pathArray);
   setPath(&path1, 35.156, NULL, 9);
   setPath(&path2, 15.156, NULL, 9);
   setPath(&path3, 55.156, NULL, 9);
@@ -109,7 +109,7 @@ void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance
   TEST_ASSERT_EQUAL( pathArray[4].distance, path3.distance);
   TEST_ASSERT_EQUAL( pathArray[1].distance, path4.distance);
   TEST_ASSERT_EQUAL( pathArray[2].distance, path1.distance);
-  free(pathArray);
+  freeArrayPath(pathArray);
 }
 
 /**
@@ -119,7 +119,7 @@ void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance
 * distance = square root ( 4^2 + 6^2 )
 * distance  = 7.211
 */
-void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
+void test_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = findDistance(&cityA, &cityB);
   TEST_ASSERT_EQUAL( ans, 7.211);
 }

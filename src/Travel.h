@@ -3,6 +3,7 @@
 #include "CityCoordinate.h"
 
 float findDistance( City *first, City *second);
+void freeArrayPath(Path *pathArray);
 City **createPathOfCityVisit( int numOfCities);
 Path  *createArrayOfPath    ( int numOfPath  );
 Path formPathFromCities( City **cities, int size);

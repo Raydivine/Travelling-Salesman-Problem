@@ -1,4 +1,5 @@
 #include "Travel.h"
+#include "unity.h"
 #include <malloc.h>
 #include <math.h>
 #include "InitCity.h"
@@ -15,6 +16,10 @@ City **createPathOfCityVisit( int numOfCities){
 Path *createArrayOfPath( int numOfPath){
   Path *paths = malloc(sizeof(Path*) * numOfPath);
   return paths;
+}
+
+void freeArrayPath(Path *pathArray){
+	free(pathArray);
 }
 
 Path genericBubbleSort( Path *table, int size){
