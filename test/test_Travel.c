@@ -4,11 +4,7 @@
 #include "InitCity.h"
 #include <stdlib.h>
 
-#define SIZE 1000000
-
-
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
-
 /**
 *  y
 *  ^
@@ -57,13 +53,30 @@ void tearDown(void)
 void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
   TEST_ASSERT_EQUAL(cityA.x_axis, 1);
   TEST_ASSERT_EQUAL(cityA.y_axis, 1);
-  TEST_ASSERT_EQUAL(cityA.ID  , 100);
   TEST_ASSERT_EQUAL(cityF.x_axis, 3);
   TEST_ASSERT_EQUAL(cityF.y_axis, 6);
-  TEST_ASSERT_EQUAL(cityF.ID  , 105);
   TEST_ASSERT_EQUAL(cityI.x_axis, 9);
   TEST_ASSERT_EQUAL(cityI.y_axis, 2);
-  TEST_ASSERT_EQUAL(cityI.ID  , 108);
+  TEST_ASSERT_EQUAL(cityA.ID, 100);
+  TEST_ASSERT_EQUAL(cityF.ID, 105);
+  TEST_ASSERT_EQUAL(cityI.ID, 108);
+}
+/**
+* path1->distance = 22.156
+* path2->distance = 15.156
+*
+*                 sort
+*  path1-path2  -------> path2-path1
+*/
+void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance(void){
+  Path path1 = setPath(path1,22.156,NULL,5);
+  Path path2 = setPath(path1,15.156,NULL,5);
+  Path *path = createArrayOfPath(5);
+  path[0] = path1;
+  path[1] = path2;
+  printf("path1 distance: %f\n", path[0].distance);
+  printf("path2 distance: %f\n", path[1].distance);
+//  path = genericBubbleSort();
 }
 
 /**
@@ -82,7 +95,7 @@ void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
 *      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
 *   Total Distance = 22.1
 */
-void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   Path path;
   City **cities = createPathOfCityVisit(5);
   cities[0] = &cityF;
@@ -104,7 +117,7 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
 *                                                         to
 *   newPath   CityB(5,7)------> CityG(2,10)------> CityC(10,9)------> CityH(4,8)------> CityF(3,6)------> CityB(5,7)
 */
-void test_formNewPath_should_form_a_newPath_by_input_a_example_path(void){
+void xtest_formNewPath_should_form_a_newPath_by_input_a_example_path(void){
   City **cities = createPathOfCityVisit(5);
   cities[0] = &cityF;
   cities[1] = &cityB;
@@ -116,7 +129,6 @@ void test_formNewPath_should_form_a_newPath_by_input_a_example_path(void){
   printf("start\n");
   Path path = setPath(path,22.156,cities,5);
   formNewPath(path);
-
 }
 
 

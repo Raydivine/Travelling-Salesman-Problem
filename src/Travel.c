@@ -6,60 +6,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-Path genericBubbleSort(void *table, int size, int(*comapare(void*,void*))){
-
-}
-
-int compare(void *v1, void *v2){
-	int *A,*B;
-	A= (int *)v1;
-	B= (int *)v2;
-
-  if(*A>*B)
-    return 1;
-  if (*A<*B)
-    return -1;
-  return 0;
-}
-
-void swap( float *x, float *y ){
-  float temp;
-   temp = *x;
-   *x    = *y;
-   *x    = temp;
-}
-
-
-
-void bubbleSortD(double iarr[], int num) {
-   int i, j, k, temp;
- 
-   printf("\nUnsorted Data:");
-   for (k = 0; k < num; k++) {
-      printf("%5d", iarr[k]);
-   }
- 
-   for (i = 1; i < num; i++) {
-      for (j = 0; j < num - 1; j++) {
-         if (iarr[j] > iarr[j + 1]) {
-            temp = iarr[j];
-            iarr[j] = iarr[j + 1];
-            iarr[j + 1] = temp;
-         }
-      }
- 
-      printf("\nAfter pass %d : ", i);
-      for (k = 0; k < num; k++) {
-         printf("%5d", iarr[k]);
-      }
-   }
-}
-
 City **createPathOfCityVisit(int numOfCities){
   City **cities = malloc(sizeof(City**) * numOfCities);
   City  *city   = *cities;
   return cities;
 }
+
+Path *createArrayOfPath(int numOfPath){
+  Path *paths = malloc(sizeof(Path*) * numOfPath);
+  return paths;
+}
+
+Path genericBubbleSort(void *table, int size){
+  int i,j;
+   for (i = 1; i < size; i++) {
+      for (j = 0; j < size - 1; j++) {
+        
+        
+         }
+      }
+}
+
+float compare(void *v1, void *v2){
+	float *A = (float *)v1;
+	float *B = (float *)v2;
+	return *A>*B ? 1 : *A<=*B ? -1 : 0; // A>b then return 1, A<=B then return -1, default is return 0
+}
+
+void swap(void *array, int index1, int index2){
+	float temp;
+	float *floatArray = (float *)array;
+	temp= floatArray[index2];
+	floatArray[index2] = floatArray[index1];
+	floatArray[index1] = temp;
+}
+
 
 // Cartesian formula
 float findDistance(City *first, City *second){
