@@ -42,7 +42,15 @@ float findDistance( City *first, City *second){
   return ((int)(ans * 1000 + .5) / 1000.0); // correct number to 3 significant
 }
 
-Path formPathFromCities( City **cities, int size){
+void getDistanceFromPath( Path path){
+  City cities = path.cities;
+  printf("%d\n", cities.ID);
+  City *A = &cities;
+  City *B = (A->next);
+   printf("%d\n", A->ID);
+
+
+// float totalDistance = findDistance (A,B);
 
 }
 
