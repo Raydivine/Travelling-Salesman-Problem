@@ -77,28 +77,33 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
   TEST_ASSERT_EQUAL( ans, 7.211);
 }
 
-/**               2.2               1.4               2.8                 8.1               7.6
-*      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------>CityF(3,6)--->null    
+/**               2.2               1.4               2.8                 8.1               
+*      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)
+*         ^                                                                         |
+*         |---------------------------------------------------------------------------
+*                                           7.6
 *   Total Distance = 22.1
 */
 void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   Path path;
   
-  City *head =  cityListNew(&cityF);
+  City *head =  cityListNew(&cityF);  // assign cityF as head
   addCityList(&head, &cityB);
   addCityList(&head, &cityH);
   addCityList(&head, &cityG);
   addCityList(&head, &cityC);
-  addCityList(&head, &cityF);
-  addCityList(&head, NULL);
+  cityC.next = head;                  // the last city go back to head
+
   TEST_ASSERT_EQUAL( head->ID                              , cityF.ID);
   TEST_ASSERT_EQUAL( head->next->ID                        , cityB.ID);
   TEST_ASSERT_EQUAL( head->next->next->ID                  , cityH.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->ID            , cityG.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->next->ID      , cityC.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->next->next->ID, cityF.ID);
-  TEST_ASSERT_NULL ( head->next->next->next->next->next->next);
- 
+  TEST_ASSERT_EQUAL( head->next->next->next->next->next->next->ID, cityB.ID);
+  
+ // TEST_ASSERT_NULL ( head->next->next->next->next->next->next);
+   //addCityList(&head, NULL);
   path.cities = head;
   getDistanceFromPath(path);
  // TEST_ASSERT_EQUAL( path.distance, 22.1);

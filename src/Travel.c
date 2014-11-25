@@ -40,13 +40,22 @@ float findDistance( City *first, City *second){
 }
 
 void getDistanceFromPath( Path path){
-   City *cities = path.cities;
-    printf("%f\n",cities->x_axis);
-    printf("%f\n",cities->y_axis);
-    printf("%f\n",cities->next->x_axis);
-    printf("%f\n",cities->next->y_axis);
-   float TotalDistance = findDistance( cities,cities->next);
-   printf("%f\n",TotalDistance);
+  City *cities = path.cities, *cityNext;
+  int   headID = cities->ID;
+  float TotalDistance  = 0;
+
+  TotalDistance = findDistance( cities,cities->next);
+  cityNext = cities->next;
+
+  while(cityNext->ID != headID){
+    TotalDistance = TotalDistance + findDistance( cityNext, cityNext->next);
+    cityNext = cityNext->next;
+  }
+
+   
+
+  printf("%f\n",TotalDistance);
+
 }
 
 // Path formPathFromCities( City **cities, int size){
