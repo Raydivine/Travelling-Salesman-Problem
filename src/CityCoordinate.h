@@ -10,11 +10,12 @@ struct City{
   float x_axis;
   float y_axis;
   int ID;
+  City *next;
 };
 
 struct Path{
   float distance;
-  City **cities;
+  City cities;
   int size;
 };
 

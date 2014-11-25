@@ -62,6 +62,30 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(cityF.ID, 105);
   TEST_ASSERT_EQUAL(cityI.ID, 108);
 }
+
+/**
+* city1(1,1)    city(5,7)
+* x = 5-1 = 4
+* y = 7-1 = 6
+* distance = square root ( 4^2 + 6^2 )
+* distance  = 7.211
+*/
+void test_fitnessScore_to_find_the_distance_of_2_city(void){
+
+  float ans = findDistance(&cityA, &cityB);
+  TEST_ASSERT_EQUAL( ans, 7.211);
+}
+
+/**               2.2               1.4               2.8                 8.1               7.6
+*      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
+*   Total Distance = 22.1
+*/
+void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+  Path path;
+}
+
+
+
 /**
 * path1->distance = 22.156, path2->distance = 15.156
 *
@@ -70,8 +94,8 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 */
 void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance(void){
   Path path1, path2, pathArray[10];
-  setPath(&path1, 25.156, NULL, 9);
-  setPath(&path2, 15.156, NULL, 9);
+  path1.distance = 22.156;
+  path2.distance = 15.156;
   pathArray[0] = path1;
   pathArray[1] = path2;
 
@@ -84,17 +108,17 @@ void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance
 *
 *
 *  path1 ---> path2 ---> path3 ---> path4 ---> path5
-*                     |
+*                     |sort 
 *                     v
-*  path2 ---> path1 ---> path3 ---> path5 ---> path4
+*  path2 ---> path1 ---> path5 ---> path3 ---> path4
 */
-void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance(void){
+void xtest_genericBubbleSort_given_array_of_5_path_should_sort_according_distance(void){
   Path path1, path2, path3, path4, path5, pathArray[10];
-  setPath(&path1, 35.156, NULL, 9);
-  setPath(&path2, 15.156, NULL, 9);
-  setPath(&path3, 55.156, NULL, 9);
-  setPath(&path4, 95.156, NULL, 9);
-  setPath(&path5, 45.156, NULL, 9);
+  path1.distance = 22.156;
+  path2.distance = 45.156;
+  path3.distance = 75.156;
+  path4.distance = 95.156;
+  path5.distance = 55.156;
   pathArray[0] = path1;
   pathArray[1] = path2;
   pathArray[2] = path3;
@@ -110,62 +134,13 @@ void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance
 }
 
 /**
-* city1(1,1)    city(5,7)
-* x = 5-1 = 4
-* y = 7-1 = 6
-* distance = square root ( 4^2 + 6^2 )
-* distance  = 7.211
-*/
-void test_fitnessScore_to_find_the_distance_of_2_city(void){
-  float ans = findDistance(&cityA, &cityB);
-  TEST_ASSERT_EQUAL( ans, 7.211);
-}
-
-/**               2.2               1.4               2.8                 8.1               7.6
-*      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
-*   Total Distance = 22.1
-*/
-void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
-  Path path;
-  City **cities = createPathOfCityVisit(5);
-  cities[0] = &cityF;
-  cities[1] = &cityB;
-  cities[2] = &cityH;
-  cities[3] = &cityG;
-  cities[4] = &cityC;
-  cities[5] = &cityF;
-  City *city = *(cities);
-
-  path = formPathFromCities(cities, 5);
-  TEST_ASSERT_EQUAL(path.distance , 22.156);
-  TEST_ASSERT_EQUAL(path.size     , 5);
-  TEST_ASSERT_EQUAL(path.cities   , cities);
-}
-
-/**
 *   path      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
 *                                                         to
 *   newPath   CityB(5,7)------> CityG(2,10)------> CityC(10,9)------> CityH(4,8)------> CityF(3,6)------> CityB(5,7)
 */
 void xtest_formNewPath_should_form_a_newPath_by_input_a_example_path(void){
-  City **cities = createPathOfCityVisit(5);
-  cities[0] = &cityF;
-  cities[1] = &cityB;
-  cities[2] = &cityH;
-  cities[3] = &cityG;
-  cities[4] = &cityC;
-  cities[5] = &cityF;
 
-  // printf("start\n");
-  // Path path = setPath(path,22.156,cities,5);
-  // formNewPath(path);
 }
-
-
-
-
-
-
 
 
 

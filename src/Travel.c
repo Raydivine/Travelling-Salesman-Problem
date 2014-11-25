@@ -13,11 +13,6 @@ City **createPathOfCityVisit( int numOfCities){
   return cities;
 }
 
-float compareFloat(float A, float B){
-if(A>B)
-return 1;
-}
-
 void genericBubbleSort( Path table[], int size){
   int i,j;
   Path temp;
@@ -48,27 +43,22 @@ float findDistance( City *first, City *second){
 }
 
 Path formPathFromCities( City **cities, int size){
-  int   i;
-  float distance, rounded, totalDistance = 0;
-  Path  path;
 
-  for(i=0; i<size; i++){
-    distance = findDistance( &(*cities[i]), &(*cities[i+1]));
-    totalDistance = totalDistance + distance;
+}
+
+// Path formPathFromCities( City **cities, int size){
+  // int   i;
+  // float distance, rounded, totalDistance = 0;
+  // Path  path;
+
+  // for(i=0; i<size; i++){
+    // distance = findDistance( &(*cities[i]), &(*cities[i+1]));
+    // totalDistance = totalDistance + distance;
     // printf("distance:  %f\n", distance);
-  }
+  // }
   // printf("%Total   : %f\n", totalDistance);
-  rounded = ((int)(totalDistance * 1000 + .5) / 1000.0); // correct number to 3 significant
-  setPath(&path,rounded,cities,size);
-  return path;
-}
+  // rounded = ((int)(totalDistance * 1000 + .5) / 1000.0); // correct number to 3 significant
+  // setPath(&path,rounded,cities,size);
+  // return path;
+// }
 
-Path formNewPath( Path path){
-// printf("distance:  %f\n", path.distance);
-// printf(" %d\n", path.cities[0]->ID);
-// printf(" %d\n", path.cities[1]->ID);
-// printf(" %d\n", path.cities[2]->ID);
-// printf(" %d\n", path.cities[3]->ID);
-// printf(" %d\n", path.cities[4]->ID);
-// printf(" %d\n", path.cities[5]->ID);
-}
