@@ -47,13 +47,16 @@ Path getDistanceFromPath( Path path){
   TotalDistance = findDistance( cities,cities->next);
   cityNext = cities->next;
   int size = 1;
+  
   while(cityNext->ID != headID){
     TotalDistance = TotalDistance + findDistance( cityNext, cityNext->next);
     cityNext = cityNext->next;
     size = size + 1;
   }
-  path.size = size ;
+  
+  path.size     = size ;
   path.distance = TotalDistance;
+  
   return path;
 }
 

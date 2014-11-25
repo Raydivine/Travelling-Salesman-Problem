@@ -77,3 +77,23 @@ void test_addCityList_given_create_cityJ_as_head_and_add_cityB_cityC_cityD_shoul
   
   clearCityList(head);
 }
+
+/**        
+*                         
+*             cityJ->cityA->cityB->cityC  -----> cityC->cityB->cityA->cityJ 
+*/             
+void test_reverseLinkedList_should_reverse_the_cities_link_from_J_A_B_C_to_C_B_A_J (void) {
+  City *head =  cityListNew(&cityJ);
+  addCityList(&head, &cityA);
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, NULL);
+  
+  reverseLinkedList(head);
+  // TEST_ASSERT_EQUAL( head->ID                        , cityC.ID);
+  // TEST_ASSERT_EQUAL( head->next->ID                  , cityB.ID);
+  // TEST_ASSERT_EQUAL( head->next->next->ID            , cityA.ID);
+  // TEST_ASSERT_EQUAL( head->next->next->next->ID      , cityJ.ID);
+  
+  clearCityList(head);
+}

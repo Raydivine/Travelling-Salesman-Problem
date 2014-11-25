@@ -94,22 +94,30 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
   addCityList(&head, &cityG);
   addCityList(&head, &cityC);
   cityC.next = head;                  // the last city go back to head
-
-  TEST_ASSERT_EQUAL( head->ID                              , cityF.ID);
-  TEST_ASSERT_EQUAL( head->next->ID                        , cityB.ID);
-  TEST_ASSERT_EQUAL( head->next->next->ID                  , cityH.ID);
-  TEST_ASSERT_EQUAL( head->next->next->next->ID            , cityG.ID);
-  TEST_ASSERT_EQUAL( head->next->next->next->next->ID      , cityC.ID);
-  TEST_ASSERT_EQUAL( head->next->next->next->next->next->ID, cityF.ID);
+  City expectedCties[] = { cityF, cityB, cityH, cityG, cityC};
+ // TEST_ASSERT_EQUAL( expectedCties, )
+  
+  TEST_ASSERT_EQUAL( head->ID                                    , cityF.ID);
+  TEST_ASSERT_EQUAL( head->next->ID                              , cityB.ID);
+  TEST_ASSERT_EQUAL( head->next->next->ID                        , cityH.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->ID                  , cityG.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->next->ID            , cityC.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->next->next->ID      , cityF.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->next->next->next->ID, cityB.ID);
   
   path.cities = head;
   path = getDistanceFromPath(path);
+  
   TEST_ASSERT_EQUAL( path.distance, 22.156);
   TEST_ASSERT_EQUAL( path.size    , 5);
-  TEST_ASSERT_EQUAL( path.cities->ID              , cityF.ID);
-  TEST_ASSERT_EQUAL( path.cities->next->ID        , cityB.ID);
-  TEST_ASSERT_EQUAL( path.cities->next->next->ID  , cityH.ID);
+  TEST_ASSERT_EQUAL( path.cities->ID                                    , cityF.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->ID                              , cityB.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->ID                        , cityH.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->ID                  , cityG.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID            , cityC.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID      , cityF.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID, cityB.ID);
+  clearCityList(head);
 }
 
 /**
