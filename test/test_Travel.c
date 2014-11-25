@@ -69,33 +69,31 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 *  path1-path2  -------> path2-path1
 */
 void test_genericBubbleSort_given_array_of_2_path_should_sort_according_distance(void){
-  Path path1, path2, *pathArray = createArrayOfPath(2);
+  Path path1, path2, pathArray[10];
   setPath(&path1, 25.156, NULL, 9);
   setPath(&path2, 15.156, NULL, 9);
   pathArray[0] = path1;
   pathArray[1] = path2;
-  
+
   genericBubbleSort( pathArray,2);
   TEST_ASSERT_EQUAL( pathArray[0].distance, path2.distance);
   TEST_ASSERT_EQUAL( pathArray[1].distance, path1.distance);
-  freeArrayPath(pathArray);
 }
 
-/**
+/**   
 *
-*           
-*  path1 ---> path2 ---> path3 ---> path4 ---> path5 
+*
+*  path1 ---> path2 ---> path3 ---> path4 ---> path5
 *                     |
 *                     v
-*  path2 ---> path4 ---> path1 ---> path5 ---> path3 
+*  path2 ---> path1 ---> path3 ---> path5 ---> path4
 */
 void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance(void){
-  Path path1, path2, path3, path4, path5, *pathArray = createArrayOfPath(5);
-  free(pathArray);
+  Path path1, path2, path3, path4, path5, pathArray[10];
   setPath(&path1, 35.156, NULL, 9);
   setPath(&path2, 15.156, NULL, 9);
   setPath(&path3, 55.156, NULL, 9);
-  setPath(&path4, 25.156, NULL, 9);
+  setPath(&path4, 95.156, NULL, 9);
   setPath(&path5, 45.156, NULL, 9);
   pathArray[0] = path1;
   pathArray[1] = path2;
@@ -105,11 +103,10 @@ void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance
   
   genericBubbleSort( pathArray,5);
   TEST_ASSERT_EQUAL( pathArray[0].distance, path2.distance);
-  TEST_ASSERT_EQUAL( pathArray[3].distance, path5.distance);
-  TEST_ASSERT_EQUAL( pathArray[4].distance, path3.distance);
-  TEST_ASSERT_EQUAL( pathArray[1].distance, path4.distance);
-  TEST_ASSERT_EQUAL( pathArray[2].distance, path1.distance);
-  freeArrayPath(pathArray);
+  TEST_ASSERT_EQUAL( pathArray[1].distance, path1.distance);
+  TEST_ASSERT_EQUAL( pathArray[2].distance, path5.distance);
+  TEST_ASSERT_EQUAL( pathArray[3].distance, path3.distance);
+  TEST_ASSERT_EQUAL( pathArray[4].distance, path4.distance);
 }
 
 /**

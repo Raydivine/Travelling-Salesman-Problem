@@ -13,26 +13,23 @@ City **createPathOfCityVisit( int numOfCities){
   return cities;
 }
 
-Path *createArrayOfPath( int numOfPath){
-  Path *paths = malloc(sizeof(Path*) * numOfPath);
-  return paths;
+float compareFloat(float A, float B){
+if(A>B)
+return 1;
 }
 
-void freeArrayPath(Path *pathArray){
-	free(pathArray);
-}
-
-Path genericBubbleSort( Path *table, int size){
+void genericBubbleSort( Path table[], int size){
   int i,j;
   Path temp;
-  
+
   for (i = 1; i < size; i++){
     for (j = 0; j < size - 1; j++) {
-      if(table[j].distance > table[j+1].distance)
+      if( table[j].distance >table[j+1].distance ){
         temp= table[j+1];
         table[j+1] = table[j];
         table[j] = temp;
-    }   
+      }
+    }
   }
 }
 
