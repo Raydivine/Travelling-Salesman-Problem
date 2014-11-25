@@ -79,8 +79,9 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 
 /**               2.2               1.4               2.8                 8.1               
 *      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)
-*         ^                                                                         |
-*         |---------------------------------------------------------------------------
+*         ^                                                                       |    
+*         |                                                                       v
+*         -------------------------------------------------------------------------
 *                                           7.6
 *   Total Distance = 22.1
 */
@@ -102,11 +103,13 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
   TEST_ASSERT_EQUAL( head->next->next->next->next->next->ID, cityF.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->next->next->next->ID, cityB.ID);
   
- // TEST_ASSERT_NULL ( head->next->next->next->next->next->next);
-   //addCityList(&head, NULL);
   path.cities = head;
-  getDistanceFromPath(path);
- // TEST_ASSERT_EQUAL( path.distance, 22.1);
+  path = getDistanceFromPath(path);
+  TEST_ASSERT_EQUAL( path.distance, 22.156);
+  TEST_ASSERT_EQUAL( path.size    , 5);
+  TEST_ASSERT_EQUAL( path.cities->ID              , cityF.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->ID        , cityB.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->ID  , cityH.ID);
 }
 
 /**

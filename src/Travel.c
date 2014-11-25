@@ -39,23 +39,22 @@ float findDistance( City *first, City *second){
   return ((int)(ans * 1000 + .5) / 1000.0); // correct number to 3 significant
 }
 
-void getDistanceFromPath( Path path){
+Path getDistanceFromPath( Path path){
   City *cities = path.cities, *cityNext;
   int   headID = cities->ID;
   float TotalDistance  = 0;
 
   TotalDistance = findDistance( cities,cities->next);
   cityNext = cities->next;
-
+  int size = 1;
   while(cityNext->ID != headID){
     TotalDistance = TotalDistance + findDistance( cityNext, cityNext->next);
     cityNext = cityNext->next;
+    size = size + 1;
   }
-
-   
-
-  printf("%f\n",TotalDistance);
-
+  path.size = size ;
+  path.distance = TotalDistance;
+  return path;
 }
 
 // Path formPathFromCities( City **cities, int size){
