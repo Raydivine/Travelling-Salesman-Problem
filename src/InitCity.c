@@ -1,9 +1,10 @@
 #include "InitCity.h"
 
-void setCity(City *target, float x_line, float y_line, int ID){
+void setCity(City *target, float x_line, float y_line, int ID, City *next){
   target->x_axis = x_line;
   target->y_axis = y_line;
   target->ID = ID;
+  target->next = next;
 }
 
 void setPath(Path target, float distance, City cities, int size){

@@ -43,11 +43,13 @@ float findDistance( City *first, City *second){
 }
 
 void getDistanceFromPath( Path path){
-  City cities = path.cities;
-  printf("%d\n", cities.ID);
-  City *A = &cities;
-  City *B = (A->next);
-   printf("%d\n", A->ID);
+  // City cities = path.cities;
+  // printf("%d\n", cities.ID);
+  // printf("%p\n", cities.next);
+  // City *A = &cities;
+  // City *B = cities.next;
+   // printf("%d\n", A->ID);
+   // printf("%p\n", B);
 
 
 // float totalDistance = findDistance (A,B);
