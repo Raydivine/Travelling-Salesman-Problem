@@ -1,14 +1,15 @@
 #ifndef LinkedList_H
 #define LinkedList_H
+#include "CityCoordinate.h"
 
 typedef struct LinkedList LinkedList;
 
 struct LinkedList {
   LinkedList *next;
-  void *data;
+  City *cities;
 };
 
-LinkedList *linkListNew(void *data);
+LinkedList *linkListNew(City *cities);
 void addLinkedList(LinkedList **listPtr, LinkedList *newList);
-void destroyAllLinkedLists(LinkedList *firstList);
+void clearLinkedList(LinkedList *firstList);
 #endif // LinkedList_H

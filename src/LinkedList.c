@@ -1,18 +1,19 @@
 #include "LinkedList.h"
 #include <stdio.h>
 #include <malloc.h>
+#include "CityCoordinate.h"
 
-LinkedList *linkListNew(void *data){
+LinkedList *linkListNew(City *cities){
   LinkedList *link = malloc(sizeof(LinkedList));
   link->next = NULL;
-  link->data = data;
+  link->cities = cities;
   return link;
 }
 
 
-void destroyAllLinkedLists(LinkedList *firstList){
+void clearLinkedList(LinkedList *firstList){
   if(firstList->next)
-    destroyAllLinkedLists(firstList->next);
+    clearLinkedList(firstList->next);
   free(firstList);
 }
 

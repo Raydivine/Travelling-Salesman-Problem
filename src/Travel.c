@@ -7,10 +7,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-City **createPathOfCityVisit( int numOfCities){
-  City **cities = malloc(sizeof(City**) * numOfCities);
-  City  *city   = *cities;
+City *cityListNew(City *city){
+  City *cities = malloc(sizeof(City));
+  cities->ID     = city->ID;
+  cities->x_axis = city->x_axis;
+  cities->y_axis = city->y_axis;
+  cities->next   = NULL;
   return cities;
+}
+
+void clearLinkedList(City *cities){
+  free(cities);
 }
 
 void genericBubbleSort( Path table[], int size){
@@ -72,3 +79,8 @@ void getDistanceFromPath( Path path){
   // return path;
 // }
 
+// City **createPathOfCityVisit( int numOfCities){
+  // City **cities = malloc(sizeof(City**) * numOfCities);
+  // City  *city   = *cities;
+  // return cities;
+// }
