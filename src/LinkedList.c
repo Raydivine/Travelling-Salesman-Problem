@@ -31,14 +31,14 @@ void addCityList(City **cities, City *city){
   tail->next = city;
 }
 
-void reverseLinkedList(City *cities){
-  City *curCities = cities , *nxtCities;
-  cities = NULL;
+void reverseLinkedList(City *start, City *end){
+  City *curCities = start , *nxtCities;
+  start = NULL;
 
   while(curCities != NULL){
     nxtCities = curCities->next;
-    curCities->next = cities;
-    cities = curCities;
+    curCities->next = start;
+    start = curCities;
     curCities = nxtCities;
   }
 }

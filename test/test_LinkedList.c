@@ -91,7 +91,7 @@ void test_reverseLinkedList_should_reverse_the_cities_link_from_J_A_B_C_to_C_B_A
   addCityList(&head, &cityC);
   addCityList(&head, NULL);
   
-  reverseLinkedList(head);
+  reverseLinkedList(head , &cityC);
   TEST_ASSERT_EQUAL( head->ID , cityJ.ID);
   TEST_ASSERT_EQUAL( cityA.next->ID, cityJ.ID );
   TEST_ASSERT_EQUAL( cityB.next->ID, cityA.ID );
