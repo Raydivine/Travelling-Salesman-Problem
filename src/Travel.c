@@ -7,18 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-City *cityListNew(City *city){
-  City *cities = malloc(sizeof(City));
-  cities->ID     = city->ID;
-  cities->x_axis = city->x_axis;
-  cities->y_axis = city->y_axis;
-  cities->next   = NULL;
-  return cities;
-}
 
-void clearLinkedList(City *cities){
-  free(cities);
-}
 
 void genericBubbleSort( Path table[], int size){
   int i,j;

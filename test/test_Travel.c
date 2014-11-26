@@ -63,13 +63,6 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(cityI.ID, 108);
 }
 
-void test_linkListNew_should_create_city_linkedList(void) {
-  City *cities = cityListNew(&cityA);
-  TEST_ASSERT_NOT_NULL(cities);
-  TEST_ASSERT_EQUAL( cities->ID, cityA.ID);
-  clearLinkedList(cities);
-}
-
 /**
 * city1(1,1)    city(5,7)
 * x = 5-1 = 4
