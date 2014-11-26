@@ -4,6 +4,7 @@
 #include <math.h>
 #include "InitCity.h"
 #include "CityCoordinate.h"
+#include "LinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -39,17 +40,13 @@ float findDistance( City *first, City *second){
 }
 
 void getDistanceFromPath( Path path){
-  // City cities = path.cities;
-  // printf("%d\n", cities.ID);
-  // printf("%p\n", cities.next);
-  // City *A = &cities;
-  // City *B = cities.next;
-   // printf("%d\n", A->ID);
-   // printf("%p\n", B);
-
-
-// float totalDistance = findDistance (A,B);
-
+   City *cities = path.cities;
+    printf("%f\n",cities->x_axis);
+    printf("%f\n",cities->y_axis);
+    printf("%f\n",cities->next->x_axis);
+    printf("%f\n",cities->next->y_axis);
+   float TotalDistance = findDistance( cities,cities->next);
+   printf("%f\n",TotalDistance);
 }
 
 // Path formPathFromCities( City **cities, int size){

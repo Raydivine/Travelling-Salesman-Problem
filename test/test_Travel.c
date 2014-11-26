@@ -3,6 +3,7 @@
 #include "CityCoordinate.h"
 #include "InitCity.h"
 #include <stdlib.h>
+#include "LinkedList.h"
 
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
 
@@ -77,28 +78,29 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 }
 
 /**               2.2               1.4               2.8                 8.1               7.6
-*      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------>null    CityF(3,6)
+*      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------>CityF(3,6)--->null    
 *   Total Distance = 22.1
 */
-void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   Path path;
-  printf("%p\n", cityF);
-  printf("%p\n", cityB);
-  printf("%p\n",  cityF.next);
-  cityF.next = &cityB;
-    printf("%p\n",  cityF.next);
-  // cityB.next = &cityH;
-  // cityH.next = &cityG;
-  // cityG.next = &cityC;
-  // cityC.next = &cityF;
-  // cityF.next = NULL;
-  // path.cities = cityF;
-  // printf("%p\n", cityF);
-  // printf("%p\n", cityB);
-  // printf("%p\n", cityH);
-  // printf("%p\n",  cityF.next);
-
- // getDistanceFromPath(path);
+  
+  City *head =  cityListNew(&cityF);
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityF);
+  addCityList(&head, NULL);
+  TEST_ASSERT_EQUAL( head->ID                              , cityF.ID);
+  TEST_ASSERT_EQUAL( head->next->ID                        , cityB.ID);
+  TEST_ASSERT_EQUAL( head->next->next->ID                  , cityH.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->ID            , cityG.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->next->ID      , cityC.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->next->next->ID, cityF.ID);
+  TEST_ASSERT_NULL ( head->next->next->next->next->next->next);
+ 
+  path.cities = head;
+  getDistanceFromPath(path);
  // TEST_ASSERT_EQUAL( path.distance, 22.1);
 }
 

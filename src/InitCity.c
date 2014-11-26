@@ -7,7 +7,7 @@ void setCity(City *target, float x_line, float y_line, int ID, City *next){
   target->next = next;
 }
 
-void setPath(Path target, float distance, City cities, int size){
+void setPath(Path target, float distance, City *cities, int size){
   target.distance = distance;
   target.cities = cities;
   target.size = size;

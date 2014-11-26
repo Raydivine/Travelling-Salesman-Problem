@@ -57,7 +57,7 @@ void test_linkListNew_should_create_city_linkedList(void) {
 /**         cityJ add cityA, cityB, cityC, cityJ
 *                           |   should form link
 *                           v
-*             cityJ->cityA->cityB->cityC->cityJ
+*             cityJ->cityA->cityB->cityC->cityJ->NULL
 */             
 void test_addCityList_given_create_cityJ_as_head_and_add_cityB_cityC_cityD_should_add_to_citylist(void) {
   City *head =  cityListNew(&cityJ);
@@ -66,12 +66,14 @@ void test_addCityList_given_create_cityJ_as_head_and_add_cityB_cityC_cityD_shoul
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
   addCityList(&head, &cityJ);
+  addCityList(&head, NULL);
   
   TEST_ASSERT_EQUAL( head->ID                        , cityJ.ID);
   TEST_ASSERT_EQUAL( head->next->ID                  , cityA.ID);
   TEST_ASSERT_EQUAL( head->next->next->ID            , cityB.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->ID      , cityC.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->next->ID, cityJ.ID);
+  TEST_ASSERT_NULL ( head->next->next->next->next->next);
   
   clearCityList(head);
 }
