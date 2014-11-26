@@ -42,3 +42,43 @@ void reverseLinkedList(City *cities){
     curCities = nxtCities;
   }
 }
+
+void reverseTheLinkBetween2City( City *cities, City *targetA, City *targetB){
+ City *temp;
+  while(cities != targetA)
+    cities = cities->next; 
+    
+  City *newhead =  cities->next;
+  newhead =  cityListNew(newhead);
+  printf("%d\n",newhead->ID);
+  cities = cities->next->next; 
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

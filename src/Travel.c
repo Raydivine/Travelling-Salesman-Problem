@@ -60,6 +60,25 @@ Path getDistanceFromPath( Path path){
   return path;
 }
 
+Path MutationOfCities(Path path, City targetA, City targetB){
+  City *cities = path.cities;
+  
+}
+
+// while(ptr != NULL)
+    // {
+        // if(ptr->val == val)
+        // {
+            // found = true;
+            // break;
+        // }
+        // else
+        // {
+            // ptr = ptr->next;
+        // }
+    // }
+
+
 // Path formPathFromCities( City **cities, int size){
   // int   i;
   // float distance, rounded, totalDistance = 0;

@@ -86,16 +86,14 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 *   Total Distance = 22.1
 */
 void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
-  Path path;
-  
-  City *head =  cityListNew(&cityF);  // assign cityF as head
+  Path path;  
+  City *head =  cityListNew(&cityF);// assign cityF as head
   addCityList(&head, &cityB);
   addCityList(&head, &cityH);
   addCityList(&head, &cityG);
   addCityList(&head, &cityC);
-  cityC.next = head;                  // the last city go back to head
+  cityC.next = head;// the last city go back to head
   City expectedCties[] = { cityF, cityB, cityH, cityG, cityC};
- // TEST_ASSERT_EQUAL( expectedCties, )
   
   TEST_ASSERT_EQUAL( head->ID                                    , cityF.ID);
   TEST_ASSERT_EQUAL( head->next->ID                              , cityB.ID);
@@ -118,6 +116,37 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
   TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID      , cityF.ID);
   TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID, cityB.ID);
   clearCityList(head);
+}
+
+/**                               
+*                   cityA--->cityB-->cityC--->cityD 
+*                     ^                          |               
+*                     |                          v                   
+*                  cityH<---cityG<---cityF<---cityE   
+*                                 
+*                               Mutation
+*
+*                   cityA--->cityB    cityC<---cityD 
+*                     ^          \    /           |
+*                     |           \ /             |                          
+*                     |           / \             |  
+*                     |          v   v            v                  
+*                  cityH<---cityG   cityF--->cityE                    
+*/ 
+void test_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
+  Path path;
+  City *head =  cityListNew(&cityA);  // assign cityA as head
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);  
+  cityH.next = head; 
+  path.cities = head;
+  
+  path = MutationOfCities(path, cityA, cityB);
 }
 
 /**
@@ -166,17 +195,6 @@ void test_genericBubbleSort_given_array_of_5_path_should_sort_according_distance
   TEST_ASSERT_EQUAL( pathArray[3].distance, path3.distance);
   TEST_ASSERT_EQUAL( pathArray[4].distance, path4.distance);
 }
-
-/**
-*   path      CityF(3,6)------> CityB(5,7)------> CityH(4,8)------> CityG(2,10)------> CityC(10,9)------> CityF(3,6)
-*                                                         to
-*   newPath   CityB(5,7)------> CityG(2,10)------> CityC(10,9)------> CityH(4,8)------> CityF(3,6)------> CityB(5,7)
-*/
-void xtest_formNewPath_should_form_a_newPath_by_input_a_example_path(void){
-
-}
-
-
 
 
 
