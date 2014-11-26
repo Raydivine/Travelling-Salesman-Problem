@@ -82,18 +82,21 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 */
 void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   Path path;
-  printf("%p\n",  cityF.next);
-  cityF.next = &cityB;
-  cityB.next = &cityH;
-  cityH.next = &cityG;
-  cityG.next = &cityC;
-  cityC.next = &cityF;
-  cityF.next = NULL;
-  path.cities = cityF;
   printf("%p\n", cityF);
   printf("%p\n", cityB);
-  printf("%p\n", cityH);
   printf("%p\n",  cityF.next);
+  cityF.next = &cityB;
+    printf("%p\n",  cityF.next);
+  // cityB.next = &cityH;
+  // cityH.next = &cityG;
+  // cityG.next = &cityC;
+  // cityC.next = &cityF;
+  // cityF.next = NULL;
+  // path.cities = cityF;
+  // printf("%p\n", cityF);
+  // printf("%p\n", cityB);
+  // printf("%p\n", cityH);
+  // printf("%p\n",  cityF.next);
 
  // getDistanceFromPath(path);
  // TEST_ASSERT_EQUAL( path.distance, 22.1);
