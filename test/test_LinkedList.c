@@ -108,7 +108,9 @@ void test_reverseLinkedList_should_reverse_the_cities_link_from_J_A_B_C_to_C_B_A
 *                                 
 *  select cityB and cityG as target , reverse the link between them
 *
-*                             $
+*                              --------------------
+*                              ^                  |
+*                             $|                  v          
 *                   cityA--->cityB      NULL<---cityC<---cityD 
 *                     ^                                   ^               
 *                     |                          $        |                   
@@ -124,14 +126,17 @@ void test_reverseTheLinkBetween2City_select_cityB_and_cityG_should_reverse_the_l
   addCityList(&head, &cityG);
   addCityList(&head, &cityH);  
   cityH.next = head; 
+  
   reverseTheLinkBetween2City(head, &cityB, &cityF);
-  TEST_ASSERT_EQUAL( head->ID       , cityA.ID);
-  TEST_ASSERT_EQUAL( head->next->ID , cityB.ID);
-  TEST_ASSERT_EQUAL( head->next->ID , cityB.ID);
+  TEST_ASSERT_EQUAL( head->ID             , cityA.ID);
+  TEST_ASSERT_EQUAL( head->next->ID       , cityB.ID);
+  TEST_ASSERT_EQUAL( head->next->next->ID , cityC.ID);
+  TEST_ASSERT_NULL ( head->next->next->next);
   TEST_ASSERT_NULL ( cityC.next);
   TEST_ASSERT_EQUAL( cityD.next->ID , cityC.ID );
   TEST_ASSERT_EQUAL( cityE.next->ID , cityD.ID );
   TEST_ASSERT_EQUAL( cityF.next->ID , cityE.ID );
   TEST_ASSERT_EQUAL( cityG.next->ID , cityH.ID );
   TEST_ASSERT_EQUAL( cityH.next->ID , cityA.ID );
+  clearCityList(head);
 }

@@ -49,7 +49,7 @@ void reverseTheLinkBetween2City( City *cities, City *start, City *end){
     cities = cities->next; 
     
   City *curCities = cities->next , *nxtCities, *stop = end->next;
- start = NULL;
+  start = NULL;
 
   while(curCities != stop){
     nxtCities = curCities->next;

@@ -60,9 +60,15 @@ Path getDistanceFromPath( Path path){
   return path;
 }
 
-Path MutationOfCities(Path path, City targetA, City targetB){
-  City *cities = path.cities;
+Path MutationOfCities(Path path, City *targetA, City *targetB){
+  City  *temp1 =  targetA->next , *temp2 =  targetB->next ;
+
+  reverseTheLinkBetween2City( path.cities, targetA, targetB);
+  targetA->next = targetB;
+  temp1->next   = temp2; 
   
+  path = getDistanceFromPath(path);
+  return path;
 }
 
 // while(ptr != NULL)

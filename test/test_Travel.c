@@ -93,19 +93,10 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
   addCityList(&head, &cityG);
   addCityList(&head, &cityC);
   cityC.next = head;// the last city go back to head
-  City expectedCties[] = { cityF, cityB, cityH, cityG, cityC};
-  
-  TEST_ASSERT_EQUAL( head->ID                                    , cityF.ID);
-  TEST_ASSERT_EQUAL( head->next->ID                              , cityB.ID);
-  TEST_ASSERT_EQUAL( head->next->next->ID                        , cityH.ID);
-  TEST_ASSERT_EQUAL( head->next->next->next->ID                  , cityG.ID);
-  TEST_ASSERT_EQUAL( head->next->next->next->next->ID            , cityC.ID);
-  TEST_ASSERT_EQUAL( head->next->next->next->next->next->ID      , cityF.ID);
-  TEST_ASSERT_EQUAL( head->next->next->next->next->next->next->ID, cityB.ID);
-  
+  City expectedCties[] = { cityF, cityB, cityH, cityG, cityC, cityB};
   path.cities = head;
-  path = getDistanceFromPath(path);
   
+  path = getDistanceFromPath(path);
   TEST_ASSERT_EQUAL( path.distance, 22.156);
   TEST_ASSERT_EQUAL( path.size    , 5);
   TEST_ASSERT_EQUAL( path.cities->ID                                    , cityF.ID);
@@ -116,6 +107,7 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
   TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID      , cityF.ID);
   TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID, cityB.ID);
   clearCityList(head);
+  clearCityList(path.cities);
 }
 
 /**                               
@@ -123,8 +115,18 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
 *                     ^                          |               
 *                     |                          v                   
 *                  cityH<---cityG<---cityF<---cityE   
-*                                 
-*                               Mutation
+*    
+*    select cityB and cityF as target , reverse the link between them
+*
+*                              --------------------
+*                              ^                  |
+*                             $|                  v          
+*                   cityA--->cityB      NULL<---cityC<---cityD 
+*                     ^                                   ^               
+*                     |                          $        |                   
+*                  cityH<---cityG            cityF----->cityE  
+*                                    
+*                                Mutation
 *
 *                   cityA--->cityB    cityC<---cityD 
 *                     ^          \    /           |
@@ -146,7 +148,19 @@ void test_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_of
   cityH.next = head; 
   path.cities = head;
   
-  path = MutationOfCities(path, cityA, cityB);
+  path = MutationOfCities(path, &cityB, &cityF);
+  TEST_ASSERT_EQUAL( path.size , 8);
+  TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityF.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->ID                              , cityE.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID                        , cityD.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityC.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID            , cityG.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->ID      , cityH.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->next->ID, cityA.ID);
+  clearCityList(head);
+  clearCityList(path.cities);
 }
 
 /**
