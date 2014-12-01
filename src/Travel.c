@@ -8,8 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
-
 void bubbleSortForPath( Path table[], int size){
   int i,j;
   Path temp;
@@ -71,45 +69,10 @@ Path MutationOfCities(Path path, City *targetA, City *targetB){
 }
 
 int checkingFor2opt(City *targetA, City *targetB){
-printf("%d\n",targetA->ID);
-printf("%p\n",targetA->next);
-printf("%p\n",targetB);
-  // float oldLink = findDistance( targetA, targetA->next) ;//+ findDistance( targetB, targetB->next);
-  // float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
+  float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
+  float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
 
+  if(newLink< oldLink)
+    return 1;  
+  return 0;
 }
-// while(ptr != NULL)
-// {
-        // if(ptr->val == val)
-        // {
-            // found = true;
-            // break;
-        // }
-        // else
-        // {
-            // ptr = ptr->next;
-        // }
-    // }
-
-
-// Path formPathFromCities( City **cities, int size){
-  // int   i;
-  // float distance, rounded, totalDistance = 0;
-  // Path  path;
-
-  // for(i=0; i<size; i++){
-    // distance = findDistance( &(*cities[i]), &(*cities[i+1]));
-    // totalDistance = totalDistance + distance;
-    // printf("distance:  %f\n", distance);
-  // }
-  // printf("%Total   : %f\n", totalDistance);
-  // rounded = ((int)(totalDistance * 1000 + .5) / 1000.0); // correct number to 3 significant
-  // setPath(&path,rounded,cities,size);
-  // return path;
-// }
-
-// City **createPathOfCityVisit( int numOfCities){
-  // City **cities = malloc(sizeof(City**) * numOfCities);
-  // City  *city   = *cities;
-  // return cities;
-// }

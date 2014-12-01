@@ -7,7 +7,6 @@
 City *cityListNew(City *city){
   City *cities   = malloc(sizeof(City));
   cities         = city;
-  cities->next   = NULL;
   return cities;
 }
 

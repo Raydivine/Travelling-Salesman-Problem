@@ -170,19 +170,22 @@ void test_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_of
 }
 
 /**
+*   A(1,1)  B(5,7)  C(10,9)   D(7,3)
 *                     $                 $
 *                   cityA--->cityB-->cityC--->cityD                                 
 *                     ^                          |                                  
 *                     |                          v                                  
 *                  cityH<---cityG<---cityF<---cityE 
 *
+*                 AB + CD = 13.91,  AC + BD = 16.51
 *
-*   AB+CD   <   AC+BD   
+*                            AC+BD > AB+CD   
+*  
+*                   should not do 2opt because cannot get shorter distance
 */
 void test_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
   Path path;
-  City *head =  NULL;  // assign cityA as head
-  addCityList(&head, &cityA);
+  City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
   addCityList(&head, &cityD);
@@ -192,9 +195,42 @@ void test_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_
   addCityList(&head, &cityH);
   cityH.next = head;
   path.cities = head;
-
+  
   int ans = checkingFor2opt(&cityA, &cityC);
-//  TEST_ASSERT_EQUAL(ans , 0);
+  TEST_ASSERT_EQUAL(ans , 0);
+  clearCityList(head);
+}
+
+/**
+*   A(1,1)  B(5,7)  F(3,6)   G(2,10)
+*                     $                 
+*                   cityA--->cityB-->cityC--->cityD                                 
+*                     ^                          |                                  
+*                     |                  $       v                                  
+*                  cityH<---cityG<---cityF<---cityE 
+*
+*                 AB + FG = 11.33,  AF + BG = 9.62
+*
+*                         AF+BG  <  AB + FG
+*  
+*                should  do 2opt because  get shorter distance
+*/
+void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_better_chromesome(void){
+  Path path;
+  City *head =  cityListNew(&cityA);  // assign cityA as head
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  cityH.next = head;
+  path.cities = head;
+  
+  int ans = checkingFor2opt(&cityA, &cityF);
+  TEST_ASSERT_EQUAL(ans , 1);
+  clearCityList(head);
 }
 
 /**
