@@ -45,7 +45,8 @@ void setUp(void){
   setCity(&cityI,  9,  2, 108, NULL);
   setCity(&cityJ, 10,  4, 109, NULL);
 }
-
+// rake test:LinkedList
+// rake test:Travel
 void tearDown(void) {}
 
 void test_linkListNew_should_create_city_linkedList(void) {
@@ -61,20 +62,16 @@ void test_linkListNew_should_create_city_linkedList(void) {
 */             
 void test_addCityList_given_create_cityJ_as_head_and_add_cityB_cityC_cityD_should_add_to_citylist(void) {
   City *head =  cityListNew(&cityJ);
- 
   addCityList(&head, &cityA);
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
   addCityList(&head, &cityJ);
-  addCityList(&head, NULL);
-  
+ 
   TEST_ASSERT_EQUAL( head->ID                        , cityJ.ID);
   TEST_ASSERT_EQUAL( head->next->ID                  , cityA.ID);
   TEST_ASSERT_EQUAL( head->next->next->ID            , cityB.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->ID      , cityC.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->next->ID, cityJ.ID);
-  TEST_ASSERT_NULL ( head->next->next->next->next->next);
-  
   clearCityList(head);
 }
 
@@ -89,14 +86,12 @@ void test_reverseLinkedList_should_reverse_the_cities_link_from_J_A_B_C_to_C_B_A
   addCityList(&head, &cityA);
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
-  addCityList(&head, NULL);
-  
+ 
   reverseLinkedList(head , &cityC);
   TEST_ASSERT_EQUAL( head->ID , cityJ.ID);
   TEST_ASSERT_EQUAL( cityA.next->ID, cityJ.ID );
   TEST_ASSERT_EQUAL( cityB.next->ID, cityA.ID );
   TEST_ASSERT_EQUAL( cityC.next->ID, cityB.ID );
-  TEST_ASSERT_NULL ( cityJ.next);
   clearCityList(head);
 }
 

@@ -10,7 +10,7 @@
 
 
 
-void genericBubbleSort( Path table[], int size){
+void bubbleSortForPath( Path table[], int size){
   int i,j;
   Path temp;
 
@@ -24,7 +24,6 @@ void genericBubbleSort( Path table[], int size){
     }
   }
 }
-
 
 // Cartesian formula
 float findDistance( City *first, City *second){
@@ -47,32 +46,40 @@ Path getDistanceFromPath( Path path){
   TotalDistance = findDistance( cities,cities->next);
   cityNext = cities->next;
   int size = 1;
-  
+
   while(cityNext->ID != headID){
     TotalDistance = TotalDistance + findDistance( cityNext, cityNext->next);
     cityNext = cityNext->next;
     size = size + 1;
   }
-  
+
   path.size     = size ;
   path.distance = TotalDistance;
-  
+
   return path;
 }
 
 Path MutationOfCities(Path path, City *targetA, City *targetB){
-  City  *temp1 =  targetA->next , *temp2 =  targetB->next ;
+  City  *temp1 =  targetA->next , *temp2 =  targetB->next;
 
   reverseTheLinkBetween2City( path.cities, targetA, targetB);
   targetA->next = targetB;
-  temp1->next   = temp2; 
-  
+  temp1->next   = temp2;
+
   path = getDistanceFromPath(path);
   return path;
 }
 
+int checkingFor2opt(City *targetA, City *targetB){
+printf("%d\n",targetA->ID);
+printf("%p\n",targetA->next);
+printf("%p\n",targetB);
+  // float oldLink = findDistance( targetA, targetA->next) ;//+ findDistance( targetB, targetB->next);
+  // float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
+
+}
 // while(ptr != NULL)
-    // {
+// {
         // if(ptr->val == val)
         // {
             // found = true;

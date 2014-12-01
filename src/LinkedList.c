@@ -5,10 +5,8 @@
 #include "InitCity.h"
 
 City *cityListNew(City *city){
-  City *cities = malloc(sizeof(City));
-  cities->ID     = city->ID;
-  cities->x_axis = city->x_axis;
-  cities->y_axis = city->y_axis;
+  City *cities   = malloc(sizeof(City));
+  cities         = city;
   cities->next   = NULL;
   return cities;
 }
