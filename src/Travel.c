@@ -56,7 +56,7 @@ Path getDistanceFromPath( Path path){
 
   return path;
 }
-
+// rake test:Travel
 Path MutationOfCities(Path path, City *targetA, City *targetB){
   City  *temp1 =  targetA->next , *temp2 =  targetB->next;
 
@@ -68,7 +68,57 @@ Path MutationOfCities(Path path, City *targetA, City *targetB){
   return path;
 }
 
+Path copyCities (Path path){
+  City *cities = path.cities, *cloneCities, city[path.size];
+  int i;
+  Path clonePath;
+  
+  for(i=0; i<path.size; i++){
+   city[i] = *cities;
+   cities = cities->next;
+   cloneCities = &city[i];
+   cloneCities = cloneCities->next;
+  } 
+  clonePath.cities   = cloneCities;
+  clonePath.size     = path.size;
+  clonePath.distance = path.distance;
+  
+  return clonePath;
+}
+
+City copyCity(City A, City B){
+  A.x_axis = B.x_axis ;
+  A.y_axis = B.y_axis;
+  A.ID     = B.ID;
+  return A;
+}
+
+City getParrentCities(City *cities, City target){
+  City Parrent1, Parrent2;
+  
+  if(cities->ID == target.ID)
+    cities = cities->next;
+  else if (cities->next->ID == target.ID)
+    cities = cities->next->next;
+  
+  while(cities->next->next->ID != target.ID)
+    cities = cities->next;
+  
+  Parrent1 = copyCity(Parrent1, *cities); 
+  Parrent2 = copyCity(Parrent2, *cities->next);  
+  Parrent1.next = &Parrent2;
+  return Parrent1; 
+}
+
 Path corssoverCities(City *cities1st, City *cities2nd, City target){
+
+  while(cities1st->next->next->ID != target.ID)
+    cities1st = cities1st->next;
+    
+  while(cities2nd->next->next->ID != target.ID)
+    cities1st = cities2nd->next;
+    
+
 
 }
 
@@ -77,6 +127,28 @@ int checkingFor2opt(City *targetA, City *targetB){
   float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
 
   if(newLink< oldLink)
-    return 1;  
+    return 1;
   return 0;
 }
+
+// printf("%d\n",Parrent1.ID);
+  // printf("%d\n",Parrent2.ID);
+// printf("%d\n",cloneCities->ID);
+// printf("%d\n",cloneCities->next->ID);
+// printf("%d\n",cloneCities->next->next->ID);
+// printf("%d\n",cloneCities->next->next->next->ID);
+// printf("%d\n",cloneCities->next->next->next->next->ID);
+// printf("%d\n",cloneCities->next->next->next->next->next->ID);
+// printf("%d\n",cloneCities->next->next->next->next->next->next->ID);
+// printf("%d\n",cloneCities->next->next->next->next->next->next->next->ID);
+
+
+// printf("%p\n",cities1st);
+// printf("%p\n",cities1st->next);
+// printf("%p\n",cities1st->next->next);
+// printf("%p\n",cities1st->next->next->next);
+// printf("%p\n",cities1st->next->next->next->next);
+// printf("%p\n",cities1st->next->next->next->next->next);
+// printf("%p\n",cities1st->next->next->next->next->next->next);
+// printf("%p\n",cities1st->next->next->next->next->next->next->next);
+// printf("%p\n",cities1st->next->next->next->next->next->next->next->next);
