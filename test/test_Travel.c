@@ -424,7 +424,7 @@ void test_getParentCities_given_target_E_should_return_cityC_cityD(void){
   addCityList(&head, &cityH);
   addCityList(&head, &cityA);
   
-  City city = getParrentCities( head , cityE);
+  City city = getParentCities( head , cityE);
   TEST_ASSERT_EQUAL( city.ID       , cityC.ID);
   TEST_ASSERT_EQUAL( city.next->ID , cityD.ID); 
 }
@@ -433,7 +433,7 @@ void test_getParentCities_given_target_E_should_return_cityC_cityD(void){
 *     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void test_getParrentCities_should_given_target_A_should_return_cityC_cityD(void){
+void test_getParentCities_should_given_target_A_should_return_cityC_cityD(void){
   City *head =  cityListNew(&cityA);  
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
@@ -444,7 +444,7 @@ void test_getParrentCities_should_given_target_A_should_return_cityC_cityD(void)
   addCityList(&head, &cityH);
   addCityList(&head, &cityA);
   
-  City city = getParrentCities( head , cityA);
+  City city = getParentCities( head , cityA);
   TEST_ASSERT_EQUAL( city.ID       , cityG.ID);
   TEST_ASSERT_EQUAL( city.next->ID , cityH.ID); 
 }
@@ -453,7 +453,7 @@ void test_getParrentCities_should_given_target_A_should_return_cityC_cityD(void)
 *     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void test_getParrentCities_should_given_target_C_should_return_cityC_cityD(void){
+void test_getParentCities_should_given_target_C_should_return_cityC_cityD(void){
   City *head =  cityListNew(&cityA);  
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
@@ -464,7 +464,7 @@ void test_getParrentCities_should_given_target_C_should_return_cityC_cityD(void)
   addCityList(&head, &cityH);
   addCityList(&head, &cityA);
   
-  City city = getParrentCities( head , cityB);
+  City city = getParentCities( head , cityB);
   TEST_ASSERT_EQUAL( city.ID       , cityH.ID);
   TEST_ASSERT_EQUAL( city.next->ID , cityA.ID); 
 }

@@ -93,8 +93,8 @@ City copyCity(City A, City B){
   return A;
 }
 
-City getParrentCities(City *cities, City target){
-  City Parrent1, Parrent2;
+City getParentCities(City *cities, City target){
+  City Parent1, Parent2;
   
   if(cities->ID == target.ID)
     cities = cities->next;
@@ -104,23 +104,23 @@ City getParrentCities(City *cities, City target){
   while(cities->next->next->ID != target.ID)
     cities = cities->next;
   
-  Parrent1 = copyCity(Parrent1, *cities); 
-  Parrent2 = copyCity(Parrent2, *cities->next); 
-  Parrent1.next = &Parrent2;
+  Parent1 = copyCity(Parent1, *cities); 
+  Parent2 = copyCity(Parent2, *cities->next); 
+  Parent1.next = &Parent2;
   
-  return Parrent1; 
+  return Parent1; 
 }
 
-City getParrent2Cities(City *cities, City target){
-  City Parrent2;
+City getParent2Cities(City *cities, City target){
+  City Parent2;
   
   if(cities->ID == target.ID)
     cities = cities->next;
   
   while(cities->next->ID != target.ID)
     cities = cities->next;
-  Parrent2 = copyCity(Parrent2, *cities);
-  return Parrent2; 
+  Parent2 = copyCity(Parent2, *cities);
+  return Parent2; 
 }
 
 City getChildCities(City *cities, City target){
@@ -139,8 +139,8 @@ City getChildCities(City *cities, City target){
 Path corssoverCities(City *cities1st, City *cities2nd, City target){
   City *crossCities, newTarget;
   Path crossoverPath;
-  City parrent = getParrentCities ( cities1st, target);
-  City parrent2= getParrent2Cities(cities1st, target);
+  City parent = getParentCities ( cities1st, target);
+  City parent2= getParent2Cities(cities1st, target);
   City child   = getChildCities  ( cities2nd, target);
   
   
