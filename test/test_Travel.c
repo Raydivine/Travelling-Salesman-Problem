@@ -413,7 +413,7 @@ void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_
 * CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void test_getParrentCities_given_target_E_should_return_cityC_cityD(void){
+void test_getParentCities_given_target_E_should_return_cityC_cityD(void){
   City *head =  cityListNew(&cityA);  
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
@@ -567,8 +567,8 @@ void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_an
   addCityList(&head2, &cityA1);
   addCityList(&head2, &cityC1);
   printf("start\n");
-  corssoverCities(head1, head2, cityE);
-  printf("end\n");
+  path = corssoverCities(head1, head2, cityE);
+  printf("end\n"); 
   // TEST_ASSERT_EQUAL( path.cities->ID                                                , cityC.ID);
   // TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityD.ID);
   // TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityE.ID);
