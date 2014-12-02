@@ -119,19 +119,26 @@ City getChildCities(City *cities, City target){
   child1 = copyCity(child1, *cities->next); 
   child2 = copyCity(child2, *cities->next->next);
   child1.next = &child2;
+
   return child1;  
 }
 
 Path corssoverCities(City *cities1st, City *cities2nd, City target){
-
-  while(cities1st->next->next->ID != target.ID)
-    cities1st = cities1st->next;
-    
-  while(cities2nd->next->next->ID != target.ID)
-    cities1st = cities2nd->next;
-    
-
-
+  City *crossCities, newTarget;
+  Path crossoverPath;
+  City parrent = getParrentCities( cities1st, target);
+  City child   = getChildCities  ( cities2nd, target);
+  
+  newTarget = copyCity(newTarget, target);
+  
+  // addCityList(&crossCities, &newTarget);
+  newTarget.next = &child;
+  parrent.next   = &newTarget;
+  crossCities    = &parrent;
+  
+  crossoverPath.cities = crossCities;
+  
+  return crossoverPath; 
 }
 
 int checkingFor2opt(City *targetA, City *targetB){

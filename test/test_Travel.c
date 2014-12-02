@@ -542,7 +542,7 @@ void test_getChildCities_given_target_G_should_return_cityA_cityB(void){
 *                                                       (-----------------random----------------)
 *         CityC------>CityD----->CityE----->CityH------->CityG----->CityA------>CityB----->CityF
 */
-void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){ 
+void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){ 
   City cityA1 = cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE, 
                 cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
   Path path;
@@ -566,8 +566,9 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
   addCityList(&head2, &cityF1);
   addCityList(&head2, &cityA1);
   addCityList(&head2, &cityC1);
-
- // path = corssoverCities(head1, head2, cityE);
+  printf("start\n");
+  corssoverCities(head1, head2, cityE);
+  printf("end\n");
   // TEST_ASSERT_EQUAL( path.cities->ID                                                , cityC.ID);
   // TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityD.ID);
   // TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityE.ID);
