@@ -110,6 +110,18 @@ City getParrentCities(City *cities, City target){
   return Parrent1; 
 }
 
+City getChildCities(City *cities, City target){
+  City child1, child2;
+
+  while(cities->ID != target.ID)
+    cities = cities->next;
+
+  child1 = copyCity(child1, *cities->next); 
+  child2 = copyCity(child2, *cities->next->next);
+  child1.next = &child2;
+  return child1;  
+}
+
 Path corssoverCities(City *cities1st, City *cities2nd, City target){
 
   while(cities1st->next->next->ID != target.ID)

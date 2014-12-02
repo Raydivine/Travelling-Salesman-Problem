@@ -429,7 +429,7 @@ void test_getParrentCities_given_target_E_should_return_cityC_cityD(void){
   TEST_ASSERT_EQUAL( city.next->ID , cityD.ID); 
 }
 
-/**   target                                                                  ###############     
+/**   target                                                                ###############     
 *     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
@@ -469,6 +469,67 @@ void test_getParrentCities_should_given_target_C_should_return_cityC_cityD(void)
   TEST_ASSERT_EQUAL( city.next->ID , cityA.ID); 
 }
 
+/**                                   target     ################
+* CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
+*
+*/
+void test_getChildCities_given_target_D_should_return_cityE_cityF(void){
+  City *head =  cityListNew(&cityA);  
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  
+  City city = getChildCities( head , cityD);
+  TEST_ASSERT_EQUAL( city.ID       , cityE.ID);
+  TEST_ASSERT_EQUAL( city.next->ID , cityF.ID); 
+}
+
+/** 
+*   ################                                                                 target   
+*   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
+*
+*/
+void test_getChildCities_given_target_H_should_return_cityA_cityB(void){
+  City *head =  cityListNew(&cityA);  
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  
+  City city = getChildCities( head , cityH);
+  TEST_ASSERT_EQUAL( city.ID       , cityA.ID);
+  TEST_ASSERT_EQUAL( city.next->ID , cityB.ID); 
+}
+
+/** 
+*   ######                                                                target     #######     
+*   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
+*
+*/
+void test_getChildCities_given_target_G_should_return_cityA_cityB(void){
+  City *head =  cityListNew(&cityA);  
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  
+  City city = getChildCities( head , cityG);
+  TEST_ASSERT_EQUAL( city.ID       , cityH.ID);
+  TEST_ASSERT_EQUAL( city.next->ID , cityA.ID); 
+}
 /**  
 *                                                         $
 * 1st     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
