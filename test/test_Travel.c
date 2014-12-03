@@ -249,15 +249,27 @@ void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_
 *                                                       (               random                  )
 *         CityC------>CityD----->CityE----->CityH------->CityG----->CityA------>CityB----->CityF
 */
-void test_corssoverCities_given_2_cities_should_do_crossover_and_form_new_cities(void){
+void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
   City *head1 =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head1, &cityB);
   addCityList(&head1, &cityC);
+  addCityList(&head1, &cityD);
   addCityList(&head1, &cityE);
   addCityList(&head1, &cityF);
   addCityList(&head1, &cityG);
   addCityList(&head1, &cityH);
-  cityH.next = head1;
+  addCityList(&head1, &cityA);
+  
+  // City *head2 =  cityListNew(&cityC);  // assign cityA as head
+  // addCityList(&head2, &cityE);
+  // addCityList(&head2, &cityH);
+  // addCityList(&head2, &cityG);
+  // addCityList(&head2, &cityB);
+  // addCityList(&head2, &cityF);
+  // addCityList(&head2, &cityD);
+  // addCityList(&head2, &cityA);
+  // addCityList(&head2, &cityC);
+
 
 }
 

@@ -68,7 +68,7 @@ Path MutationOfCities(Path path, City *targetA, City *targetB){
   return path;
 }
 
-Path corssoverCities(City *cities1st, City *cities2nd){
+Path corssoverCities(City *cities1st, City *cities2nd, City target){
 
 }
 

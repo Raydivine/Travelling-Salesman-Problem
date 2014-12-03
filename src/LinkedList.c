@@ -24,7 +24,7 @@ void addCityList(City **cities, City *city){
   tail = head;
 
   while(tail->next != NULL)
-    tail = tail->next;
+  tail = tail->next;
   tail->next = city;
 }
 
