@@ -68,6 +68,10 @@ Path MutationOfCities(Path path, City *targetA, City *targetB){
   return path;
 }
 
+Path corssoverCities(City *cities1st, City *cities2nd){
+
+}
+
 int checkingFor2opt(City *targetA, City *targetB){
   float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
   float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
