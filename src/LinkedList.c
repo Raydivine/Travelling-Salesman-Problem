@@ -28,11 +28,30 @@ void addCityList(City **cities, City *city){
   tail->next = city;
 }
 
+void addCityListPrev(City **cities, City *city){
+  City *head = *cities, *tail;
+
+  if(head == NULL){
+    cities  = &city;
+    return;
+  }
+  tail = head;
+
+  while(tail->next != NULL)
+  tail = tail->prev;
+  tail->prev = city;
+}
+
 void reverseLinkedList(City *start, City *end){
   City *curCities = start , *nxtCities;
   start = NULL;
+  
+  nxtCities = curCities->next;
+  curCities->next = start;
+  start = curCities;
+  curCities = nxtCities;
 
-  while(curCities != NULL){
+  while(curCities != end){
     nxtCities = curCities->next;
     curCities->next = start;
     start = curCities;

@@ -75,26 +75,6 @@ void test_addCityList_given_create_cityJ_as_head_and_add_cityB_cityC_cityD_shoul
   clearCityList(head);
 }
 
-/**                               
-*             cityJ--->cityA-->cityB--->cityC--->NULL 
-*                                  |
-*                                  v
-*            NULL<----cityJ<---cityA<---cityB<---cityC
-*/             
-void test_reverseLinkedList_should_reverse_the_cities_link_from_J_A_B_C_to_C_B_A_J (void) {
-  City *head =  cityListNew(&cityJ);
-  addCityList(&head, &cityA);
-  addCityList(&head, &cityB);
-  addCityList(&head, &cityC);
- 
-  reverseLinkedList(head , &cityC);
-  TEST_ASSERT_EQUAL( head->ID , cityJ.ID);
-  TEST_ASSERT_EQUAL( cityA.next->ID, cityJ.ID );
-  TEST_ASSERT_EQUAL( cityB.next->ID, cityA.ID );
-  TEST_ASSERT_EQUAL( cityC.next->ID, cityB.ID );
-  clearCityList(head);
-}
-
 /**                          $     
 *                   cityA--->cityB-->cityC--->cityD 
 *                     ^                          |               
@@ -134,4 +114,35 @@ void test_reverseTheLinkBetween2City_select_cityB_and_cityG_should_reverse_the_l
   TEST_ASSERT_EQUAL( cityG.next->ID , cityH.ID );
   TEST_ASSERT_EQUAL( cityH.next->ID , cityA.ID );
   clearCityList(head);
+}
+
+/** 
+*      &                                                              
+*   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
+*                                       |   reverseTheLink of A
+*                                       v
+*   CityA<------ CityB<------ CityC<------ CityD<------ CityE<------ CityF<------ CityG<------ cityH
+*/
+void test_reverseLinkedList_given_target_is_A_to_A_should_reverse_all_link(void){
+  City *head =  cityListNew(&cityA);  
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  reverseLinkedList(head, &cityA);
+  TEST_ASSERT_EQUAL( head->ID , cityA.ID);
+  TEST_ASSERT_EQUAL( cityH.next->ID , cityG.ID );
+  TEST_ASSERT_EQUAL( cityG.next->ID , cityF.ID );
+  TEST_ASSERT_EQUAL( cityF.next->ID , cityE.ID );
+  TEST_ASSERT_EQUAL( cityE.next->ID , cityD.ID );
+  TEST_ASSERT_EQUAL( cityD.next->ID , cityC.ID );
+  TEST_ASSERT_EQUAL( cityC.next->ID , cityB.ID );
+  TEST_ASSERT_EQUAL( cityB.next->ID , cityA.ID );
+  TEST_ASSERT_NULL ( cityA.next);
+  
+
 }

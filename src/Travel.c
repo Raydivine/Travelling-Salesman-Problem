@@ -90,6 +90,7 @@ City copyCity(City A, City B){
   A.x_axis = B.x_axis ;
   A.y_axis = B.y_axis;
   A.ID     = B.ID;
+  A.next   = NULL;
   return A;
 }
 
@@ -114,20 +115,44 @@ City getBackParent(City *cities, City target){
   return backParent; 
 }
 
-Path corssoverCities(City *cities1st, City *cities2nd, City target){
-  City *crossCities, newTarget;
+Path crossoverCities(City *cities1st, City *cities2nd, City target){
+  City *crossCities, *frontCities , *backCities , frontTarget = target, backTarget = target, newTarget, front, back;
   Path crossoverPath;
+  int i=0,j=0;
   
-  City frontParent = getFrontParent( cities1st, target);
-  printf("%d\n",frontParent.ID);
+  do{
+  front       = getFrontParent(cities1st, frontTarget);
+  frontTarget = front;
+  back        = getBackParent (cities2nd, backTarget);
+  backTarget  = back;
+  }while( front.ID != back.ID );
   
-  City backParent = getBackParent( cities2nd, target);
-  printf("%d\n",backParent.ID);
-  
-  newTarget = copyCity(newTarget, target);
+  int mark = cities2nd->ID;
 
-
+  while(cities2nd->ID != target.ID)
+    cities2nd = cities2nd->next;
+ 
+  while(cities1st->ID != front.ID)
+    cities1st = cities1st->next;
+    
+  crossCities = cities1st;
+  City *crossHead = crossCities;
+  while(crossCities->ID != target.ID)
+    crossCities = crossCities->next;
   
+  crossCities = cities2nd;
+  
+  while(crossCities->next->ID!= mark )
+   crossCities = crossCities->next;
+  crossCities->next = crossHead;
+   printf("%d\n",crossCities->ID);
+  printf("%d\n",crossCities->next->ID);
+  printf("%d\n",crossCities->next->next->ID);
+  printf("%d\n",crossCities->next->next->next->ID);
+  printf("%d\n",crossCities->next->next->next->next->ID);
+  printf("%d\n",crossCities->next->next->next->next->next->ID);
+  printf("%d\n",crossCities->next->next->next->next->next->next->ID);
+
   return crossoverPath; 
 }
 

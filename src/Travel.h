@@ -5,7 +5,7 @@
 float findDistance( City *first, City *second);
 Path getDistanceFromPath( Path path);
 Path MutationOfCities(Path path, City *targetA, City *targetB);
-Path corssoverCities(City *cities1st, City *cities2nd, City target);
+Path crossoverCities(City *cities1st, City *cities2nd, City target);
 Path copyCities (Path path);
 City getFrontParent(City *cities, City target);
 City getBackParent (City *cities, City target);
