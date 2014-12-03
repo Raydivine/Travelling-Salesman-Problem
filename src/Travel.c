@@ -116,45 +116,44 @@ City getBackParent(City *cities, City target){
 }
 
 Path crossoverCities(City *cities1st, City *cities2nd, City target){
-  City *crossCities, *frontCities , *backCities , frontTarget = target, backTarget = target, newTarget, front, back;
-  Path crossoverPath;
   int i=0,j=0;
-  
+  City *crossCities, frontTarget = target, backTarget = target, newTarget, front, back , frontCities[i], backCities[j];
+  Path crossoverPath;
+
+ 
   do{
   front       = getFrontParent(cities1st, frontTarget);
   frontTarget = front;
+  frontCities[i] = front;
+  i++;
+  
   back        = getBackParent (cities2nd, backTarget);
   backTarget  = back;
+  backCities[j] = back;
+  j++;
   }while( front.ID != back.ID );
   
-  int mark = cities2nd->ID;
-
-  while(cities2nd->ID != target.ID)
-    cities2nd = cities2nd->next;
+  printf("%d\n",frontCities[0].ID);
+  printf("%d\n",frontCities[1].ID);
+  printf("%d\n",frontCities[2].ID);
+  
+  printf("%d\n",backCities[0].ID);
+  printf("%d\n",backCities[1].ID);
+  printf("%d\n",backCities[2].ID);
  
-  while(cities1st->ID != front.ID)
-    cities1st = cities1st->next;
-    
-  crossCities = cities1st;
-  City *crossHead = crossCities;
-  while(crossCities->ID != target.ID)
-    crossCities = crossCities->next;
-  
-  crossCities = cities2nd;
-  
-  while(crossCities->next->ID!= mark )
-   crossCities = crossCities->next;
-  crossCities->next = crossHead;
-   printf("%d\n",crossCities->ID);
-  printf("%d\n",crossCities->next->ID);
-  printf("%d\n",crossCities->next->next->ID);
-  printf("%d\n",crossCities->next->next->next->ID);
-  printf("%d\n",crossCities->next->next->next->next->ID);
-  printf("%d\n",crossCities->next->next->next->next->next->ID);
-  printf("%d\n",crossCities->next->next->next->next->next->next->ID);
 
+  
+  // printf("%d\n",crossCities->ID);
+  // printf("%d\n",crossCities->next->ID);
+  // printf("%d\n",crossCities->next->next->ID);
+  // printf("%d\n",crossCities->next->next->next->ID);
+  // printf("%d\n",crossCities->next->next->next->next->ID);
+  // printf("%d\n",crossCities->next->next->next->next->next->ID);
+  // printf("%d\n",crossCities->next->next->next->next->next->next->ID);
   return crossoverPath; 
 }
+
+
 
 int checkingFor2opt(City *targetA, City *targetB){
   float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
