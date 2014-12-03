@@ -92,7 +92,8 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
   addCityList(&head, &cityH);
   addCityList(&head, &cityG);
   addCityList(&head, &cityC);
-  cityC.next = head;// the last city go back to head
+  addCityList(&head, &cityF);
+ // cityC.next = head;// the last city go back to head
   City expectedCties[] = { cityF, cityB, cityH, cityG, cityC, cityB};
   path.cities = head;
 
@@ -151,7 +152,8 @@ void test_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_of
   addCityList(&head, &cityF);
   addCityList(&head, &cityG);
   addCityList(&head, &cityH);
-  cityH.next = head;
+  addCityList(&head, &cityA);
+//  cityH.next = head;
   path.cities = head;
 
   path = MutationOfCities(path, &cityB, &cityF);
@@ -193,7 +195,8 @@ void test_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_
   addCityList(&head, &cityF);
   addCityList(&head, &cityG);
   addCityList(&head, &cityH);
-  cityH.next = head;
+  addCityList(&head, &cityA);
+//  cityH.next = head;
   path.cities = head;
   
   int ans = checkingFor2opt(&cityA, &cityC);
@@ -225,12 +228,37 @@ void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_
   addCityList(&head, &cityF);
   addCityList(&head, &cityG);
   addCityList(&head, &cityH);
-  cityH.next = head;
+  addCityList(&head, &cityA);
+  //cityH.next = head;
   path.cities = head;
   
   int ans = checkingFor2opt(&cityA, &cityF);
   TEST_ASSERT_EQUAL(ans , 1);
   clearCityList(head);
+}
+
+/**  
+*                                                         $
+* 1st     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
+*
+*                                           pick E to do crossover
+*                         $
+* 2nd     CityA------> CityE----->CityH------>CityG----->CityB----->CityF------>CityD----->CityC                                                               
+*                               
+*                                             from new link
+*                                                       (               random                  )
+*         CityC------>CityD----->CityE----->CityH------->CityG----->CityA------>CityB----->CityF
+*/
+void test_corssoverCities_given_2_cities_should_do_crossover_and_form_new_cities(void){
+  City *head1 =  cityListNew(&cityA);  // assign cityA as head
+  addCityList(&head1, &cityB);
+  addCityList(&head1, &cityC);
+  addCityList(&head1, &cityE);
+  addCityList(&head1, &cityF);
+  addCityList(&head1, &cityG);
+  addCityList(&head1, &cityH);
+  cityH.next = head1;
+
 }
 
 /**
