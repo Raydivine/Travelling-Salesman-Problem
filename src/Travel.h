@@ -7,10 +7,13 @@ Path getDistanceFromPath( Path path);
 Path MutationOfCities(Path path, City *targetA, City *targetB);
 Path corssoverCities(City *cities1st, City *cities2nd, City target);
 Path copyCities (Path path);
-City getParentCities(City *cities, City target);
-City getChildCities(City *cities, City target);
+City getFrontParent(City *cities, City target);
+City getBackParent (City *cities, City target);
 int  checkingFor2opt(City *targetA, City *targetB);
 void bubbleSortForPath ( Path table[], int size);
 City copyCity(City A, City B);
 
+
+City getParentCities(City *cities, City target);
+City getChildCities(City *cities, City target);
 #endif // Travel_H

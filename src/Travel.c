@@ -93,72 +93,40 @@ City copyCity(City A, City B){
   return A;
 }
 
-City getParentCities(City *cities, City target){
-  City Parent1, Parent2;
-  
-  if(cities->ID == target.ID)
-    cities = cities->next;
-  else if (cities->next->ID == target.ID)
-    cities = cities->next->next;
-  
-  while(cities->next->next->ID != target.ID)
-    cities = cities->next;
-  
-  Parent1 = copyCity(Parent1, *cities); 
-  Parent2 = copyCity(Parent2, *cities->next); 
-  Parent1.next = &Parent2;
-  
-  return Parent1; 
-}
-
-City getParent2Cities(City *cities, City target){
-  City Parent2;
+City getFrontParent(City *cities, City target){
+  City frontParent;
   
   if(cities->ID == target.ID)
     cities = cities->next;
   
   while(cities->next->ID != target.ID)
     cities = cities->next;
-  Parent2 = copyCity(Parent2, *cities);
-  return Parent2; 
+  frontParent = copyCity(frontParent, *cities);
+  return frontParent; 
 }
 
-City getChildCities(City *cities, City target){
-  City child1, child2;
-
+City getBackParent(City *cities, City target){
+  City backParent;
+   
   while(cities->ID != target.ID)
     cities = cities->next;
-
-  child1 = copyCity(child1, *cities->next); 
-  child2 = copyCity(child2, *cities->next->next);
-  child1.next = &child2;
-
-  return child1;  
+  backParent = copyCity(backParent, *cities->next);
+  return backParent; 
 }
 
 Path corssoverCities(City *cities1st, City *cities2nd, City target){
   City *crossCities, newTarget;
   Path crossoverPath;
-  City parent = getParentCities ( cities1st, target);
-  City parent2= getParent2Cities(cities1st, target);
-  City child   = getChildCities  ( cities2nd, target);
   
+  City frontParent = getFrontParent( cities1st, target);
+  printf("%d\n",frontParent.ID);
+  
+  City backParent = getBackParent( cities2nd, target);
+  printf("%d\n",backParent.ID);
   
   newTarget = copyCity(newTarget, target);
-  
-  // crossCities =  cityListNew(&parrent);
-  // addCityList(&crossCities, &parrent2);
-  // addCityList(&crossCities, &child);
-  // newTarget.next = &child;
-  // parrent.next   = &newTarget;
-  // crossCities    = &parrent;
-   // printf("%d\n",crossCities->ID);
-  // printf("%d\n",crossCities->next->ID);
-  // crossoverPath.cities = crossCities;
-  // printf("%d\n",crossoverPath.cities->ID);
-  // printf("%d\n",crossoverPath.cities->next->ID);
-  // printf("%d\n",crossoverPath.cities->next->next->ID);
-  // printf("%d\n",crossoverPath.cities->next->next->next->ID);
+
+
   
   return crossoverPath; 
 }
@@ -193,3 +161,34 @@ int checkingFor2opt(City *targetA, City *targetB){
 // printf("%p\n",cities1st->next->next->next->next->next->next);
 // printf("%p\n",cities1st->next->next->next->next->next->next->next);
 // printf("%p\n",cities1st->next->next->next->next->next->next->next->next);
+
+City getParentCities(City *cities, City target){
+  City Parent1, Parent2;
+  
+  if(cities->ID == target.ID)
+    cities = cities->next;
+  else if (cities->next->ID == target.ID)
+    cities = cities->next->next;
+  
+  while(cities->next->next->ID != target.ID)
+    cities = cities->next;
+  
+  Parent1 = copyCity(Parent1, *cities); 
+  Parent2 = copyCity(Parent2, *cities->next); 
+  Parent1.next = &Parent2;
+  
+  return Parent1; 
+}
+
+City getChildCities(City *cities, City target){
+  City child1, child2;
+
+  while(cities->ID != target.ID)
+    cities = cities->next;
+
+  child1 = copyCity(child1, *cities->next); 
+  child2 = copyCity(child2, *cities->next->next);
+  child1.next = &child2;
+
+  return child1;  
+}
