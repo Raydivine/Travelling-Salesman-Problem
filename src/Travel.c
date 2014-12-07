@@ -135,18 +135,28 @@ int checkIsCityUsed( int IDList[], int ID){
 }
 // rake test:Travel
 Path crossoverCities(City *cities1st, City *cities2nd, City target){
-  City *newWalk, ptrFront, ptrBack, front , back,  mid = target;
+  City *newWalk, front, back, *ptrBack, mid = target;
   mid.next = NULL;
   newWalk =  cityListNew(&mid); 
   
-  ptrFront = getFrontParent(cities1st, target);
-  ptrBack  = getBackParent (cities2nd, target);
-  ptrBack.next = NULL;
+  front = getFrontParent(cities1st, target);
+  back  = getBackParent (cities2nd, target);
   
- addCityList(&newWalk, &ptrBack);
+  ptrBack = newWalk;
   
+  if(checkIsTargetNotInCities( newWalk, front) ){
+    front.next = newWalk;
+    newWalk = &front;
+  }
   
-
+  if(checkIsTargetNotInCities( newWalk, back) ){
+  
+  }
+  
+  printf("%d\n",newWalk->ID);
+  printf("%d\n",newWalk->next->ID);
+  printf("%d\n",newWalk->next->next->ID);
+  
 }
 
 int checkingFor2opt(City *targetA, City *targetB){
