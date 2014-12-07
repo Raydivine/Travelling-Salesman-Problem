@@ -116,6 +116,7 @@ City getBackParent(City *cities, City target){
 }
 
 int checkIsTheTargetInCities( City *cities, City target){
+
   while( cities->ID != target.ID){
     cities = cities->next;
 
@@ -126,22 +127,28 @@ int checkIsTheTargetInCities( City *cities, City target){
 }
 
 Path crossoverCities(City *cities1st, City *cities2nd, City target){
-  City *crossCities, *newWalk, newTarget = target, front, back, target2 = target;
+  City *crossCities, *newWalk, newTarget = target, front, back, target1 = target;
   
   newWalk =  cityListNew(&newTarget);
   newWalk->next = NULL;
   
-  while(front.ID != back.ID){
-  front = getFrontParent(cities1st, target);
-  back  = getBackParent (cities2nd, target2);
+  // if( checkIsTheTargetInCities( newWalk, target)){
+  front = getFrontParent(cities1st, target1); 
+  addCityListPrev(&newWalk, &front);
+  target1 = front; 
   
-  front.next = &target;
-  target = front; 
-  
+  printf("here\n");
+    while( checkIsTheTargetInCities( newWalk, target)){
+  back  = getBackParent (cities2nd, target);
+  back.next = NULL;
   addCityList(&newWalk, &back);
-  target2 = back;
+  target = back;  
   }
-  front.next = &target;
+  
+  printf("%d\n",newWalk->ID);
+  printf("%d\n",newWalk->next->ID);
+  printf("%d\n",newWalk->next->next->ID);
+
   
   
 //  newWalk->next =&back;

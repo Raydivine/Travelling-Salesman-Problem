@@ -417,7 +417,7 @@ void test_checkIsTheTargetInCities_given_city_A_B_C_D_E_target_is_D_should_retur
   addCityList(&head, &cityE);
   addCityList(&head, NULL);
   
-  int ans = checkIsTheTargetInCities(head, cityD);
+  int ans = checkIsTheTargetInCities(head, cityE);
   TEST_ASSERT_EQUAL(ans , 1);
   clearCityList(head);
 }
