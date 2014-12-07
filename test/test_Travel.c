@@ -409,7 +409,7 @@ void xtest_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce
   clearCityList(head);
 }
 
-void test_checkIsTheTargetInCities_given_city_A_B_C_D_E_target_is_D_should_return_1(void){
+void xtest_checkIsTargetNotInCities_given_city_A_B_C_D_E_target_is_D_should_return_0(void){
   City *head =  cityListNew(&cityA);  
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
@@ -417,23 +417,36 @@ void test_checkIsTheTargetInCities_given_city_A_B_C_D_E_target_is_D_should_retur
   addCityList(&head, &cityE);
   addCityList(&head, NULL);
   
-  int ans = checkIsTheTargetInCities(head, cityE);
+  int ans = checkIsTargetNotInCities(head, cityE);
+  TEST_ASSERT_EQUAL(ans , 0);
+  clearCityList(head);
+}
+
+void xtest_checkIsTargetNotInCities_given_city_A_B_C_D_E_target_is_J_should_return_1(void){
+  City *head =  cityListNew(&cityA);  
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, NULL);
+  
+  int ans = checkIsTargetNotInCities(head, cityJ);
   TEST_ASSERT_EQUAL(ans , 1);
   clearCityList(head);
 }
 
-void test_checkIsTheTargetInCities_given_city_A_B_C_D_E_target_is_J_should_return_0(void){
-  City *head =  cityListNew(&cityA);  
-  addCityList(&head, &cityB);
-  addCityList(&head, &cityC);
-  addCityList(&head, &cityD);
-  addCityList(&head, &cityE);
-  addCityList(&head, NULL);
-  
-  int ans = checkIsTheTargetInCities(head, cityJ);
-  TEST_ASSERT_EQUAL(ans , 0);
-  clearCityList(head);
+void test_checkIsCityUsed_given_array_100_101_102_and_target_103_should_return_1(void){
+ int arr[] = {100,101,102};
+ int ans = checkIsCityUsed(arr,103);
+ TEST_ASSERT_EQUAL(ans , 1);
 }
+
+void test_checkIsCityUsed_given_array_100_101_102_and_target_102_should_return_0(void){
+ int arr[] = {100,101,102};
+ int ans = checkIsCityUsed(arr,102);
+ TEST_ASSERT_EQUAL(ans , 0);
+}
+
 /**   
 *                                                         $ 
 * 1st     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH 

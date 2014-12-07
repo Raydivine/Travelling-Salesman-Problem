@@ -95,7 +95,7 @@ City copyCity(City A, City B){
 }
 
 City getFrontParent(City *cities, City target){
-  City frontParent;
+  City frontParent, *front;
 
   if(cities->ID == target.ID)
     cities = cities->next;
@@ -107,7 +107,7 @@ City getFrontParent(City *cities, City target){
 }
 
 City getBackParent(City *cities, City target){
-  City backParent;
+  City backParent, *back;
 
   while(cities->ID != target.ID)
     cities = cities->next;
@@ -115,59 +115,37 @@ City getBackParent(City *cities, City target){
   return backParent;
 }
 
-int checkIsTheTargetInCities( City *cities, City target){
-
+int checkIsTargetNotInCities( City *cities, City target){
   while( cities->ID != target.ID){
     cities = cities->next;
 
     if(cities == NULL)
-      return 0;
+      return 1;
+  }
+  return 0;
+}
+
+int checkIsCityUsed( int IDList[], int ID){
+  int i;
+  for( i =0 ; i<(sizeof(IDList)); i++){
+  if(IDList[i] == ID)
+    return 0;
   }
   return 1;
 }
-
+// rake test:Travel
 Path crossoverCities(City *cities1st, City *cities2nd, City target){
-  City *crossCities, *newWalk, newTarget = target, front, back, target1 = target;
+  City *newWalk, ptrFront, ptrBack, front , back,  mid = target;
+  mid.next = NULL;
+  newWalk =  cityListNew(&mid); 
   
-  newWalk =  cityListNew(&newTarget);
-  newWalk->next = NULL;
+  ptrFront = getFrontParent(cities1st, target);
+  ptrBack  = getBackParent (cities2nd, target);
+  ptrBack.next = NULL;
   
-  // if( checkIsTheTargetInCities( newWalk, target)){
-  front = getFrontParent(cities1st, target1); 
-  addCityListPrev(&newWalk, &front);
-  target1 = front; 
-  
-  printf("here\n");
-    while( checkIsTheTargetInCities( newWalk, target)){
-  back  = getBackParent (cities2nd, target);
-  back.next = NULL;
-  addCityList(&newWalk, &back);
-  target = back;  
-  }
-  
-  printf("%d\n",newWalk->ID);
-  printf("%d\n",newWalk->next->ID);
-  printf("%d\n",newWalk->next->next->ID);
-
+ addCityList(&newWalk, &ptrBack);
   
   
-//  newWalk->next =&back;
-// printf("%d\n",back->ID);
-
-   // printf("%d\n",front.ID);
- //  printf("%d\n",back.ID);
-   // printf("%d\n",front.next->ID);
-  // printf("%d\n",front.next->next->ID);
-  // printf("%d\n",crossCities->next->next->next->ID);
-  // printf("%d\n",crossCities->next->next->next->next->ID);
-  // printf("%d\n",crossCities->next->next->next->next->next->ID)
-  // printf("%d\n",crossCities->ID);
-  // printf("%d\n",crossCities->next->ID);
-  // printf("%d\n",crossCities->next->next->ID);
-  // printf("%d\n",crossCities->next->next->next->ID);
-  // printf("%d\n",crossCities->next->next->next->next->ID);
-  // printf("%d\n",crossCities->next->next->next->next->next->ID);
-  // printf("%d\n",crossCities->next->next->next->next->next->next->ID);
 
 }
 
