@@ -58,7 +58,7 @@ void test_linkListNew_should_create_city_linkedList(void) {
 /**         cityJ add cityA, cityB, cityC, cityJ
 *                           |   should form link
 *                           v
-*             cityJ->cityA->cityB->cityC->cityJ->NULL
+*             cityJ->cityA->cityB->cityC->cityJ
 */             
 void test_addCityList_given_create_cityJ_as_head_and_add_cityB_cityC_cityD_should_add_to_citylist(void) {
   City *head =  cityListNew(&cityJ);
@@ -72,6 +72,27 @@ void test_addCityList_given_create_cityJ_as_head_and_add_cityB_cityC_cityD_shoul
   TEST_ASSERT_EQUAL( head->next->next->ID            , cityB.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->ID      , cityC.ID);
   TEST_ASSERT_EQUAL( head->next->next->next->next->ID, cityJ.ID);
+  clearCityList(head);
+}
+
+/**         cityJ add cityA, cityB, cityC, cityD
+*                           |   should form link
+*                           v
+*             cityD->cityC->cityB->cityA->cityJ
+*/   
+void test_addCityListPrev_should_add_element_to_prev_linkedList(void){
+  City *head =  cityListNew(&cityJ);
+  addCityListPrev(&head, &cityA);
+  addCityListPrev(&head, &cityB);
+  addCityListPrev(&head, &cityC);
+  addCityListPrev(&head, &cityD);
+  
+  TEST_ASSERT_EQUAL( head->ID                        , cityD.ID);
+  TEST_ASSERT_EQUAL( head->next->ID                  , cityC.ID);
+  TEST_ASSERT_EQUAL( head->next->next->ID            , cityB.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->ID      , cityA.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->next->ID, cityJ.ID);
+  TEST_ASSERT_NULL  (head->next->next->next->next->next);
   clearCityList(head);
 }
 
@@ -143,6 +164,4 @@ void test_reverseLinkedList_given_target_is_A_to_A_should_reverse_all_link(void)
   TEST_ASSERT_EQUAL( cityC.next->ID , cityB.ID );
   TEST_ASSERT_EQUAL( cityB.next->ID , cityA.ID );
   TEST_ASSERT_NULL ( cityA.next);
-  
-
 }

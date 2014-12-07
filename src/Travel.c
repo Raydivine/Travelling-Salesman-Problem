@@ -72,17 +72,17 @@ Path copyCities (Path path){
   City *cities = path.cities, *cloneCities, city[path.size];
   int i;
   Path clonePath;
-  
+
   for(i=0; i<path.size; i++){
    city[i] = *cities;
    cities = cities->next;
    cloneCities = &city[i];
    cloneCities = cloneCities->next;
-  } 
+  }
   clonePath.cities   = cloneCities;
   clonePath.size     = path.size;
   clonePath.distance = path.distance;
-  
+
   return clonePath;
 }
 
@@ -96,53 +96,64 @@ City copyCity(City A, City B){
 
 City getFrontParent(City *cities, City target){
   City frontParent;
-  
+
   if(cities->ID == target.ID)
     cities = cities->next;
-  
+
   while(cities->next->ID != target.ID)
     cities = cities->next;
   frontParent = copyCity(frontParent, *cities);
-  return frontParent; 
+  return frontParent;
 }
 
 City getBackParent(City *cities, City target){
   City backParent;
-   
+
   while(cities->ID != target.ID)
     cities = cities->next;
   backParent = copyCity(backParent, *cities->next);
-  return backParent; 
+  return backParent;
+}
+
+int checkIsTheTargetInCities( City *cities, City target){
+  while( cities->ID != target.ID){
+    cities = cities->next;
+
+    if(cities == NULL)
+      return 0;
+  }
+  return 1;
 }
 
 Path crossoverCities(City *cities1st, City *cities2nd, City target){
-  int i=0,j=0;
-  City *crossCities, frontTarget = target, backTarget = target, newTarget, front, back , frontCities[i], backCities[j];
-  Path crossoverPath;
+  City *crossCities, *newWalk, newTarget = target, front, back, target2 = target;
+  
+  newWalk =  cityListNew(&newTarget);
+  newWalk->next = NULL;
+  
+  while(front.ID != back.ID){
+  front = getFrontParent(cities1st, target);
+  back  = getBackParent (cities2nd, target2);
+  
+  front.next = &target;
+  target = front; 
+  
+  addCityList(&newWalk, &back);
+  target2 = back;
+  }
+  front.next = &target;
+  
+  
+//  newWalk->next =&back;
+// printf("%d\n",back->ID);
 
- 
-  do{
-  front       = getFrontParent(cities1st, frontTarget);
-  frontTarget = front;
-  frontCities[i] = front;
-  i++;
-  
-  back        = getBackParent (cities2nd, backTarget);
-  backTarget  = back;
-  backCities[j] = back;
-  j++;
-  }while( front.ID != back.ID );
-  
-  printf("%d\n",frontCities[0].ID);
-  printf("%d\n",frontCities[1].ID);
-  printf("%d\n",frontCities[2].ID);
-  
-  printf("%d\n",backCities[0].ID);
-  printf("%d\n",backCities[1].ID);
-  printf("%d\n",backCities[2].ID);
- 
-
-  
+   // printf("%d\n",front.ID);
+ //  printf("%d\n",back.ID);
+   // printf("%d\n",front.next->ID);
+  // printf("%d\n",front.next->next->ID);
+  // printf("%d\n",crossCities->next->next->next->ID);
+  // printf("%d\n",crossCities->next->next->next->next->ID);
+  // printf("%d\n",crossCities->next->next->next->next->next->ID)
   // printf("%d\n",crossCities->ID);
   // printf("%d\n",crossCities->next->ID);
   // printf("%d\n",crossCities->next->next->ID);
@@ -150,10 +161,8 @@ Path crossoverCities(City *cities1st, City *cities2nd, City target){
   // printf("%d\n",crossCities->next->next->next->next->ID);
   // printf("%d\n",crossCities->next->next->next->next->next->ID);
   // printf("%d\n",crossCities->next->next->next->next->next->next->ID);
-  return crossoverPath; 
+
 }
-
-
 
 int checkingFor2opt(City *targetA, City *targetB){
   float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
@@ -188,20 +197,20 @@ int checkingFor2opt(City *targetA, City *targetB){
 
 City getParentCities(City *cities, City target){
   City Parent1, Parent2;
-  
+
   if(cities->ID == target.ID)
     cities = cities->next;
   else if (cities->next->ID == target.ID)
     cities = cities->next->next;
-  
+
   while(cities->next->next->ID != target.ID)
     cities = cities->next;
-  
-  Parent1 = copyCity(Parent1, *cities); 
-  Parent2 = copyCity(Parent2, *cities->next); 
+
+  Parent1 = copyCity(Parent1, *cities);
+  Parent2 = copyCity(Parent2, *cities->next);
   Parent1.next = &Parent2;
-  
-  return Parent1; 
+
+  return Parent1;
 }
 
 City getChildCities(City *cities, City target){
@@ -210,9 +219,9 @@ City getChildCities(City *cities, City target){
   while(cities->ID != target.ID)
     cities = cities->next;
 
-  child1 = copyCity(child1, *cities->next); 
+  child1 = copyCity(child1, *cities->next);
   child2 = copyCity(child2, *cities->next->next);
   child1.next = &child2;
 
-  return child1;  
+  return child1;
 }

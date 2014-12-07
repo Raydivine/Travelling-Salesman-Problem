@@ -24,22 +24,14 @@ void addCityList(City **cities, City *city){
   tail = head;
 
   while(tail->next != NULL)
-  tail = tail->next;
+    tail = tail->next;
   tail->next = city;
 }
 
 void addCityListPrev(City **cities, City *city){
-  City *head = *cities, *tail;
-
-  if(head == NULL){
-    cities  = &city;
-    return;
-  }
-  tail = head;
-
-  while(tail->next != NULL)
-  tail = tail->prev;
-  tail->prev = city;
+ City **temp = cities;
+ city->next = *temp;
+ *cities = city;
 }
 
 void reverseLinkedList(City *start, City *end){
