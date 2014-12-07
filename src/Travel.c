@@ -108,44 +108,88 @@ City removeSameElementInCities(City *mid, int size){
  City list[size];
  City *head = mid, *temp;
  list[0] = *head;
+
  mid = mid->next;
  i=1;
  
   while(mid->ID != head->ID){
-    mid = mid->next;
-    list[i] = *mid;
-    i++;
-    
-    if(mid->ID == list[i].ID){
+  
+  mid = mid->next;
+  list[i] = *mid;
+  i++;   
+  
+     if(mid->ID == list[i].ID){
+   printf("delete\n");
       temp = mid->next;
       mid = temp; 
-    }
-  } 
+    } 
+  }  
+}
+
+City getFrontParent(City *cities, City target){
+  City frontParent, *front;
+
+  if(cities->ID == target.ID)
+    cities = cities->next;
+
+  while(cities->next->ID != target.ID)
+    cities = cities->next;
+  frontParent = copyCity(frontParent, *cities);
+  return frontParent;
+}
+
+City getBackParent(City *cities, City target){
+  City backParent, *back;
+
+  while(cities->ID != target.ID)
+    cities = cities->next;
+  backParent = copyCity(backParent, *cities->next);
+  return backParent;
+}
+
+int checkIsCityNotUsed( City arr[], City target){
+  int i;
+  if( arr[i].ID == target.ID)
+    return 0;
+  return 1;
 }
 
 Path crossoverCities(Path path1, Path path2, City target){
-  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd =path2.cities, *mid;
+  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd =path2.cities, arr[path1.size] , front = target, back = target;
   Path path;
-  while(cities2nd->ID != target.ID)
-    cities2nd = cities2nd->next;
-    
-  mid = cities2nd;
+  int mid = path1.size / 2;
+  int mid1 = mid-1, mid2 = mid+1;
 
-  while(cities2nd->ID != head2->ID)
-    cities2nd = cities2nd->next;
-  cities2nd = head1;
+  arr[mid] = target;
   
-   while(cities2nd->ID != mid->ID)
-    cities2nd = cities2nd->next;
-  cities2nd = mid;
-   
-  removeSameElementInCities(mid, path1.size);
-   
-  path.cities = mid;
+  while(head1->ID != target.ID)
+    head1 = head1->next;
+ // printf("%d\n",head1->ID);
+    
+  while(head2->ID != target.ID)
+    head2 = head2->next;
+ // printf("%d\n",head2->ID);
+  
+  front = getFrontParent(head1, front);
+  arr[mid1] = front;
+  mid1 = mid1-1;
+  
+  back = getBackParent(head2, back);
+  arr[mid2] = back;
+  mid2 = mid2-1;
+
+  printf("%d\n",arr[3].ID);
+  printf("%d\n",arr[4].ID);
+  printf("%d\n",arr[5].ID);
+  
+  
+  // printf("%d\n",front.ID);
+  // printf("%d\n",back.ID);
+ 
   return path;
 }
- 
- // printf("%d\n",mid->ID);
+// printf("%d\n",cities2nd->ID);
+// printf("%d\n",mid->ID);
 // printf("%d\n",mid->next->ID);
 // printf("%d\n",mid->next->next->ID);
 // printf("%d\n",mid->next->next->next->ID);
@@ -180,8 +224,7 @@ Path crossoverCities(Path path1, Path path2, City target){
      // printf("%d\n",ptrBack->ID);
       // printf("%p\n",ptrBack);
 
-// printf("%d\n",Parrent1.ID);
-  // printf("%d\n",Parrent2.ID);
+
 // printf("%d\n",cloneCities->ID);
 // printf("%d\n",cloneCities->next->ID);
 // printf("%d\n",cloneCities->next->next->ID);
@@ -251,25 +294,4 @@ int checkIsTargetNotInCities( City *cities, City target){
       return 1;
   }
   return 0;
-}
-
-City getFrontParent(City *cities, City target){
-  City frontParent, *front;
-
-  if(cities->ID == target.ID)
-    cities = cities->next;
-
-  while(cities->next->ID != target.ID)
-    cities = cities->next;
-  frontParent = copyCity(frontParent, *cities);
-  return frontParent;
-}
-
-City getBackParent(City *cities, City target){
-  City backParent, *back;
-
-  while(cities->ID != target.ID)
-    cities = cities->next;
-  backParent = copyCity(backParent, *cities->next);
-  return backParent;
 }
