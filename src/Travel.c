@@ -134,9 +134,10 @@ int checkIsCityUsed( int IDList[], int ID){
   return 1;
 }
 
-City removeSameElementInCities(City *mid){
+City removeSameElementInCities(City *mid, int size){
  int i;
- City list[i], *head = mid, *temp;
+ City list[size];
+ City *head = mid, *temp;
  list[0] = *head;
  mid = mid->next;
  i=1;
@@ -166,29 +167,25 @@ City removeSameElementInCities(City *mid){
 
 
 // rake test:Travel
-Path crossoverCities(City *cities1st, City *cities2nd, City target){
-  City *head1 = cities1st, *head2 = cities2nd, *mid;
-  
-  while(cities1st->ID != target.ID)
-    cities1st = cities1st->next;
-  
+Path crossoverCities(Path path1, Path path2, City target){
+  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd =path2.cities, *mid;
+  Path path;
   while(cities2nd->ID != target.ID)
     cities2nd = cities2nd->next;
     
-  cities1st = cities2nd;
-  mid = cities1st;
+  mid = cities2nd;
 
-  while(cities1st->ID != head2->ID)
-    cities1st = cities1st->next;
-   cities1st = head1;
+  while(cities2nd->ID != head2->ID)
+    cities2nd = cities2nd->next;
+  cities2nd = head1;
   
-   while(cities1st->ID != mid->ID)
-    cities1st = cities1st->next;
-   cities1st = mid;
+   while(cities2nd->ID != mid->ID)
+    cities2nd = cities2nd->next;
+  cities2nd = mid;
    
-  removeSameElementInCities(mid);
-  
-  printf("%d\n",mid->ID);
+   removeSameElementInCities(mid, path1.size);
+   
+   printf("%d\n",mid->ID);
 printf("%d\n",mid->next->ID);
 printf("%d\n",mid->next->next->ID);
 printf("%d\n",mid->next->next->next->ID);
@@ -198,7 +195,9 @@ printf("%d\n",mid->next->next->next->next->next->next->ID);
 printf("%d\n",mid->next->next->next->next->next->next->next->ID);
 printf("%d\n",mid->next->next->next->next->next->next->next->next->ID);
 printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
-  
+  path.cities = mid;
+  path.size   = path1.size;
+  return path;
 }
   
   
