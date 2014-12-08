@@ -56,7 +56,7 @@ Path getDistanceFromPath( Path path){
 
   return path;
 }
-// rake test:Travel
+
 Path MutationOfCities(Path path, City *targetA, City *targetB){
   City  *temp1 =  targetA->next , *temp2 =  targetB->next;
 
@@ -94,44 +94,13 @@ City copyCity(City A, City B){
   return A;
 }
 
-City getFrontParent(City *cities, City target){
-  City frontParent, *front;
+int checkingFor2opt(City *targetA, City *targetB){
+  float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
+  float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
 
-  if(cities->ID == target.ID)
-    cities = cities->next;
-
-  while(cities->next->ID != target.ID)
-    cities = cities->next;
-  frontParent = copyCity(frontParent, *cities);
-  return frontParent;
-}
-
-City getBackParent(City *cities, City target){
-  City backParent, *back;
-
-  while(cities->ID != target.ID)
-    cities = cities->next;
-  backParent = copyCity(backParent, *cities->next);
-  return backParent;
-}
-
-int checkIsTargetNotInCities( City *cities, City target){
-  while( cities->ID != target.ID){
-    cities = cities->next;
-
-    if(cities == NULL)
-      return 1;
-  }
+  if(newLink< oldLink)
+    return 1;
   return 0;
-}
-
-int checkIsCityUsed( int IDList[], int ID){
-  int i;
-  for( i =0 ; i<(sizeof(IDList)); i++){
-  if(IDList[i] == ID)
-    return 0;
-  }
-  return 1;
 }
 
 City removeSameElementInCities(City *mid, int size){
@@ -151,22 +120,9 @@ City removeSameElementInCities(City *mid, int size){
       temp = mid->next;
       mid = temp; 
     }
-  }
+  } 
 }
 
-// printf("%d\n",mid->ID);
-// printf("%d\n",mid->next->ID);
-// printf("%d\n",mid->next->next->ID);
-// printf("%d\n",mid->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
-
-
-// rake test:Travel
 Path crossoverCities(Path path1, Path path2, City target){
   City *head1 = path1.cities, *head2 = path2.cities, *cities2nd =path2.cities, *mid;
   Path path;
@@ -183,23 +139,22 @@ Path crossoverCities(Path path1, Path path2, City target){
     cities2nd = cities2nd->next;
   cities2nd = mid;
    
-   removeSameElementInCities(mid, path1.size);
+  removeSameElementInCities(mid, path1.size);
    
-   printf("%d\n",mid->ID);
-printf("%d\n",mid->next->ID);
-printf("%d\n",mid->next->next->ID);
-printf("%d\n",mid->next->next->next->ID);
-printf("%d\n",mid->next->next->next->next->ID);
-printf("%d\n",mid->next->next->next->next->next->ID);
-printf("%d\n",mid->next->next->next->next->next->next->ID);
-printf("%d\n",mid->next->next->next->next->next->next->next->ID);
-printf("%d\n",mid->next->next->next->next->next->next->next->next->ID);
-printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
   path.cities = mid;
-  path.size   = path1.size;
   return path;
 }
-  
+ 
+ // printf("%d\n",mid->ID);
+// printf("%d\n",mid->next->ID);
+// printf("%d\n",mid->next->next->ID);
+// printf("%d\n",mid->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
   
   
     //printf("%p\n",newWalk);
@@ -224,16 +179,6 @@ printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
   // printf("%p\n",newWalk->next->next);
      // printf("%d\n",ptrBack->ID);
       // printf("%p\n",ptrBack);
-
-
-int checkingFor2opt(City *targetA, City *targetB){
-  float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
-  float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
-
-  if(newLink< oldLink)
-    return 1;
-  return 0;
-}
 
 // printf("%d\n",Parrent1.ID);
   // printf("%d\n",Parrent2.ID);
@@ -287,3 +232,44 @@ int checkingFor2opt(City *targetA, City *targetB){
   // back[j]  = getBackParent (cities2nd, target2);  
   // break
 // }
+
+// extra function 
+int checkIsCityUsed( int IDList[], int ID){
+  int i;
+  for( i =0 ; i<(sizeof(IDList)); i++){
+  if(IDList[i] == ID)
+    return 0;
+  }
+  return 1;
+}
+
+int checkIsTargetNotInCities( City *cities, City target){
+  while( cities->ID != target.ID){
+    cities = cities->next;
+
+    if(cities == NULL)
+      return 1;
+  }
+  return 0;
+}
+
+City getFrontParent(City *cities, City target){
+  City frontParent, *front;
+
+  if(cities->ID == target.ID)
+    cities = cities->next;
+
+  while(cities->next->ID != target.ID)
+    cities = cities->next;
+  frontParent = copyCity(frontParent, *cities);
+  return frontParent;
+}
+
+City getBackParent(City *cities, City target){
+  City backParent, *back;
+
+  while(cities->ID != target.ID)
+    cities = cities->next;
+  backParent = copyCity(backParent, *cities->next);
+  return backParent;
+}

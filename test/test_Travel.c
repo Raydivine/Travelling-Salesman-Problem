@@ -451,34 +451,29 @@ void xtest_checkIsCityUsed_given_array_100_101_102_and_target_102_should_return_
 *------------------------------------------------------------------------------------------------------------
 * The 2 chromosome cities shown below, and cityE is choose to do crossover                                  *
 *                                                                                                           *
-*      (         L E F T          P A R T     )       $$$$$                                                 *
+*      ----------------left-------------------        $$$$$                                                 *
 *     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH                *
 *                                                                                                           *                  
 *                                                                                                           *
-*                              $$$$$         (    R I G H T    P A R T                      )               *
+*                              $$$$$        ---------------------right-----------------------               *
 *      CityC------> CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA               *   
 *                                                                                                           *
-*-----------------------------------------------------------------------------------------------------------*
-* 2. select cityA and cityC as target , reverse the link between them               *                                                                              
-*                                                                                   *
-*                                                                                   *
-*                                                                                   *
-*             -------------------------                                             *
-*            |                        |                                             *
-*            v                        v                                             *
-*          cityA   NULL<---cityB<---cityC--->cityD                                  *
-*             ^                                 |                                   *
-*             |                                 v                                   *
-*             ----cityH<---cityG<---cityF<---cityE                                  *
-*                                                                                   *
-*-----------------------------------------------------------------------------------*
-* 3.Mutation  A point to B, A next point to B next                                  *
-*                                                                                   *
-*                   cityA--->cityC-->cityB--->cityD                                 *
-*                     ^                          |                                  *
-*                     |                          v                                  *
-*                  cityH<---cityG<---cityF<---cityE                                 *
-*-----------------------------------------------------------------------------------*
+*                                                                                                           *
+*---------------------------------------------------------------------------------------------------------------------
+* Select cityE as mid, and combine with left and right, now new chromosome contain some extra element                 *
+*                                                                                                                     *
+*      ----------------left-------------------        $$$$$      ---------------------right-----------------------    *
+*     CityA------> CityB----->CityC------>CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA   *
+*                                                                                                                     *  
+*                                                                                                                     *  
+*                                                                                                                     *                                                                                                                                      *                                                                                                                                                                                                                                        *
+*-------------------------------------------------------------------------------------------------------------------- *
+* cityE is the first reference, removed the extra element, formed the chromosome cities                               *
+*                                                                                                                     *
+*    CityE----->CityH------>CityG----->CityB----->CityF------>CityA----->CityC------>CityD----->CityE                 *
+*                                                                                                                     *                  
+*                                                                                                                     *                  
+*---------------------------------------------------------------------------------------------------------------------
 */
 void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){ 
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE, 
@@ -510,21 +505,19 @@ void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_an
   path2.cities = head2;
   path2.size   = 8;
   
-  printf("start\n");
-  crossoverPath = crossoverCities(path1, path1, cityE);
-  printf("end\n"); 
+  crossoverPath = crossoverCities(path1, path2, cityE);
   TEST_ASSERT_EQUAL( crossoverPath.cities->ID                                                , cityE.ID);
-  // TEST_ASSERT_EQUAL( crossoverPath.cities->next->ID                                          , cityH.ID);
-  // TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->ID                                    , cityG.ID);
-  // TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->ID                              , cityB.ID);
-  // TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID                        , cityF.ID);
-  // TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityA.ID);
-  // TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID            , cityC.ID);
-  // TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->ID      , cityD.ID);
-  // TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->next->ID, cityE.ID);
-  // clearCityList(head1);
-  // clearCityList(head2);
-//  clearCityList(path.cities);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->ID                                          , cityH.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->ID                                    , cityG.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->ID                              , cityB.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->ID                        , cityF.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->ID                  , cityA.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->ID            , cityC.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityD.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->next->ID, cityE.ID);
+  clearCityList(head1);
+  clearCityList(head2);
+  clearCityList(crossoverPath.cities);
 }
 
 
