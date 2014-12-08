@@ -133,30 +133,64 @@ int checkIsCityUsed( int IDList[], int ID){
   }
   return 1;
 }
+
+
 // rake test:Travel
 Path crossoverCities(City *cities1st, City *cities2nd, City target){
-  City *newWalk, front, back, *ptrBack, mid = target;
+int i,j;
+  City *newWalk, front[i], back[j], mid = target, target1, target2;
+  
   mid.next = NULL;
-  newWalk =  cityListNew(&mid); 
+  newWalk =  cityListNew(&mid);
+  front[0] = getFrontParent(cities1st, target);
+  back[0]  = getBackParent (cities2nd, target);
+
+  i =0, j= 0;
+  while (front[i].ID != back[j].ID){
+  printf("%d\n",front[i].ID); 
+  printf("%d\n",back[j].ID); 
+     if(checkIsTargetNotInCities(newWalk,front[i]))
+        addCityListPrev(&newWalk, &front[i]);
+     else{ printf("break1\n");   
+      break;}
+    
+    if(checkIsTargetNotInCities(newWalk,back[j]))
+      addCityList    (&newWalk, &back[j]);
+    else{ printf("break2\n");
+      break;}
+   
+   target1 =  front[i];
+   target2 =  back[j];
+  i++ ,j++;
   
-  front = getFrontParent(cities1st, target);
-  back  = getBackParent (cities2nd, target);
+  front[i] = getFrontParent(cities1st, target1);
+  back[j]  = getBackParent (cities2nd, target2); 
+}
   
-  ptrBack = newWalk;
   
-  if(checkIsTargetNotInCities( newWalk, front) ){
-    front.next = newWalk;
-    newWalk = &front;
-  }
   
-  if(checkIsTargetNotInCities( newWalk, back) ){
+    //printf("%p\n",newWalk);
+   // printf("%p\n",ptrBack);
+   // printf("%p\n",newWalk);
+   // printf("%p\n",newWalk->next);
+
   
-  }
+  // if(checkIsTargetNotInCities( newWalk, target2) ){
+     // *ptrBack = copyCity(*ptrBack, target2);
+     // ptrBack = ptrBack->next;
+  // }
+  // back  = getBackParent (cities2nd, target2);
   
-  printf("%d\n",newWalk->ID);
-  printf("%d\n",newWalk->next->ID);
-  printf("%d\n",newWalk->next->next->ID);
-  
+
+     // printf("%d\n",newWalk->ID);
+    // printf("%d\n",newWalk->next->ID);
+    // printf("%d\n",newWalk->next->next->ID);
+   
+  // printf("%p\n",newWalk);
+  // printf("%p\n",newWalk->next);
+  // printf("%p\n",newWalk->next->next);
+     // printf("%d\n",ptrBack->ID);
+      // printf("%p\n",ptrBack);
 }
 
 int checkingFor2opt(City *targetA, City *targetB){
