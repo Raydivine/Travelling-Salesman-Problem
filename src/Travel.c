@@ -134,37 +134,57 @@ int checkIsCityUsed( int IDList[], int ID){
   return 1;
 }
 
+City searchRange(City *mid){
+int i;
+ City list[i], *head = mid, *temp;
+ list[0] = *head;
+ mid = mid->next;
+ 
+ i=1;
+ while(mid->ID != head->ID){
+  mid = mid->next;
+  list[i] = *mid;
+  i++;
+  if(mid->ID == list[i].ID){
+  temp = mid->next;
+  mid = temp; 
+  }
+ }
+// printf("%d\n",mid->ID);
+// printf("%d\n",mid->next->ID);
+// printf("%d\n",mid->next->next->ID);
+// printf("%d\n",mid->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
+}
 
 // rake test:Travel
 Path crossoverCities(City *cities1st, City *cities2nd, City target){
-int i,j;
-  City *newWalk, front[i], back[j], mid = target, target1, target2;
+  City *head1 = cities1st, *head2 = cities2nd, *mid;
   
-  mid.next = NULL;
-  newWalk =  cityListNew(&mid);
-  front[0] = getFrontParent(cities1st, target);
-  back[0]  = getBackParent (cities2nd, target);
-
-  i =0, j= 0;
-  while (front[i].ID != back[j].ID){
-  printf("%d\n",front[i].ID); 
-  printf("%d\n",back[j].ID); 
-     if(checkIsTargetNotInCities(newWalk,front[i]))
-        addCityListPrev(&newWalk, &front[i]);
-     else{ printf("break1\n");   
-      break;}
+  while(cities1st->ID != target.ID)
+    cities1st = cities1st->next;
+  
+  while(cities2nd->ID != target.ID)
+    cities2nd = cities2nd->next;
     
-    if(checkIsTargetNotInCities(newWalk,back[j]))
-      addCityList    (&newWalk, &back[j]);
-    else{ printf("break2\n");
-      break;}
-   
-   target1 =  front[i];
-   target2 =  back[j];
-  i++ ,j++;
+  cities1st = cities2nd;
+  mid = cities1st;
+
+  while(cities1st->ID != head2->ID)
+    cities1st = cities1st->next;
+   cities1st = head1;
   
-  front[i] = getFrontParent(cities1st, target1);
-  back[j]  = getBackParent (cities2nd, target2); 
+   while(cities1st->ID != mid->ID)
+    cities1st = cities1st->next;
+   cities1st = mid;
+   
+  searchRange(mid);
+  
 }
   
   
@@ -191,7 +211,7 @@ int i,j;
   // printf("%p\n",newWalk->next->next);
      // printf("%d\n",ptrBack->ID);
       // printf("%p\n",ptrBack);
-}
+
 
 int checkingFor2opt(City *targetA, City *targetB){
   float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
@@ -224,33 +244,33 @@ int checkingFor2opt(City *targetA, City *targetB){
 // printf("%p\n",cities1st->next->next->next->next->next->next->next);
 // printf("%p\n",cities1st->next->next->next->next->next->next->next->next);
 
-City getParentCities(City *cities, City target){
-  City Parent1, Parent2;
+// Path crossoverCities(City *cities1st, City *cities2nd, City target){
+// int i,j;
+  // City *newWalk, front[i], back[j], mid = target, target1, target2;
+  
+  // mid.next = NULL;
+  // newWalk =  cityListNew(&mid);
+  // front[0] = getFrontParent(cities1st, target);
+  // back[0]  = getBackParent (cities2nd, target);
 
-  if(cities->ID == target.ID)
-    cities = cities->next;
-  else if (cities->next->ID == target.ID)
-    cities = cities->next->next;
+  // i =0, j= 0;
+  // while (front[i].ID != back[j].ID){
 
-  while(cities->next->next->ID != target.ID)
-    cities = cities->next;
-
-  Parent1 = copyCity(Parent1, *cities);
-  Parent2 = copyCity(Parent2, *cities->next);
-  Parent1.next = &Parent2;
-
-  return Parent1;
-}
-
-City getChildCities(City *cities, City target){
-  City child1, child2;
-
-  while(cities->ID != target.ID)
-    cities = cities->next;
-
-  child1 = copyCity(child1, *cities->next);
-  child2 = copyCity(child2, *cities->next->next);
-  child1.next = &child2;
-
-  return child1;
-}
+     // if(checkIsTargetNotInCities(newWalk,front[i]))
+        // addCityListPrev(&newWalk, &front[i]);
+     // else{ printf("break1\n");   
+      // break;}
+    
+    // if(checkIsTargetNotInCities(newWalk,back[j]))
+      // addCityList    (&newWalk, &back[j]);
+    // else{ printf("break2\n");
+      // break;}
+   
+   // target1 =  front[i];
+   // target2 =  back[j];
+  // i++ ,j++;
+  
+  // front[i] = getFrontParent(cities1st, target1);
+  // back[j]  = getBackParent (cities2nd, target2);  
+  // break
+// }
