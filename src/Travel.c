@@ -72,7 +72,7 @@ Path getDistanceFromPath( Path path){
   return path;
 }
 
-Radius destinationDistanceArray(City center, Radius route[], City allCities[], int size){
+void destinationDistanceArray(City center, Radius route[], City allCities[], int size){
   int i;
   for( i = 0 ; i < size ; i ++){
     route[i].center = center;

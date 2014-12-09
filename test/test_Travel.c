@@ -9,6 +9,8 @@ City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
      cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
 City allCities[20];
 
+Radius goA[20], goB[20], goC[20], goD[20], goE[20], goF[20], goG[20], goH[20] , goI[20], goJ[20],
+       goK[20], goL[20], goM[20], goN[20], goO[20], goP[20], goQ[20], goR[20] , goS[20], goT[20];
 
 /**
 *  y
@@ -100,6 +102,27 @@ void setUp(void){
   allCities[18] = cityS;
   allCities[19] = cityT;
   
+  destinationDistanceArray( cityA, goA, allCities, 20);
+  destinationDistanceArray( cityB, goB, allCities, 20);
+  destinationDistanceArray( cityC, goC, allCities, 20);
+  destinationDistanceArray( cityD, goD, allCities, 20);
+  destinationDistanceArray( cityE, goE, allCities, 20);
+  destinationDistanceArray( cityF, goF, allCities, 20);
+  destinationDistanceArray( cityG, goG, allCities, 20);
+  destinationDistanceArray( cityH, goH, allCities, 20);
+  destinationDistanceArray( cityI, goI, allCities, 20);
+  destinationDistanceArray( cityJ, goJ, allCities, 20);
+  destinationDistanceArray( cityK, goK, allCities, 20);
+  destinationDistanceArray( cityL, goL, allCities, 20);
+  destinationDistanceArray( cityM, goM, allCities, 20);
+  destinationDistanceArray( cityN, goN, allCities, 20);
+  destinationDistanceArray( cityO, goO, allCities, 20);
+  destinationDistanceArray( cityP, goP, allCities, 20);
+  destinationDistanceArray( cityQ, goQ, allCities, 20);
+  destinationDistanceArray( cityR, goR, allCities, 20);
+  destinationDistanceArray( cityS, goS, allCities, 20);
+  destinationDistanceArray( cityT, goT, allCities, 20);
+
   
   // allCities[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
                   // cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT };
@@ -111,6 +134,8 @@ void setUp(void){
 void tearDown(void)
 {
 }
+  
+ 
 
 void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
   TEST_ASSERT_EQUAL(cityA.x_axis, 1);
@@ -122,6 +147,7 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(cityA.ID, 100);
   TEST_ASSERT_EQUAL(cityF.ID, 105);
   TEST_ASSERT_EQUAL(cityI.ID, 108);
+  
 }
 
 /**
@@ -149,11 +175,11 @@ void test_destinationDistanceArray_given_target_cityA_should_return_array_accord
   Radius routeA[20];
  
   destinationDistanceArray( cityA, routeA, allCities, 20);
-  TEST_ASSERT_EQUAL (routeA[0].object.ID, cityF.ID);
-  TEST_ASSERT_EQUAL (routeA[1].object.ID, cityD.ID);
-  TEST_ASSERT_EQUAL (routeA[2].object.ID, cityB.ID);
-  TEST_ASSERT_EQUAL (routeA[3].object.ID, cityH.ID);
-  TEST_ASSERT_EQUAL (routeA[4].object.ID, cityE.ID);
+  TEST_ASSERT_EQUAL ( routeA[0].object.ID, cityF.ID);
+  TEST_ASSERT_EQUAL ( routeA[1].object.ID, cityD.ID);
+  TEST_ASSERT_EQUAL ( routeA[2].object.ID, cityB.ID);
+  TEST_ASSERT_EQUAL ( routeA[3].object.ID, cityH.ID);
+  TEST_ASSERT_EQUAL ( routeA[4].object.ID, cityE.ID);
 }
 
 /**
