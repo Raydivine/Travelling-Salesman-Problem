@@ -10,6 +10,7 @@ Path copyCities (Path path);
 City copyCity(City A, City B);
 City getFrontParent(City *cities, City target);
 City getBackParent (City *cities, City target);
+Radius destinationDistanceArray(City center, Radius route[], City allCities[], int size);
 void addCityToFront (City arr[], City target, int range);
 void addCityToBack  (City arr[], City target, int range, int endID);
 void addRestOfCities (City arr[], City *cities, int stop, int end, int range);
@@ -21,5 +22,6 @@ int checkingFor2opt(City *targetA, City *targetB);
 City removeSameElementInCities(City *mid, int size);
 int checkIsTargetNotInCities( City *cities, City target);
 void bubbleSortForPath ( Path table[], int size);
+void bubbleSortForRadius( Radius route[], int size);
 
 #endif // Travel_H

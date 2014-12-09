@@ -4,6 +4,7 @@
 
 typedef struct City City;
 typedef struct Path Path;
+typedef struct Radius Radius;
 
 struct City{
   float x_axis;
@@ -16,6 +17,12 @@ struct Path{
   float distance;
   City *cities;
   int size;
+};
+
+struct Radius{
+  City center;
+  City object;
+  float distance;
 };
 
 #endif // CityCoordinate_H

@@ -9,6 +9,7 @@ City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
      cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
 City allCities[20];
 
+
 /**
 *  y
 *  ^
@@ -98,6 +99,8 @@ void setUp(void){
   allCities[17] = cityR;
   allCities[18] = cityS;
   allCities[19] = cityT;
+  
+  
   // allCities[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
                   // cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT };
 }
@@ -121,16 +124,36 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(cityI.ID, 108);
 }
 
-void test_get5shortenDistance_given_target_cityB_should_return_cityH_cityF_cityG_cityC_cityE_(void){
-  City best5[20];
-  get5shortenDistance( best5, cityB);
-  printf("%d\n",allCities[0].ID);
-  printf("%d\n",allCities[1].ID);
-  printf("%d\n",allCities[2].ID);
-  printf("%d\n",allCities[3].ID);
-  printf("%d\n",allCities[4].ID);
-  printf("%d\n",allCities[5].ID);
-  printf("%d\n",allCities[6].ID);
+/**
+*  y
+*  ^
+* 8|           H(4,8)
+*  |
+* 7|                B(5,7)
+*  |
+* 6|         F(3,6)
+*  |
+* 5|                            E(8,5)
+*  |
+* 4|                                      J(10,4)
+*  |
+* 3|                         D(7,3)
+*  |
+* 2|                                 I(9,2)
+*  |
+* 1| A(1,1)
+*  |_____________________________________________> x
+* 0   1   2   3   4   5   6   7   8   9   10  11   
+*/
+void test_destinationDistanceArray_given_target_cityA_should_return_array_accord_distance_of_F_D_B_H_E(void){
+  Radius routeA[20];
+ 
+  destinationDistanceArray( cityA, routeA, allCities, 20);
+  TEST_ASSERT_EQUAL (routeA[0].object.ID, cityF.ID);
+  TEST_ASSERT_EQUAL (routeA[1].object.ID, cityD.ID);
+  TEST_ASSERT_EQUAL (routeA[2].object.ID, cityB.ID);
+  TEST_ASSERT_EQUAL (routeA[3].object.ID, cityH.ID);
+  TEST_ASSERT_EQUAL (routeA[4].object.ID, cityE.ID);
 }
 
 /**
@@ -621,6 +644,7 @@ void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_an
   path2.cities = head2;
   path2.size   = 8;
 
+  // crossoverCities(path1, path2, cityE);
   crossoverPath = crossoverCities(path1, path2, cityE);
   TEST_ASSERT_EQUAL( crossoverPath.cities->ID                                                , cityB.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->ID                                          , cityC.ID);
@@ -632,7 +656,7 @@ void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_an
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityA.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->next->ID, cityB.ID);
   clearCityList(head1);
-  clearCityList(head2);
+  //clearCityList(head2);
   clearCityList(crossoverPath.cities);
 }
 
