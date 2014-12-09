@@ -23,9 +23,9 @@ void bubbleSortForPath( Path table[], int size){
   }
 }
 
-void bubbleSortForRadius( Radius route[], int size){
+void bubbleSortForRadius( NeighBour route[], int size){
   int i,j;
-  Radius temp;
+  NeighBour temp;
 
   for (i = 1; i < size; i++){
     for (j = 0; j < size - 1; j++) {
@@ -72,7 +72,7 @@ Path getDistanceFromPath( Path path){
   return path;
 }
 
-void destinationDistanceArray(City center, Radius route[], City allCities[], int size){
+void destinationDistanceArray(City center, City go[], NeighBour route[], City allCities[], int size){
   int i;
   for( i = 0 ; i < size ; i ++){
     route[i].center = center;
@@ -82,8 +82,12 @@ void destinationDistanceArray(City center, Radius route[], City allCities[], int
   bubbleSortForRadius( route, size);
   
   for( i = 0 ; i < size-1 ; i ++)
-    route[i] = route[i+1];
+    go[i] = route[i+1].object;
   
+
+ 
+}
+
   // printf("%d\n",route[0].object.ID);
   // printf("%d\n",route[1].object.ID);
   // printf("%d\n",route[2].object.ID);
@@ -98,8 +102,6 @@ void destinationDistanceArray(City center, Radius route[], City allCities[], int
   // printf("%f\n",route[3].distance);
   // printf("%f\n",route[4].distance);
   // printf("%f\n",route[5].distance);
- 
-}
 
 Path MutationOfCities(Path path, City *targetA, City *targetB){
   if(targetA->ID == targetB->ID)
