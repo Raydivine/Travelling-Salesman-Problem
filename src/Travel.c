@@ -83,9 +83,8 @@ void destinationDistanceArray(City center, City neighBours[], City allCities[], 
   } 
   bubbleSortForRadius( route, size);
   
-  for( i = 0 ; i < size-1 ; i ++)
-    neighBours[i] = route[i+1].object;
-    
+   for( i = 0 ; i < size-1 ; i ++)
+    neighBours[i] = route[i+1].object;   
 }
 
 void bestCities (City bestCities[], City target, City refference[]){

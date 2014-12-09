@@ -11,7 +11,7 @@ struct City{
   float y_axis;
   int ID;
   City *next;
-  City *neighBours;
+  City *negihBour;
 };
 
 struct NeighBour{
@@ -19,6 +19,10 @@ struct NeighBour{
   City object;
   float distance;
 };
+
+// struct locate{
+
+// }
 
 struct Path{
   float distance;
