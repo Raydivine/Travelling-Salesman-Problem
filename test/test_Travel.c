@@ -434,16 +434,18 @@ void xtest_checkIsTargetNotInCities_given_city_A_B_C_D_E_target_is_J_should_retu
   clearCityList(head);
 }
 
-void xtest_checkIsCityUsed_given_array_100_101_102_and_target_103_should_return_1(void){
- int arr[] = {100,101,102};
- int ans = checkIsCityUsed(arr,103);
- TEST_ASSERT_EQUAL(ans , 1);
+void xtest_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_103_should_return_1(void){
+  int ans, arr[] = {100,101,102,88,233,123,999};
+ 
+  ans = checkIsCityUsed(arr,103,7);
+  TEST_ASSERT_EQUAL(ans , 1);
 }
 
-void xtest_checkIsCityUsed_given_array_100_101_102_and_target_102_should_return_0(void){
- int arr[] = {100,101,102};
- int ans = checkIsCityUsed(arr,102);
- TEST_ASSERT_EQUAL(ans , 0);
+void xtest_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_102_should_return_0(void){
+  int ans, arr[] =  {100,101,102,88,233,123,999};
+ 
+  ans = checkIsCityUsed(arr,102,7);
+  TEST_ASSERT_EQUAL(ans , 0);
 }
 
 /**

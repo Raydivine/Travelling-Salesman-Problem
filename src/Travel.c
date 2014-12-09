@@ -147,46 +147,71 @@ City getBackParent(City *cities, City target){
   return backParent;
 }
 
-
-int checkIsCityNotUsed( City arr[], City target){
+int checkIsCityNotUsed( City arr[], City target, int range){
   int i;
-  if( arr[i].ID == target.ID)
-    return 0;
+  
+  for(i = 0 ; i < range ; i ++){
+    if( arr[i].ID == target.ID){
+      return 0;
+    }
+  }
   return 1;
+}
+
+void addCityToBack (City arr[], City target, int range, int endID){
+  int i;
+  
+  for(i = 0 ; i < range ; i ++){
+    if(arr[i].ID == endID){
+      arr[i+1] = target;
+      break;
+    }
+  } 
+}
+
+void addCityToFront(City arr[], City target, int range){
+  int i;
+  City arr2[range];
+    
+  for(i = 0 ; i < range; i ++)
+    arr2[i+1] = arr[i];
+  arr2[0] = target;
+  for(i= 0; i < range; i ++)
+    arr[i] = arr2[i];
 }
 
 Path crossoverCities(Path path1, Path path2, City target){
   int range = path1.size, i;
-  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd =path2.cities, arr[range] , arr2[range], front = target, back = target;
+  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd = path2.cities, arr[range] , arr2[range], front = target, back = target;
   Path path;
 
   arr[0] = target;
+  int end = target.ID;
+  // printf("%d\n",head1->ID);
+ // printf("%d\n",head2->ID);
 
   while(head1->ID != target.ID)
     head1 = head1->next;
- // printf("%d\n",head1->ID);
+
 
   while(head2->ID != target.ID)
     head2 = head2->next;
- // printf("%d\n",head2->ID);
 
   front = getFrontParent(head1, front);
-  for(i = 0 ; i < range; i ++)
-    arr2[i+1] = arr[i];
-    arr2[0] = front;
-  for(i= 0; i < range; i ++)
-    arr[i] = arr2[i];
-   
+  addCityToFront(arr, front, range);
+  
   back = getBackParent(head2, back);
-  
-  
+  addCityToBack (arr, back, range, end);
+
+  // printf("%d\n",arr[0].ID);
+  // printf("%d\n",arr[1].ID);
+  // printf("%d\n",arr[2].ID);
   // printf("%d\n",arr[3].ID);
   // printf("%d\n",arr[4].ID);
   // printf("%d\n",arr[5].ID);
   // printf("%d\n",front.ID);
   // printf("%d\n",back.ID);
-  // printf("%d\n",arr[0].ID);
-  // printf("%d\n",arr[1].ID);
+
   return path;
 }
 
