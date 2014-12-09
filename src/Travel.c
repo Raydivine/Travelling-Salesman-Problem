@@ -151,9 +151,8 @@ int checkIsCityNotUsed( City arr[], City target, int range){
   int i;
   
   for(i = 0 ; i < range ; i ++){
-    if( arr[i].ID == target.ID){
-      return 0;
-    }
+    if( arr[i].ID == target.ID)
+      return 0;   
   }
   return 1;
 }
@@ -181,36 +180,51 @@ void addCityToFront(City arr[], City target, int range){
 }
 
 Path crossoverCities(Path path1, Path path2, City target){
-  int range = path1.size, i;
-  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd = path2.cities, arr[range] , arr2[range], front = target, back = target;
+  int range = path1.size, i, end = target.ID;
+  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd = path2.cities, arr[range] , arr2[range], front, back,  target1 = target, target2 = target;
   Path path;
 
   arr[0] = target;
-  int end = target.ID;
-  // printf("%d\n",head1->ID);
- // printf("%d\n",head2->ID);
-
   while(head1->ID != target.ID)
     head1 = head1->next;
-
-
   while(head2->ID != target.ID)
     head2 = head2->next;
 
-  front = getFrontParent(head1, front);
-  addCityToFront(arr, front, range);
+  front = getFrontParent(head1, target1);
+  back = getBackParent(head2, target2);
   
-  back = getBackParent(head2, back);
-  addCityToBack (arr, back, range, end);
+  while(checkIsCityNotUsed( arr, front, range)){
+    printf("round\n");
+    addCityToFront(arr, front, range); 
+    printf("front:   %d\n",front.ID);
+    front = getFrontParent(head1, front);
+      
+      if(checkIsCityNotUsed( arr, back, range)){
+      addCityToBack (arr, back, range, end);
+      end = back.ID;
+      printf("back:   %d\n",back.ID);
+      back = getBackParent(head2, back);
+      printf("back2:   %d\n",back.ID);
 
-  // printf("%d\n",arr[0].ID);
-  // printf("%d\n",arr[1].ID);
-  // printf("%d\n",arr[2].ID);
-  // printf("%d\n",arr[3].ID);
-  // printf("%d\n",arr[4].ID);
-  // printf("%d\n",arr[5].ID);
+      } else break;
+     
+  }
+    
+  
+  // while(checkIsCityNotUsed( arr, front, range));
+
+
+  printf("%d\n",arr[0].ID);
+  printf("%d\n",arr[1].ID);
+  printf("%d\n",arr[2].ID);
+  printf("%d\n",arr[3].ID);
+  printf("%d\n",arr[4].ID);
+  printf("%d\n",arr[5].ID);
   // printf("%d\n",front.ID);
   // printf("%d\n",back.ID);
+  
+    // printf("%d\n",head1->ID);
+  // printf("%d\n",head2->ID);
 
   return path;
 }

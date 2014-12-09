@@ -71,9 +71,9 @@ void xtest_city_coordinate_should_set_correctly_acoordingly_the_given_value(void
 * distance = square root ( 4^2 + 6^2 )
 * distance  = 7.211
 */
-void test_fitnessScore_to_find_the_distance_of_2_city(void){
-
+void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = findDistance(&cityA, &cityB);
+  
   TEST_ASSERT_EQUAL( ans, 7.211);
 }
 
