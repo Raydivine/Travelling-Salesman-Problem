@@ -7,8 +7,10 @@
 
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
      cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
-City allCities[20], goA[20], goB[20], goC[20], goD[20], goE[20], goF[20], goG[20], goH[20] , goI[20], goJ[20],
-                    goK[20], goL[20], goM[20], goN[20], goO[20], goP[20], goQ[20], goR[20] , goS[20], goT[20];
+City allCities[20];
+
+City  goA[20], goB[20], goC[20], goD[20], goE[20], goF[20], goG[20], goH[20] , goI[20], goJ[20],
+      goK[20], goL[20], goM[20], goN[20], goO[20], goP[20], goQ[20], goR[20] , goS[20], goT[20];
 
 /**
 *  y
@@ -120,6 +122,8 @@ void setUp(void){
   // destinationDistanceArray( cityR, goR, allCities, 20);
   // destinationDistanceArray( cityS, goS, allCities, 20);
   // destinationDistanceArray( cityT, goT, allCities, 20);
+  
+  // cityA.neighBours = ;
 
   
   // allCities[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
@@ -168,10 +172,10 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 *  |_____________________________________________> x
 * 0   1   2   3   4   5   6   7   8   9   10  11   
 */
-void xtest_destinationDistanceArray_given_target_cityA_should_return_array_accord_distance_of_F_D_B_H_E(void){
-  NeighBour routeA[20];
-  City goA[19];
-  destinationDistanceArray( cityA, goA, routeA, allCities, 20);
+void test_destinationDistanceArray_given_target_cityA_should_return_array_accord_distance_of_F_D_B_H_E(void){
+
+  City goA[20];
+  destinationDistanceArray( cityA, goA, allCities, 20);
   TEST_ASSERT_EQUAL ( goA[0].ID, cityF.ID);
   TEST_ASSERT_EQUAL ( goA[1].ID, cityD.ID);
   TEST_ASSERT_EQUAL ( goA[2].ID, cityB.ID);
@@ -193,8 +197,9 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 }
 
 
-void test_bext10_given_cityA_should_get_the_front_10_elements_from_cityA_array(void){
+void test_bestCities_given_cityA_should_get_the_front_10_elements_from_cityA_array(void){
 
+  
 }
 
 /**               2.2               1.4               2.8                 8.1

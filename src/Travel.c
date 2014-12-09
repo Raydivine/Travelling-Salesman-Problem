@@ -72,8 +72,10 @@ Path getDistanceFromPath( Path path){
   return path;
 }
 
-void destinationDistanceArray(City center, City go[], NeighBour route[], City allCities[], int size){
+void destinationDistanceArray(City center, City neighBours[], City allCities[], int size){
   int i;
+  NeighBour route[size];
+  
   for( i = 0 ; i < size ; i ++){
     route[i].center = center;
     route[i].object = allCities[i];
@@ -82,10 +84,12 @@ void destinationDistanceArray(City center, City go[], NeighBour route[], City al
   bubbleSortForRadius( route, size);
   
   for( i = 0 ; i < size-1 ; i ++)
-    go[i] = route[i+1].object;
-  
+    neighBours[i] = route[i+1].object;
+    
+}
 
- 
+void bestCities (City bestCities[], City target, City refference[]){
+
 }
 
   // printf("%d\n",route[0].object.ID);

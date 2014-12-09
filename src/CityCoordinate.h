@@ -11,6 +11,7 @@ struct City{
   float y_axis;
   int ID;
   City *next;
+  City *neighBours;
 };
 
 struct NeighBour{
