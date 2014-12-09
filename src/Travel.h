@@ -9,6 +9,8 @@ Path crossoverCities (Path path1, Path path2, City target);
 Path copyCities (Path path);
 City getFrontParent(City *cities, City target);
 City getBackParent (City *cities, City target);
+City addCityToFront (City arr[], City target, int range);
+City addCityToBack  (City arr[], City target, int range);
 City removeSameElementInCities(City *mid, int size);
 int checkingFor2opt(City *targetA, City *targetB);
 int checkIsTargetNotInCities( City *cities, City target);

@@ -111,19 +111,19 @@ City removeSameElementInCities(City *mid, int size){
 
  mid = mid->next;
  i=1;
- 
+
   while(mid->ID != head->ID){
-  
+
   mid = mid->next;
   list[i] = *mid;
-  i++;   
-  
+  i++;
+
      if(mid->ID == list[i].ID){
    printf("delete\n");
       temp = mid->next;
-      mid = temp; 
-    } 
-  }  
+      mid = temp;
+    }
+  }
 }
 
 City getFrontParent(City *cities, City target){
@@ -147,6 +147,7 @@ City getBackParent(City *cities, City target){
   return backParent;
 }
 
+
 int checkIsCityNotUsed( City arr[], City target){
   int i;
   if( arr[i].ID == target.ID)
@@ -155,39 +156,41 @@ int checkIsCityNotUsed( City arr[], City target){
 }
 
 Path crossoverCities(Path path1, Path path2, City target){
-  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd =path2.cities, arr[path1.size] , front = target, back = target;
+  int range = path1.size, i;
+  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd =path2.cities, arr[range] , arr2[range], front = target, back = target;
   Path path;
-  int mid = path1.size / 2;
-  int mid1 = mid-1, mid2 = mid+1;
 
-  arr[mid] = target;
-  
+  arr[0] = target;
+
   while(head1->ID != target.ID)
     head1 = head1->next;
  // printf("%d\n",head1->ID);
-    
+
   while(head2->ID != target.ID)
     head2 = head2->next;
  // printf("%d\n",head2->ID);
-  
-  front = getFrontParent(head1, front);
-  arr[mid1] = front;
-  mid1 = mid1-1;
-  
-  back = getBackParent(head2, back);
-  arr[mid2] = back;
-  mid2 = mid2-1;
 
-  printf("%d\n",arr[3].ID);
-  printf("%d\n",arr[4].ID);
-  printf("%d\n",arr[5].ID);
+  front = getFrontParent(head1, front);
+  for(i = 0 ; i < range; i ++)
+    arr2[i+1] = arr[i];
+    arr2[0] = front;
+  for(i= 0; i < range; i ++)
+    arr[i] = arr2[i];
+   
+  back = getBackParent(head2, back);
   
   
+  // printf("%d\n",arr[3].ID);
+  // printf("%d\n",arr[4].ID);
+  // printf("%d\n",arr[5].ID);
   // printf("%d\n",front.ID);
   // printf("%d\n",back.ID);
- 
+  // printf("%d\n",arr[0].ID);
+  // printf("%d\n",arr[1].ID);
   return path;
 }
+
+
 // printf("%d\n",cities2nd->ID);
 // printf("%d\n",mid->ID);
 // printf("%d\n",mid->next->ID);
@@ -199,25 +202,25 @@ Path crossoverCities(Path path1, Path path2, City target){
 // printf("%d\n",mid->next->next->next->next->next->next->next->ID);
 // printf("%d\n",mid->next->next->next->next->next->next->next->next->ID);
 // printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
-  
-  
+
+
     //printf("%p\n",newWalk);
    // printf("%p\n",ptrBack);
    // printf("%p\n",newWalk);
    // printf("%p\n",newWalk->next);
 
-  
+
   // if(checkIsTargetNotInCities( newWalk, target2) ){
      // *ptrBack = copyCity(*ptrBack, target2);
      // ptrBack = ptrBack->next;
   // }
   // back  = getBackParent (cities2nd, target2);
-  
+
 
      // printf("%d\n",newWalk->ID);
     // printf("%d\n",newWalk->next->ID);
     // printf("%d\n",newWalk->next->next->ID);
-   
+
   // printf("%p\n",newWalk);
   // printf("%p\n",newWalk->next);
   // printf("%p\n",newWalk->next->next);
@@ -248,7 +251,7 @@ Path crossoverCities(Path path1, Path path2, City target){
 // Path crossoverCities(City *cities1st, City *cities2nd, City target){
 // int i,j;
   // City *newWalk, front[i], back[j], mid = target, target1, target2;
-  
+
   // mid.next = NULL;
   // newWalk =  cityListNew(&mid);
   // front[0] = getFrontParent(cities1st, target);
@@ -259,24 +262,24 @@ Path crossoverCities(Path path1, Path path2, City target){
 
      // if(checkIsTargetNotInCities(newWalk,front[i]))
         // addCityListPrev(&newWalk, &front[i]);
-     // else{ printf("break1\n");   
+     // else{ printf("break1\n");
       // break;}
-    
+
     // if(checkIsTargetNotInCities(newWalk,back[j]))
       // addCityList    (&newWalk, &back[j]);
     // else{ printf("break2\n");
       // break;}
-   
+
    // target1 =  front[i];
    // target2 =  back[j];
   // i++ ,j++;
-  
+
   // front[i] = getFrontParent(cities1st, target1);
-  // back[j]  = getBackParent (cities2nd, target2);  
+  // back[j]  = getBackParent (cities2nd, target2);
   // break
 // }
 
-// extra function 
+// extra function
 int checkIsCityUsed( int IDList[], int ID){
   int i;
   for( i =0 ; i<(sizeof(IDList)); i++){
