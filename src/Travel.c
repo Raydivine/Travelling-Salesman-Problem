@@ -156,17 +156,23 @@ void addCityToFront(City arr[], City target, int range){
     arr[i] = arr2[i];
 }
 
-void convertArrayToLinkedlist(City *cities , City arr[], int range){
+void convertArrayToLinkedlist(City *crossCities , City arr[], int range){
   int i;
-  cities =  cityListNew(&arr[0]);
-  
-  
-  
+ 
+  arr[0].next = NULL;
+  crossCities =  cityListNew(&arr[0]);
+  City *point = crossCities;
+ 
+  for(i = 1 ; i < range; i ++){
+    arr[i].next = NULL;
+    addCityList(&crossCities, &arr[i]); 
+  }
+  addCityList(&crossCities, point); 
 }
 
 Path crossoverCities(Path path1, Path path2, City target){
   int range = path1.size, i, end = target.ID;
-  City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back;
+  City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, *crossCities;
   Path path;
 
   arr[0] = target;
@@ -198,6 +204,33 @@ Path crossoverCities(Path path1, Path path2, City target){
     }
      head1 = head1->next;
   }
+  
+  arr[0].next = NULL;
+  crossCities =  cityListNew(&arr[0]);
+  City *point = crossCities;
+ 
+  for(i = 1 ; i < range; i ++){
+    arr[i].next = NULL;
+    addCityList(&crossCities, &arr[i]); 
+  }
+  addCityList(&crossCities, point); 
+  
+ path.cities = crossCities;
+  return path;
+}
+
+
+// printf("%d\n",crossCities->ID);
+// printf("%d\n",crossCities->next->ID);
+// printf("%d\n",crossCities->next->next->ID);
+// printf("%d\n",crossCities->next->next->next->ID);
+// printf("%d\n",crossCities->next->next->next->next->ID);
+// printf("%d\n",crossCities->next->next->next->next->next->ID);
+// printf("%d\n",crossCities->next->next->next->next->next->next->ID);
+// printf("%d\n",crossCities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",crossCities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",crossCities->next->next->next->next->next->next->next->next->next->ID);
+
 
   // printf("%d\n",endID);
   // printf("%d\n",arr[0].ID);
@@ -210,25 +243,6 @@ Path crossoverCities(Path path1, Path path2, City target){
   // printf("%d\n",arr[7].ID);
   // printf("%d\n",front.ID);
   // printf("%d\n",back.ID);
-
-
-  //   printf("%d\n",head1->ID);
-  // printf("%d\n",head2->ID);
-  return path;
-}
-
-
-// printf("%d\n",cities2nd->ID);
-// printf("%d\n",mid->ID);
-// printf("%d\n",mid->next->ID);
-// printf("%d\n",mid->next->next->ID);
-// printf("%d\n",mid->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->next->next->ID);
-// printf("%d\n",mid->next->next->next->next->next->next->next->next->next->ID);
 
 
     //printf("%p\n",newWalk);
