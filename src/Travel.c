@@ -103,29 +103,6 @@ int checkingFor2opt(City *targetA, City *targetB){
   return 0;
 }
 
-City removeSameElementInCities(City *mid, int size){
- int i;
- City list[size];
- City *head = mid, *temp;
- list[0] = *head;
-
- mid = mid->next;
- i=1;
-
-  while(mid->ID != head->ID){
-
-  mid = mid->next;
-  list[i] = *mid;
-  i++;
-
-     if(mid->ID == list[i].ID){
-   printf("delete\n");
-      temp = mid->next;
-      mid = temp;
-    }
-  }
-}
-
 City getFrontParent(City *cities, City target){
   City frontParent, *front;
 
@@ -149,29 +126,29 @@ City getBackParent(City *cities, City target){
 
 int checkIsCityNotUsed( City arr[], City target, int range){
   int i;
-  
+
   for(i = 0 ; i < range ; i ++){
     if( arr[i].ID == target.ID)
-      return 0;   
+      return 0;
   }
   return 1;
 }
 
 void addCityToBack (City arr[], City target, int range, int endID){
   int i;
-  
+
   for(i = 0 ; i < range ; i ++){
     if(arr[i].ID == endID){
       arr[i+1] = target;
       break;
     }
-  } 
+  }
 }
 
 void addCityToFront(City arr[], City target, int range){
   int i;
   City arr2[range];
-    
+
   for(i = 0 ; i < range; i ++)
     arr2[i+1] = arr[i];
   arr2[0] = target;
@@ -179,9 +156,17 @@ void addCityToFront(City arr[], City target, int range){
     arr[i] = arr2[i];
 }
 
+void convertArrayToLinkedlist(City *cities , City arr[], int range){
+  int i;
+  cities =  cityListNew(&arr[0]);
+  
+  
+  
+}
+
 Path crossoverCities(Path path1, Path path2, City target){
   int range = path1.size, i, end = target.ID;
-  City *head1 = path1.cities, *head2 = path2.cities, *cities2nd = path2.cities, arr[range] , arr2[range], front, back,  target1 = target, target2 = target;
+  City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back;
   Path path;
 
   arr[0] = target;
@@ -189,43 +174,46 @@ Path crossoverCities(Path path1, Path path2, City target){
     head1 = head1->next;
   while(head2->ID != target.ID)
     head2 = head2->next;
-
-  front = getFrontParent(head1, target1);
-  back = getBackParent(head2, target2);
   
+  front = getFrontParent(head1, target);
+  back = getBackParent(head2, target);
+
   while(checkIsCityNotUsed( arr, front, range)){
-    printf("round\n");
-    addCityToFront(arr, front, range); 
-    printf("front:   %d\n",front.ID);
+    addCityToFront(arr, front, range);
     front = getFrontParent(head1, front);
-      
-      if(checkIsCityNotUsed( arr, back, range)){
+
+    if(checkIsCityNotUsed( arr, back, range)){
       addCityToBack (arr, back, range, end);
       end = back.ID;
-      printf("back:   %d\n",back.ID);
       back = getBackParent(head2, back);
-      printf("back2:   %d\n",back.ID);
-
-      } else break;
-     
+    } else
+        break;
   }
-    
   
-  // while(checkIsCityNotUsed( arr, front, range));
+  head1 = head1->next;
+  while(head1->ID != target.ID){
+    if(checkIsCityNotUsed( arr, *head1, range)){
+      addCityToBack (arr, *head1, range, end);
+      end = head1->ID;  
+    }
+     head1 = head1->next;
+  }
 
-
-  printf("%d\n",arr[0].ID);
-  printf("%d\n",arr[1].ID);
-  printf("%d\n",arr[2].ID);
-  printf("%d\n",arr[3].ID);
-  printf("%d\n",arr[4].ID);
-  printf("%d\n",arr[5].ID);
+  // printf("%d\n",endID);
+  // printf("%d\n",arr[0].ID);
+  // printf("%d\n",arr[1].ID);
+  // printf("%d\n",arr[2].ID);
+  // printf("%d\n",arr[3].ID);
+  // printf("%d\n",arr[4].ID);
+  // printf("%d\n",arr[5].ID);
+  // printf("%d\n",arr[6].ID);
+  // printf("%d\n",arr[7].ID);
   // printf("%d\n",front.ID);
   // printf("%d\n",back.ID);
-  
-    // printf("%d\n",head1->ID);
-  // printf("%d\n",head2->ID);
 
+
+  //   printf("%d\n",head1->ID);
+  // printf("%d\n",head2->ID);
   return path;
 }
 
@@ -336,4 +324,26 @@ int checkIsTargetNotInCities( City *cities, City target){
       return 1;
   }
   return 0;
+}
+
+City removeSameElementInCities(City *mid, int size){
+ int i;
+ City list[size];
+ City *head = mid, *temp;
+ list[0] = *head;
+
+ mid = mid->next;
+ i=1;
+
+  while(mid->ID != head->ID){
+
+  mid = mid->next;
+  list[i] = *mid;
+  i++;
+
+     if(mid->ID == list[i].ID){
+      temp = mid->next;
+      mid = temp;
+    }
+  }
 }

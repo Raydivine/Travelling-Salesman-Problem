@@ -11,11 +11,13 @@ City copyCity(City A, City B);
 City getFrontParent(City *cities, City target);
 City getBackParent (City *cities, City target);
 void addCityToFront (City arr[], City target, int range);
-void addCityToBack  (City arr[], City target, int range, int end);
+void addCityToBack  (City arr[], City target, int range, int endID);
+void convertArrayToLinkedlist(City *cities , City arr[], int range);
 int checkIsCityNotUsed( City arr[], City target, int range);
+int checkingFor2opt(City *targetA, City *targetB);
+
 
 City removeSameElementInCities(City *mid, int size);
-int checkingFor2opt(City *targetA, City *targetB);
 int checkIsTargetNotInCities( City *cities, City target);
 void bubbleSortForPath ( Path table[], int size);
 
