@@ -275,18 +275,20 @@ Path crossoverCities(Path path1, Path path2, City target){
   return path;
 }
 
-Path MutationOfCitiesWithRandomInput (Path path, City *targetA, City *targetB, int rand1, int rand2){
+Path MutationOfCitiesWithRandomInput(Path path, City *targetA, City *targetB, int rand1, int rand2){
   int i,j;
+  printf("%d\n",rand1);
+  printf("%d\n",rand2);
+   for( i=0 ; i==rand1; i++ )
+    targetA = targetA->next;
   
-   for( i=0 ; j<rand1; i++ ){
-    targetA = targetB->next;
-    i++;
-  }
   
-  for( j=0 ; j<rand2; j++ ){
+  for( j=0 ; j==rand2; j++ )
     targetB = targetB->next;
-    j++;
-  }
+
+  
+  printf("targerA: %d\n", targetA->ID);
+  printf("targerB: %d\n", targetB->ID);
   
   if(targetA->ID == targetB->ID)
     return;
@@ -298,15 +300,15 @@ Path MutationOfCitiesWithRandomInput (Path path, City *targetA, City *targetB, i
   temp1->next   = temp2;
 
   path = getDistanceFromPath(path);
+  printf("%f\n", path.distance);
   return path;
 }
 
 Path crossoverCitiesWithRandomInput (Path path1, Path path2, City *tour1 , int rand3){
   int j;
-  for( j=0 ; j<rand3; j++ ){
+  for( j=0 ; j<rand3; j++ )
     tour1 = tour1->next;
-    j++;
-  }
+  
   
   City target = *tour1;
 
@@ -356,19 +358,19 @@ Path crossoverCitiesWithRandomInput (Path path1, Path path2, City *tour1 , int r
 Path getShortestDistanceForTravelCities (Path path, City *tour1){
   City randomA, randomB;
   path = getDistanceFromPath( path);
-
+  
 
   
   
   Path pathArr[path.size] , path1, path2;
-  // pathArr[0] = path;
-  // pathArr[1] = MutationOfCities(path, &cityB, &cityJ);
+  pathArr[0] = path;
+  pathArr[1] = MutationOfCitiesWithRandomInput(path, path.cities, path.cities, rand()%20, rand()%20);
   
   
   
   // (checkingFor2opt( &randomA, &randomB))
     // MutationOfCities(path, &randomA, &randomB);
-  // printf("%f\n", pathArr[0].distance);
+ // printf("%f\n", pathArr[0].distance);
   // printf("%f\n", pathArr[1].distance);
 
 }
