@@ -279,12 +279,16 @@ Path MutationOfCitiesWithRandomInput(Path path, City *targetA, City *targetB, in
   int i,j;
   printf("%d\n",rand1);
   printf("%d\n",rand2);
-   for( i=0 ; i==rand1; i++ )
+   for( i=0 ; i<rand1; i++ ){
+   // printf("tt\n");
     targetA = targetA->next;
+   }
   
   
-  for( j=0 ; j==rand2; j++ )
-    targetB = targetB->next;
+  for( j=0 ; j<rand2; j++ ){
+   // printf("qq\n");
+    targetB = targetB->next;  
+  }
 
   
   printf("targerA: %d\n", targetA->ID);
@@ -364,7 +368,7 @@ Path getShortestDistanceForTravelCities (Path path, City *tour1){
   
   Path pathArr[path.size] , path1, path2;
   pathArr[0] = path;
-  pathArr[1] = MutationOfCitiesWithRandomInput(path, path.cities, path.cities, rand()%20, rand()%20);
+  pathArr[1] = MutationOfCitiesWithRandomInput(path, path.cities, path.cities, rand()%1000, rand()%1000);
   
   
   
