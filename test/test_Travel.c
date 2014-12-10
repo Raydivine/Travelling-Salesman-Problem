@@ -361,6 +361,9 @@ void test_MutationOfCities_given_2_besides_cities_should_do_nothing(void){
   clearCityList(path.cities);
 }
 
+
+
+
 /**
 *   A(1,1)  B(5,7)  C(10,9)   D(7,3)
 *                     $                 $
