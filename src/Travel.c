@@ -58,6 +58,9 @@ Path getDistanceFromPath( Path path){
 }
 
 Path MutationOfCities(Path path, City *targetA, City *targetB){
+  if(targetA->ID == targetB->ID)
+    return;
+
   City  *temp1 =  targetA->next , *temp2 =  targetB->next;
 
   reverseTheLinkBetween2City( path.cities, targetA, targetB);
@@ -95,6 +98,9 @@ City copyCity(City A, City B){
 }
 
 int checkingFor2opt(City *targetA, City *targetB){
+  if(targetA->ID == targetB->ID)
+    return 0;
+    
   float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
   float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
 

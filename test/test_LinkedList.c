@@ -137,6 +137,35 @@ void test_reverseTheLinkBetween2City_select_cityB_and_cityG_should_reverse_the_l
   clearCityList(head);
 }
 
+/**                    $     
+*                   cityA--->cityB-->cityC--->cityD 
+*                     ^                          |               
+*                     |                         v                   
+*                  cityH<---cityG<---cityF<---cityE   
+*                                 
+                    
+*/ 
+void test_reverseTheLinkBetween2City_select_same_city_should_directly_return(void){
+  City *head =  cityListNew(&cityA);  // assign cityA as head
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);  
+  cityH.next = head; 
+  
+  reverseTheLinkBetween2City(head, &cityA, &cityA);
+  TEST_ASSERT_EQUAL( head->ID                               , cityA.ID);
+  TEST_ASSERT_EQUAL( head->next->ID                         , cityB.ID);
+  TEST_ASSERT_EQUAL( head->next->next->ID                   , cityC.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->ID             , cityD.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->next->ID       , cityE.ID);
+  TEST_ASSERT_EQUAL( head->next->next->next->next->next->ID , cityF.ID);
+  clearCityList(head);
+}
+
 /** 
 *      &                                                              
 *   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH

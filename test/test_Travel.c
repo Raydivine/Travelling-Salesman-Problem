@@ -5,13 +5,33 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 
-City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
+City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
+     cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
 
 /**
 *  y
 *  ^
-*10|   G(2,10)
+*20|                                                                                  K(19,20)   
 *  |
+*19|                                       Q(11,19)
+*  |
+*18|                                                       T(14,18)
+*  |
+*17|                                                              O(16,17)
+*  |
+*16|                                             R(12,16)
+*  |
+*15|                                                                M(15,15)
+*  |
+*14|                                                  N(13,14)
+*  |
+*13|                                                                                     P(20,13)
+*  |
+*12|                                                                          S(17,12)                                                                                                                      
+*  |
+*11|                                                                         L(18,11)
+*  |
+*10|   G(2,10)
 *  |
 * 9|                                      C(10,9)
 *  |
@@ -30,8 +50,8 @@ City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ;
 * 2|                                 I(9,2)
 *  |
 * 1| A(1,1)
-*  |__________________________________________> x
-* 0   1   2   3   4   5   6   7   8   9   10
+*  |_________________________________________________________________________________________> x
+* 0   1   2   3   4   5   6   7   8   9   10  11   12   13   14   15   16   17   18   19   20
 *
 */
 
@@ -46,6 +66,16 @@ void setUp(void){
   setCity(&cityH,  4,  8, 107, NULL);
   setCity(&cityI,  9,  2, 108, NULL);
   setCity(&cityJ, 10,  4, 109, NULL);
+  setCity(&cityK, 19, 20, 110, NULL);
+  setCity(&cityL, 18, 11, 111, NULL);
+  setCity(&cityM, 15, 15, 112, NULL);
+  setCity(&cityN, 13, 14, 113, NULL);
+  setCity(&cityO, 16, 17, 114, NULL);
+  setCity(&cityP, 20, 13, 115, NULL);
+  setCity(&cityQ, 11, 19, 116, NULL);
+  setCity(&cityR, 12, 16, 117, NULL);
+  setCity(&cityS, 17, 12, 118, NULL);
+  setCity(&cityT, 14, 18, 119, NULL);
 }
 
 void tearDown(void)
@@ -278,7 +308,7 @@ void test_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_of
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void test_MutationOfCities_given_2_near_cities_should_do_reverse(void){
+void test_MutationOfCities_given_2_near_city_should_do_reverse(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -333,7 +363,7 @@ void test_MutationOfCities_given_2_near_cities_should_do_reverse(void){
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void test_MutationOfCities_given_2_besides_cities_should_do_nothing(void){
+void test_MutationOfCities_given_2_besides_city_should_do_nothing(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -361,6 +391,40 @@ void test_MutationOfCities_given_2_besides_cities_should_do_nothing(void){
   clearCityList(path.cities);
 }
 
+/**
+*                       $                                                          
+*                   cityA--->cityB-->cityC--->cityD                                 
+*                     ^                          |                                  
+*                     |                          v                                  
+*                  cityH<---cityG<---cityF<---cityE  
+*/
+void test_MutationOfCities_given_2_same_city_should_directly_return(void){
+  Path path;
+  City *head =  cityListNew(&cityA);
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  path.cities = head;
+
+  path = MutationOfCities(path, &cityA, &cityA);
+  TEST_ASSERT_EQUAL( path.size , 8);
+  TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityC.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->ID                              , cityD.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID                        , cityE.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityF.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID            , cityG.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->ID      , cityH.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->next->ID, cityA.ID);
+  clearCityList(head);
+  clearCityList(path.cities);
+}
 
 
 
@@ -428,15 +492,34 @@ void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_
   clearCityList(head);
 }
 
+
+void test_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
+  Path path;
+  City *head =  cityListNew(&cityA);  // assign cityA as head
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  path.cities = head;
+
+  int ans = checkingFor2opt(&cityA, &cityA);
+  TEST_ASSERT_EQUAL(ans , 0);
+  clearCityList(head);
+}
+
 void test_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_103_should_return_1(void){
-  int ans, arr[] = {100,101,102,88,233,123,999};
+  int ans, arr[] = { 100,101,102,88,233,123,999 };
  
   ans = checkIsCityUsed(arr,103,7);
   TEST_ASSERT_EQUAL(ans , 1);
 }
 
 void test_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_102_should_return_0(void){
-  int ans, arr[] =  {100,101,102,88,233,123,999};
+  int ans, arr[] = { 100,101,102,88,233,123,999 };
  
   ans = checkIsCityUsed(arr,102,7);
   TEST_ASSERT_EQUAL(ans , 0);

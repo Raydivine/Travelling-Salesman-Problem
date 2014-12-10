@@ -52,7 +52,9 @@ void reverseLinkedList(City *start, City *end){
 }
 
 void reverseTheLinkBetween2City( City *cities, City *start, City *end){
-
+  if(start->ID == end->ID)
+    return ;
+    
   while(cities != start)
     cities = cities->next; 
     
