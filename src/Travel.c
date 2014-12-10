@@ -170,6 +170,17 @@ void convertArrayToLinkedlist(City *crossCities , City arr[], int range){
   addCityList(&crossCities, point); 
 }
 
+void addRestOfCities (City arr[], City *cities, int stop, int end, int range){
+
+ while(cities->ID != stop){
+    if(checkIsCityNotUsed( arr, *cities, range)){
+      addCityToBack (arr, *cities, range, end);
+      end = cities->ID;  
+    }
+     cities = cities->next;
+  }
+}
+
 Path crossoverCities(Path path1, Path path2, City target){
   int range = path1.size, i, end = target.ID;
   City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, *crossCities;
@@ -197,14 +208,8 @@ Path crossoverCities(Path path1, Path path2, City target){
   }
   
   head1 = head1->next;
-  while(head1->ID != target.ID){
-    if(checkIsCityNotUsed( arr, *head1, range)){
-      addCityToBack (arr, *head1, range, end);
-      end = head1->ID;  
-    }
-     head1 = head1->next;
-  }
-  
+  addRestOfCities ( arr, head1, target.ID, end, range);
+ 
   arr[0].next = NULL;
   crossCities =  cityListNew(&arr[0]);
   City *point = crossCities;
@@ -215,10 +220,17 @@ Path crossoverCities(Path path1, Path path2, City target){
   }
   addCityList(&crossCities, point); 
   
- path.cities = crossCities;
+  path.cities = crossCities;
   return path;
 }
 
+  // while(head1->ID != target.ID){
+    // if(checkIsCityNotUsed( arr, *head1, range)){
+      // addCityToBack (arr, *head1, range, end);
+      // end = head1->ID;  
+    // }
+     // head1 = head1->next;
+  // }
 
 // printf("%d\n",crossCities->ID);
 // printf("%d\n",crossCities->next->ID);

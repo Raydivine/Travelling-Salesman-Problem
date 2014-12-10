@@ -12,6 +12,7 @@ City getFrontParent(City *cities, City target);
 City getBackParent (City *cities, City target);
 void addCityToFront (City arr[], City target, int range);
 void addCityToBack  (City arr[], City target, int range, int endID);
+void addRestOfCities (City arr[], City *cities, int stop, int end, int range);
 void convertArrayToLinkedlist(City *cities , City arr[], int range);
 int checkIsCityNotUsed( City arr[], City target, int range);
 int checkingFor2opt(City *targetA, City *targetB);
