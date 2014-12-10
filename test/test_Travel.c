@@ -52,7 +52,7 @@ void tearDown(void)
 {
 }
 
-void xtest_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
+void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void){
   TEST_ASSERT_EQUAL(cityA.x_axis, 1);
   TEST_ASSERT_EQUAL(cityA.y_axis, 1);
   TEST_ASSERT_EQUAL(cityF.x_axis, 3);
@@ -71,7 +71,7 @@ void xtest_city_coordinate_should_set_correctly_acoordingly_the_given_value(void
 * distance = square root ( 4^2 + 6^2 )
 * distance  = 7.211
 */
-void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
+void test_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = findDistance(&cityA, &cityB);
   
   TEST_ASSERT_EQUAL( ans, 7.211);
@@ -85,7 +85,7 @@ void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
 *                                           7.6
 *   Total Distance = 22.1
 */
-void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   Path path;
   City *head =  cityListNew(&cityF);// assign cityF as head
   addCityList(&head, &cityB);
@@ -117,7 +117,7 @@ void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void xtest_copyCities_should_copy_a_new_cities_list(void){
+void test_copyCities_should_copy_a_new_cities_list(void){
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
@@ -127,7 +127,6 @@ void xtest_copyCities_should_copy_a_new_cities_list(void){
   addCityList(&head, &cityG);
   addCityList(&head, &cityH);
   addCityList(&head, &cityA);
-
   Path path;
   path.cities = head;
   path.size = 8;
@@ -149,7 +148,7 @@ void xtest_copyCities_should_copy_a_new_cities_list(void){
 *                 sort
 *  path1-path2  -------> path2-path1
 */
-void xtest_bubbleSortForPath_given_array_of_2_path_should_sort_according_distance(void){
+void test_bubbleSortForPath_given_array_of_2_path_should_sort_according_distance(void){
   Path path1, path2, pathArray[10];
   path1.distance = 22.156;
   path2.distance = 15.156;
@@ -169,7 +168,7 @@ void xtest_bubbleSortForPath_given_array_of_2_path_should_sort_according_distanc
 *                     v
 *  path2 ---> path1 ---> path5 ---> path3 ---> path4
 */
-void xtest_bubbleSortForPath_given_array_of_5_path_should_sort_according_distance(void){
+void test_bubbleSortForPath_given_array_of_5_path_should_sort_according_distance(void){
   Path path1, path2, path3, path4, path5, pathArray[10];
   path1.distance = 22.156;
   path2.distance = 45.156;
@@ -221,7 +220,7 @@ void xtest_bubbleSortForPath_given_array_of_5_path_should_sort_according_distanc
 *                  cityH<---cityG    cityF--->cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void xtest_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
+void test_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -232,7 +231,6 @@ void xtest_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_o
   addCityList(&head, &cityG);
   addCityList(&head, &cityH);
   addCityList(&head, &cityA);
-//  cityH.next = head;
   path.cities = head;
 
   path = MutationOfCities(path, &cityB, &cityF);
@@ -280,7 +278,7 @@ void xtest_MutationOfCities_given_cityB_and_cityH_as_target_should_do_mutation_o
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void xtest_MutationOfCities_given_2_near_cities_should_do_reverse(void){
+void test_MutationOfCities_given_2_near_cities_should_do_reverse(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -308,15 +306,34 @@ void xtest_MutationOfCities_given_2_near_cities_should_do_reverse(void){
   clearCityList(path.cities);
 }
 
+
 /**
-*                     $       $
-*                   cityA--->cityB-->cityC--->cityD
-*                     ^                          |
-*                     |                          v
-*                  cityH<---cityG<---cityF<---cityE
-*
+*-----------------------------------------------------------------------------------*
+* 1.Original Path                                                                   *
+*                       $       $                                                   *
+*                   cityA--->cityB-->cityC--->cityD                                 *
+*                     ^                          |                                  *
+*                     |                          v                                  *
+*                  cityH<---cityG<---cityF<---cityE                                 *
+*                                                                                   *
+*-----------------------------------------------------------------------------------*
+* 2. cityB reversed and point to NULL                                               *
+*                                                                                   *
+*          cityA   NULL<---cityB<---cityC--->cityD                                  *
+*             ^                                 |                                   *
+*             |                                 v                                   *
+*             ----cityH<---cityG<---cityF<---cityE                                  *
+*                                                                                   *
+*-----------------------------------------------------------------------------------*
+* 3. Then cityA point to cityB, so actually its come back original form             *
+*                                                                                   *
+*                   cityA--->cityB-->cityC--->cityD                                 *
+*                     ^                          |                                  *
+*                     |                          v                                  *
+*                  cityH<---cityG<---cityF<---cityE                                 *
+*-----------------------------------------------------------------------------------*
 */
-void xtest_MutationOfCities_given_2_besides_cities_should_do_nothing(void){
+void test_MutationOfCities_given_2_besides_cities_should_do_nothing(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -358,7 +375,7 @@ void xtest_MutationOfCities_given_2_besides_cities_should_do_nothing(void){
 *
 *                   should not do 2opt because cannot get shorter distance
 */
-void xtest_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
+void test_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -390,7 +407,7 @@ void xtest_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant
 *
 *                should  do 2opt because  get shorter distance
 */
-void xtest_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_better_chromesome(void){
+void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -408,40 +425,14 @@ void xtest_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce
   clearCityList(head);
 }
 
-void xtest_checkIsTargetNotInCities_given_city_A_B_C_D_E_target_is_D_should_return_0(void){
-  City *head =  cityListNew(&cityA);
-  addCityList(&head, &cityB);
-  addCityList(&head, &cityC);
-  addCityList(&head, &cityD);
-  addCityList(&head, &cityE);
-  addCityList(&head, NULL);
-
-  int ans = checkIsTargetNotInCities(head, cityE);
-  TEST_ASSERT_EQUAL(ans , 0);
-  clearCityList(head);
-}
-
-void xtest_checkIsTargetNotInCities_given_city_A_B_C_D_E_target_is_J_should_return_1(void){
-  City *head =  cityListNew(&cityA);
-  addCityList(&head, &cityB);
-  addCityList(&head, &cityC);
-  addCityList(&head, &cityD);
-  addCityList(&head, &cityE);
-  addCityList(&head, NULL);
-
-  int ans = checkIsTargetNotInCities(head, cityJ);
-  TEST_ASSERT_EQUAL(ans , 1);
-  clearCityList(head);
-}
-
-void xtest_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_103_should_return_1(void){
+void test_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_103_should_return_1(void){
   int ans, arr[] = {100,101,102,88,233,123,999};
  
   ans = checkIsCityUsed(arr,103,7);
   TEST_ASSERT_EQUAL(ans , 1);
 }
 
-void xtest_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_102_should_return_0(void){
+void test_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_102_should_return_0(void){
   int ans, arr[] =  {100,101,102,88,233,123,999};
  
   ans = checkIsCityUsed(arr,102,7);
@@ -449,32 +440,32 @@ void xtest_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_102
 }
 
 /**
-*------------------------------------------------------------------------------------------------------------
-* The 2 chromosome cities shown below, and cityE is choose to do crossover                                  *
+*-----------------------------------------------------------------------------------------------------------
+* 1) The 2 chromosome cities shown below, and cityE is choose to do crossover                               *
 *                                                                                                           *
-*      ----------------left-------------------        $$$$$                                                 *
+*      ----------------left-------------------       $$$$$                                                  *
 *     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH                *
 *                                                                                                           *
 *                                                                                                           *
-*                              $$$$$        ---------------------right-----------------------               *
+*                              $$$$$       ----------------Right-------------------                         *
 *      CityC------> CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA               *
 *                                                                                                           *
 *                                                                                                           *
-*---------------------------------------------------------------------------------------------------------------------
-* Select cityE as mid, and combine with left and right, now new chromosome contain some extra element                 *
-*                                                                                                                     *
-*      ----------------left-------------------        $$$$$      ---------------------right-----------------------    *
-*     CityA------> CityB----->CityC------>CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA   *
-*                                                                                                                     *
-*                                                                                                                     *
-*                                                                                                                     *                                                                                                                                      *                                                                                                                                                                                                                                        *
-*-------------------------------------------------------------------------------------------------------------------- *
-* cityE is the first reference, removed the extra element, formed the chromosome cities                               *
-*                                                                                                                     *
-*    CityE----->CityH------>CityG----->CityB----->CityF------>CityA----->CityC------>CityD----->CityE                 *
-*                                                                                                                     *
-*                                                                                                                     *
-*---------------------------------------------------------------------------------------------------------------------
+*------------------------------------------------------------------------------------------------------------
+* 2) Select cityE as mid, fill the city 1by1 from chromose1'left and chromose2'Right,                       *
+*    if the coming city is is already exists, then stop and form a crossover link                           *
+*                                                                                                           *
+*                                                                                                           *
+*             CityB----->CityC------>CityD----->CityE----->CityH------>CityG                                *
+*                                                                                                           *
+*                                                                                                           *                                                                                                                                                                                                                                                                                                                                                                                                                                             
+*------------------------------------------------------------------------------------------------------------
+*  3) add the rest of city to behind                                                                        *
+*                                                                                                           *
+*  CityE----->CityH------>CityG----->CityB----->CityF------>CityA----->CityC------>CityD----->CityE         *
+*                                                                                                           *
+*                                                                                                           *
+*------------------------------------------------------------------------------------------------------------
 */
 void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,

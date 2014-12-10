@@ -177,7 +177,7 @@ void addRestOfCities (City arr[], City *cities, int stop, int end, int range){
       addCityToBack (arr, *cities, range, end);
       end = cities->ID;  
     }
-     cities = cities->next;
+    cities = cities->next;
   }
 }
 
@@ -206,7 +206,7 @@ Path crossoverCities(Path path1, Path path2, City target){
     } else
         break;
   }
-  
+
   head1 = head1->next;
   addRestOfCities ( arr, head1, target.ID, end, range);
  
