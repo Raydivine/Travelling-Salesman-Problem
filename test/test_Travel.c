@@ -124,11 +124,13 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
 void test_get5shortenDistance_given_target_cityB_should_return_cityH_cityF_cityG_cityC_cityE_(void){
   City best5[20];
   get5shortenDistance( best5, cityB);
-  // TEST_ASSERT_EQUAL( best5[0].ID, cityB.ID);
-  // TEST_ASSERT_EQUAL( best5[1].ID, cityB.ID);
-  // TEST_ASSERT_EQUAL( best5[2].ID, cityB.ID);
-  // TEST_ASSERT_EQUAL( best5[3].ID, cityB.ID);
-  // TEST_ASSERT_EQUAL( best5[4].ID, cityB.ID);
+  printf("%d\n",allCities[0].ID);
+  printf("%d\n",allCities[1].ID);
+  printf("%d\n",allCities[2].ID);
+  printf("%d\n",allCities[3].ID);
+  printf("%d\n",allCities[4].ID);
+  printf("%d\n",allCities[5].ID);
+  printf("%d\n",allCities[6].ID);
 }
 
 /**
