@@ -23,6 +23,10 @@ void bubbleSortForPath( Path table[], int size){
   }
 }
 
+void get5shortenDistance(City best5[], City allCities[], City target){
+
+}
+
 // Cartesian formula
 float findDistance( City *first, City *second){
   float  x,y, powX, powY, ans, rounded;

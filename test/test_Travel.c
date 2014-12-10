@@ -7,6 +7,7 @@
 
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
      cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
+City allCities[20];
 
 /**
 *  y
@@ -50,7 +51,7 @@ City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
 * 2|                                 I(9,2)
 *  |
 * 1| A(1,1)
-*  |_________________________________________________________________________________________> x
+*  |____________________________________________________________________________________________> x
 * 0   1   2   3   4   5   6   7   8   9   10  11   12   13   14   15   16   17   18   19   20
 *
 */
@@ -75,8 +76,34 @@ void setUp(void){
   setCity(&cityQ, 11, 19, 116, NULL);
   setCity(&cityR, 12, 16, 117, NULL);
   setCity(&cityS, 17, 12, 118, NULL);
-  setCity(&cityT, 14, 18, 119, NULL);
+  setCity(&cityT, 14, 18, 119, NULL); 
+  
+  allCities[0] = cityA;
+  allCities[1] = cityB;
+  allCities[2] = cityC;
+  allCities[3] = cityD;
+  allCities[4] = cityE;
+  allCities[5] = cityF;
+  allCities[6] = cityG;
+  allCities[7] = cityH;
+  allCities[8] = cityI;
+  allCities[9] = cityJ;
+  allCities[10] = cityK;
+  allCities[11] = cityL;
+  allCities[12] = cityM;
+  allCities[13] = cityN;
+  allCities[14] = cityO;
+  allCities[15] = cityP;
+  allCities[16] = cityQ;
+  allCities[17] = cityR;
+  allCities[18] = cityS;
+  allCities[19] = cityT;
+  // allCities[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
+                  // cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT };
 }
+
+
+//allCities[20] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT };
 
 void tearDown(void)
 {
@@ -92,6 +119,16 @@ void test_city_coordinate_should_set_correctly_acoordingly_the_given_value(void)
   TEST_ASSERT_EQUAL(cityA.ID, 100);
   TEST_ASSERT_EQUAL(cityF.ID, 105);
   TEST_ASSERT_EQUAL(cityI.ID, 108);
+}
+
+void test_get5shortenDistance_given_target_cityB_should_return_cityH_cityF_cityG_cityC_cityE_(void){
+  City best5[20];
+  get5shortenDistance( best5, cityB);
+  // TEST_ASSERT_EQUAL( best5[0].ID, cityB.ID);
+  // TEST_ASSERT_EQUAL( best5[1].ID, cityB.ID);
+  // TEST_ASSERT_EQUAL( best5[2].ID, cityB.ID);
+  // TEST_ASSERT_EQUAL( best5[3].ID, cityB.ID);
+  // TEST_ASSERT_EQUAL( best5[4].ID, cityB.ID);
 }
 
 /**
@@ -412,7 +449,6 @@ void test_MutationOfCities_given_2_same_city_should_directly_return(void){
   path.cities = head;
 
   path = MutationOfCities(path, &cityA, &cityA);
-  TEST_ASSERT_EQUAL( path.size , 8);
   TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
   TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
   TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityC.ID);
