@@ -587,20 +587,6 @@ void test_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
   clearCityList(head);
 }
 
-void test_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_103_should_return_1(void){
-  int ans, arr[] = { 100,101,102,88,233,123,999 };
- 
-  ans = checkIsCityUsed(arr,103,7);
-  TEST_ASSERT_EQUAL(ans , 1);
-}
-
-void test_checkIsCityUsed_given_array_100_101_102_88_233_123_999_and_target_102_should_return_0(void){
-  int ans, arr[] = { 100,101,102,88,233,123,999 };
- 
-  ans = checkIsCityUsed(arr,102,7);
-  TEST_ASSERT_EQUAL(ans , 0);
-}
-
 /**
 *-----------------------------------------------------------------------------------------------------------
 * 1) The 2 chromosome cities shown below, and cityE is choose to do crossover                               *

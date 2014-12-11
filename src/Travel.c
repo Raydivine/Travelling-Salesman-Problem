@@ -394,43 +394,5 @@ Path crossoverCities(Path path1, Path path2, City target){
 // }
 
 // extra function
-int checkIsCityUsed( int IDList[], int ID){
-  int i;
-  for( i =0 ; i<(sizeof(IDList)); i++){
-  if(IDList[i] == ID)
-    return 0;
-  }
-  return 1;
-}
 
-int checkIsTargetNotInCities( City *cities, City target){
-  while( cities->ID != target.ID){
-    cities = cities->next;
 
-    if(cities == NULL)
-      return 1;
-  }
-  return 0;
-}
-
-City removeSameElementInCities(City *mid, int size){
- int i;
- City list[size];
- City *head = mid, *temp;
- list[0] = *head;
-
- mid = mid->next;
- i=1;
-
-  while(mid->ID != head->ID){
-
-  mid = mid->next;
-  list[i] = *mid;
-  i++;
-
-     if(mid->ID == list[i].ID){
-      temp = mid->next;
-      mid = temp;
-    }
-  }
-}
