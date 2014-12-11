@@ -8,7 +8,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+City  goA[20], goB[20], goC[20], goD[20], goE[20], goF[20], goG[20], goH[20] , goI[20], goJ[20],
+      goK[20], goL[20], goM[20], goN[20], goO[20], goP[20], goQ[20], goR[20] , goS[20], goT[20];
+       
 void bubbleSortForPath( Path table[], int size){
+  
   int i,j;
   Path temp;
 
@@ -87,8 +91,13 @@ void destinationDistanceArray(City center, City neighBours[], City allCities[], 
     neighBours[i] = route[i+1].object;   
 }
 
-void bestCities (City bestCities[], City target, City refference[]){
-
+void get10shortestCity(City bestCities[], City target, City allCities[], int size){
+  int i;
+  City ref[size];
+  destinationDistanceArray( target, ref, allCities, 20);
+  
+  for( i = 0 ; i < 10 ; i ++)
+    bestCities[i] = ref[i];
 }
 
   // printf("%d\n",route[0].object.ID);
@@ -237,6 +246,7 @@ void addRestOfCities (City arr[], City *cities, int stop, int end, int range){
 }
 
 Path crossoverCities(Path path1, Path path2, City target){
+
   int range = path1.size, i, end = target.ID;
   City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, *crossCities;
   Path path;

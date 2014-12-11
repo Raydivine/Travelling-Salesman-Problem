@@ -5,13 +5,13 @@
 typedef struct City City;
 typedef struct Path Path;
 typedef struct NeighBour NeighBour;
+typedef struct Locate Locate;
 
 struct City{
   float x_axis;
   float y_axis;
   int ID;
   City *next;
-  City *negihBour;
 };
 
 struct NeighBour{
@@ -20,17 +20,16 @@ struct NeighBour{
   float distance;
 };
 
-// struct locate{
-
-// }
-
 struct Path{
   float distance;
   City *cities;
   int size;
 };
 
-
+struct Locate{
+  int ID;
+  City city[];
+};
 
 #endif // CityCoordinate_H
 
