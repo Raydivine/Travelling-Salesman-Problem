@@ -8,9 +8,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-City  goA[20], goB[20], goC[20], goD[20], goE[20], goF[20], goG[20], goH[20] , goI[20], goJ[20],
-      goK[20], goL[20], goM[20], goN[20], goO[20], goP[20], goQ[20], goR[20] , goS[20], goT[20];
-       
+
+     
 void bubbleSortForPath( Path table[], int size){
   
   int i,j;
