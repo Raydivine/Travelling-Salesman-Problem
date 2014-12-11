@@ -14,7 +14,7 @@ City getBackParent (City *cities, City target);
 void destinationDistanceArray(City center, City neighBours[], City allCities[], int size);
 void addCityToFront (City arr[], City target, int range);
 void addCityToBack  (City arr[], City target, int range, int endID);
-void get10shortestCity(City bestCities[], City target, City allCities[], int size);
+void getShortestCity(City bestCities[], City target, City allCities[], int size);
 void addRestOfCities (City arr[], City *cities, int stop, int end, int range);
 void convertArrayToLinkedlist(City *cities , City arr[], int range);
 int checkIsCityNotUsed( City arr[], City target, int range);

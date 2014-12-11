@@ -7,11 +7,8 @@
 #include "LinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-
-     
+ 
 void bubbleSortForPath( Path table[], int size){
-  
   int i,j;
   Path temp;
 
@@ -90,12 +87,12 @@ void destinationDistanceArray(City center, City neighBours[], City allCities[], 
     neighBours[i] = route[i+1].object;   
 }
 
-void get10shortestCity(City bestCities[], City target, City allCities[], int size){
+void getShortestCity(City bestCities[], City target, City allCities[], int size){
   int i;
   City ref[size];
   destinationDistanceArray( target, ref, allCities, 20);
   
-  for( i = 0 ; i < 10 ; i ++)
+  for( i = 0 ; i < size ; i ++)
     bestCities[i] = ref[i];
 }
 

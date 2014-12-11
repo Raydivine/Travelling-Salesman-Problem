@@ -107,26 +107,26 @@ void setUp(void){
   allCities[18] = cityS;
   allCities[19] = cityT;
   
-  destinationDistanceArray( cityA, goA, allCities, 20);
-  destinationDistanceArray( cityB, goB, allCities, 20);
-  destinationDistanceArray( cityC, goC, allCities, 20);
-  destinationDistanceArray( cityD, goD, allCities, 20);
-  destinationDistanceArray( cityE, goE, allCities, 20);
-  destinationDistanceArray( cityF, goF, allCities, 20);
-  destinationDistanceArray( cityG, goG, allCities, 20);
-  destinationDistanceArray( cityH, goH, allCities, 20);
-  destinationDistanceArray( cityI, goI, allCities, 20);
-  destinationDistanceArray( cityJ, goJ, allCities, 20);
-  destinationDistanceArray( cityK, goK, allCities, 20);
-  destinationDistanceArray( cityL, goL, allCities, 20);
-  destinationDistanceArray( cityM, goM, allCities, 20);
-  destinationDistanceArray( cityN, goN, allCities, 20);
-  destinationDistanceArray( cityO, goO, allCities, 20);
-  destinationDistanceArray( cityP, goP, allCities, 20);
-  destinationDistanceArray( cityQ, goQ, allCities, 20);
-  destinationDistanceArray( cityR, goR, allCities, 20);
-  destinationDistanceArray( cityS, goS, allCities, 20);
-  destinationDistanceArray( cityT, goT, allCities, 20);
+  // destinationDistanceArray( cityA, goA, allCities, 20);
+  // destinationDistanceArray( cityB, goB, allCities, 20);
+  // destinationDistanceArray( cityC, goC, allCities, 20);
+  // destinationDistanceArray( cityD, goD, allCities, 20);
+  // destinationDistanceArray( cityE, goE, allCities, 20);
+  // destinationDistanceArray( cityF, goF, allCities, 20);
+  // destinationDistanceArray( cityG, goG, allCities, 20);
+  // destinationDistanceArray( cityH, goH, allCities, 20);
+  // destinationDistanceArray( cityI, goI, allCities, 20);
+  // destinationDistanceArray( cityJ, goJ, allCities, 20);
+  // destinationDistanceArray( cityK, goK, allCities, 20);
+  // destinationDistanceArray( cityL, goL, allCities, 20);
+  // destinationDistanceArray( cityM, goM, allCities, 20);
+  // destinationDistanceArray( cityN, goN, allCities, 20);
+  // destinationDistanceArray( cityO, goO, allCities, 20);
+  // destinationDistanceArray( cityP, goP, allCities, 20);
+  // destinationDistanceArray( cityQ, goQ, allCities, 20);
+  // destinationDistanceArray( cityR, goR, allCities, 20);
+  // destinationDistanceArray( cityS, goS, allCities, 20);
+  // destinationDistanceArray( cityT, goT, allCities, 20);
   
   // allCities[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
                   // cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT };
@@ -173,10 +173,10 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 }
 
 
-void test_get10shortestCity_given_cityA_should_get_the_front_10_elements_from_cityA_array(void){ 
+void test_getShortestCity_given_cityA_should_get_the_front_10_elements_from_cityA_array(void){ 
 
-  City bestCities[10];
-  get10shortestCity(bestCities, cityA, allCities, 20);
+  City bestCities[20];
+  getShortestCity(bestCities, cityA, allCities, 20);
   TEST_ASSERT_EQUAL ( bestCities[0].ID, cityF.ID);
   TEST_ASSERT_EQUAL ( bestCities[1].ID, cityD.ID);
   TEST_ASSERT_EQUAL ( bestCities[2].ID, cityB.ID);
