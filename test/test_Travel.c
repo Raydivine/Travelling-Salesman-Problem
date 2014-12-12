@@ -7,11 +7,10 @@
 
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
      cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
-
 /**
 *  y
 *  ^
-*20|                                                                                  K(19,20)   
+*20|                                                                                  K(19,20)
 *  |
 *19|                                       Q(11,19)
 *  |
@@ -27,7 +26,7 @@ City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
 *  |
 *13|                                                                                     P(20,13)
 *  |
-*12|                                                                          S(17,12)                                                                                                                      
+*12|                                                                          S(17,12)
 *  |
 *11|                                                                         L(18,11)
 *  |
@@ -74,11 +73,11 @@ void setUp(void){
   setCity(&cityQ, 11, 19, 116, NULL);
   setCity(&cityR, 12, 16, 117, NULL);
   setCity(&cityS, 17, 12, 118, NULL);
-  setCity(&cityT, 14, 18, 119, NULL);  
+  setCity(&cityT, 14, 18, 119, NULL);
 }
 
 void tearDown(void){}
-  
+
 /**
 * city1(1,1)    city(5,7)
 * x = 5-1 = 4
@@ -88,7 +87,7 @@ void tearDown(void){}
 */
 void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = findDistance(&cityA, &cityB);
-  
+
   TEST_ASSERT_EQUAL( ans, 7.211);
 }
 
@@ -373,11 +372,11 @@ void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
 }
 
 /**
-*                       $                                                          
-*                   cityA--->cityB-->cityC--->cityD                                 
-*                     ^                          |                                  
-*                     |                          v                                  
-*                  cityH<---cityG<---cityF<---cityE  
+*                       $
+*                   cityA--->cityB-->cityC--->cityD
+*                     ^                          |
+*                     |                          v
+*                  cityH<---cityG<---cityF<---cityE
 */
 void xtest_MutationCities_given_2_same_city_should_directly_return(void){
   Path path;
@@ -488,6 +487,20 @@ void xtest_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
   clearCityList(head);
 }
 
+void xtest_checkIsCityNotUsed_given_array_A_B_C_and_put_in_cityD_should_return_1_because_cityD_is_not_inside(void){
+  City arr[] = { cityA, cityB, cityC };
+
+  int ans = checkIsCityNotUsed( arr, cityD, 4);
+  TEST_ASSERT_EQUAL( ans, 1);
+}
+
+void xtest_checkIsCityNotUsed_given_array_A_B_C_and_put_in_cityA_should_return_0_because_cityA_is_inside(void){
+  City arr[] = { cityA, cityB, cityC };
+
+  int ans = checkIsCityNotUsed( arr, cityA, 4);
+  TEST_ASSERT_EQUAL( ans, 0);
+}
+
 void xtest_getFrontCity_given_linkedList_B_E_C_A_G_and_target_G_should_get_cityA(void){
   City *head =  cityListNew(&cityB);
   addCityList(&head, &cityE);
@@ -495,7 +508,7 @@ void xtest_getFrontCity_given_linkedList_B_E_C_A_G_and_target_G_should_get_cityA
   addCityList(&head, &cityA);
   addCityList(&head, &cityG);
   addCityList(&head, &cityB);
-  
+
   City city = getFrontCity(head, cityG);
   TEST_ASSERT_EQUAL( city.ID, cityA.ID);
   clearCityList(head);
@@ -508,7 +521,7 @@ void xtest_getBackCity_given_linkedList_B_E_C_A_G_and_target_C_should_get_cityA(
   addCityList(&head, &cityA);
   addCityList(&head, &cityG);
   addCityList(&head, &cityB);
-  
+
   City city = getBackCity(head, cityC);
   TEST_ASSERT_EQUAL( city.ID, cityA.ID);
   clearCityList(head);
@@ -516,7 +529,7 @@ void xtest_getBackCity_given_linkedList_B_E_C_A_G_and_target_C_should_get_cityA(
 
 void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_C_D_E_(void){
   City arr[] = {cityA, cityB, cityC, cityD, cityE};
-  
+
   Path path = convertArrayToPath( arr, 5);
   TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
   TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
@@ -544,7 +557,7 @@ void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_
 *                                                  mid                                                    *
 *             CityB----->CityC------>CityD----->CityE----->CityH------>CityG                              *
 *                                                                                                         *
-*                                                                                                         *                                                                                                                                                                                                                                                                                                                                                                                                                                             
+*                                                                                                         *
 *----------------------------------------------------------------------------------------------------------
 *  3) add the rest of city to behind cityG, the added city's sequence is based of the distance to cityG   *
 *                                                             $                                           *
@@ -582,7 +595,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
   path2.cities = head2;
   path2.size   = 8;
 
-  crossoverPath = crossoverCities(path1, path2, cityE); 
+  crossoverPath = crossoverCities(path1, path2, cityE);
   TEST_ASSERT_EQUAL( crossoverPath.cities->ID                                                , cityB.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->ID                                          , cityC.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->ID                                    , cityD.ID);
@@ -611,7 +624,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
 *                                                                                                           *
 *                                        mid                                                                *
 *    CityF----->CityG------>CityH----->CityA------>CityC----->CityD------>CityE                             *
-*                                                                                                           *                                                                                                          *                                                                                                                                                                                                                                                                                                                                                                                                                                             
+*                                                                                                           *                                                                                                          *
 *------------------------------------------------------------------------------------------------------------
 *  3) add the rest of city to behind                                                                        *
 *                                                                                                           *
@@ -632,7 +645,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   addCityList(&head1, &cityG);
   addCityList(&head1, &cityH);
   addCityList(&head1, &cityA);
-  
+
   City *head2 =  cityListNew(&cityC1);
   addCityList(&head2, &cityD1);
   addCityList(&head2, &cityE1);
@@ -656,29 +669,17 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->ID                              , cityA.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->ID                        , cityC.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->ID                  , cityD.ID);
-  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->ID            , cityE.ID); 
-  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityB.ID); 
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->ID            , cityE.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityB.ID);
   clearCityList(head1);
   clearCityList(head2);
   clearCityList(crossoverPath.cities);
 }
 
-void xtest_getShortestDistanceForTravelCities(void){
-  Path path , finalPath;
-  
-  City *head = cityListNew(&cityA);
-  addCityList(&head, &cityB);
-  addCityList(&head, &cityC);
-  addCityList(&head, &cityD);
-  addCityList(&head, &cityE);
-  addCityList(&head, &cityF);
-  addCityList(&head, &cityG);
-  addCityList(&head, &cityH);
-  addCityList(&head, &cityI);
-  addCityList(&head, &cityJ);
-  addCityList(&head, &cityA);
-  path.cities = head;
-  
+void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+
+  // TravelInShortestPath ( tenCity);
 }
 
 

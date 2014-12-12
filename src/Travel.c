@@ -267,7 +267,9 @@ Path crossoverCities(Path path1, Path path2, City target){
   return path;
 }
 
+Path travelInShortestPath (City arr[]){
 
+}
 
 
   // printf("%d\n",rand()%50);
