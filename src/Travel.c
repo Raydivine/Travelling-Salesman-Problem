@@ -9,11 +9,6 @@
 #include <stdlib.h>
 
 
-City allCities[20];
-
-City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
-     cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT; 
- 
 void bubbleSortForPath( Path table[], int size){
   int i,j;
   Path temp;
@@ -44,10 +39,9 @@ void bubbleSortForRadius( NeighBour route[], int size){
   }
 }
 
-// Cartesian formula
 float findDistance( City *first, City *second){
   float  x,y, powX, powY, ans, rounded;
-
+  // Cartesian formula
   x    = (*second).x_axis - (*first).x_axis;
   y    = (*second).y_axis - (*first).y_axis;
   powX = x*x;
@@ -102,7 +96,7 @@ void getShortestCity(City bestCities[], City target, City allCities[], int size)
     bestCities[i] = ref[i];
 }
 
-Path MutationOfCities(Path path, City *targetA, City *targetB){
+Path MutationCities(Path path, City *targetA, City *targetB){
   if(targetA->ID == targetB->ID)
     return;
 
@@ -116,7 +110,7 @@ Path MutationOfCities(Path path, City *targetA, City *targetB){
   return path;
 }
 
-Path copyCities (Path path){
+Path copyPath (Path path){
   City *cities = path.cities, *cloneCities, city[path.size];
   int i;
   Path clonePath;
@@ -149,7 +143,7 @@ int checkingFor2opt(City *targetA, City *targetB){
   float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
   float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
 
-  if(newLink< oldLink)
+  if(newLink < oldLink)
     return 1;
   return 0;
 }
@@ -207,18 +201,23 @@ void addCityToFront(City arr[], City target, int range){
     arr[i] = arr2[i];
 }
 
-void convertArrayToLinkedlist(City *crossCities , City arr[], int range){
+Path convertArrayToPath( City arr[], int range){
   int i;
-
+  Path path;
+  City *cities;
+  
   arr[0].next = NULL;
-  crossCities =  cityListNew(&arr[0]);
-  City *point = crossCities;
+  cities =  cityListNew(&arr[0]);
+  City *head = cities;
 
   for(i = 1 ; i < range; i ++){
     arr[i].next = NULL;
-    addCityList(&crossCities, &arr[i]);
+    addCityList(&cities, &arr[i]);
   }
-  addCityList(&crossCities, point);
+  addCityList(&cities, head);
+  
+  path.cities = cities;  
+  return path;
 }
 
 void addRestOfCities (City arr[], City *cities, int stop, int end, int range){
@@ -261,123 +260,12 @@ Path crossoverCities(Path path1, Path path2, City target){
   head1 = head1->next;
   addRestOfCities ( arr, head1, target.ID, end, range);
 
-  arr[0].next = NULL;
-  crossCities =  cityListNew(&arr[0]);
-  City *point = crossCities;
-
-  for(i = 1 ; i < range; i ++){
-    arr[i].next = NULL;
-    addCityList(&crossCities, &arr[i]);
-  }
-  addCityList(&crossCities, point);
-
-  path.cities = crossCities;
-  return path;
-}
-
-Path MutationOfCitiesWithRandomInput(Path path, City *targetA, City *targetB, int rand1, int rand2){
-  int i,j;
-  printf("%d\n",rand1);
-  printf("%d\n",rand2);
-   for( i=0 ; i<rand1; i++ ){
-   // printf("tt\n");
-    targetA = targetA->next;
-   }
-  
-  
-  for( j=0 ; j<rand2; j++ ){
-   // printf("qq\n");
-    targetB = targetB->next;  
-  }
-
-  
-  printf("targerA: %d\n", targetA->ID);
-  printf("targerB: %d\n", targetB->ID);
-  
-  if(targetA->ID == targetB->ID)
-    return;
-
-  City  *temp1 =  targetA->next , *temp2 =  targetB->next;
-
-  reverseTheLinkBetween2City( path.cities, targetA, targetB);
-  targetA->next = targetB;
-  temp1->next   = temp2;
-
-  path = getDistanceFromPath(path);
-  printf("%f\n", path.distance);
-  return path;
-}
-
-Path crossoverCitiesWithRandomInput (Path path1, Path path2, City *tour1 , int rand3){
-  int j;
-  for( j=0 ; j<rand3; j++ )
-    tour1 = tour1->next;
-  
-  
-  City target = *tour1;
-
-  int range = path1.size, i, end = target.ID;
-  City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, *crossCities;
-  Path path;
-
-  arr[0] = target;
-  while(head1->ID != target.ID)
-    head1 = head1->next;
-  while(head2->ID != target.ID)
-    head2 = head2->next;
-
-  front = getFrontParent(head1, target);
-  back = getBackParent(head2, target);
-
-  while(checkIsCityNotUsed( arr, front, range)){
-    addCityToFront(arr, front, range);
-    front = getFrontParent(head1, front);
-
-    if(checkIsCityNotUsed( arr, back, range)){
-      addCityToBack (arr, back, range, end);
-      end = back.ID;
-      back = getBackParent(head2, back);
-    } else
-        break;
-  }
-
-  head1 = head1->next;
-  addRestOfCities ( arr, head1, target.ID, end, range);
-
-  arr[0].next = NULL;
-  crossCities =  cityListNew(&arr[0]);
-  City *point = crossCities;
-
-  for(i = 1 ; i < range; i ++){
-    arr[i].next = NULL;
-    addCityList(&crossCities, &arr[i]);
-  }
-  addCityList(&crossCities, point);
-
-  path.cities = crossCities;
+  path = convertArrayToPath(arr, range);
+ 
   return path;
 }
 
 
-Path getShortestDistanceForTravelCities (Path path, City *tour1){
-  City randomA, randomB;
-  path = getDistanceFromPath( path);
-  
-
-  
-  
-  Path pathArr[path.size] , path1, path2;
-  pathArr[0] = path;
-  pathArr[1] = MutationOfCitiesWithRandomInput(path, path.cities, path.cities, rand()%1000, rand()%1000);
-  
-  
-  
-  // (checkingFor2opt( &randomA, &randomB))
-    // MutationOfCities(path, &randomA, &randomB);
- // printf("%f\n", pathArr[0].distance);
-  // printf("%f\n", pathArr[1].distance);
-
-}
 
 
   // printf("%d\n",rand()%50);
