@@ -19,7 +19,7 @@ Path getDistanceFromPath( Path path);
 Path convertArrayToPath( City arr[], int range);
 Path MutationCities(Path path, City *targetA, City *targetB);
 Path crossoverCities (Path path1, Path path2, City target);
-Path travelInShortestPath ( City *cities, City arr[]);
+Path travelInShortestPath( City *cities1, City *cities2, City arr[]);
 
 
 

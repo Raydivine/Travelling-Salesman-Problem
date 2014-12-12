@@ -95,16 +95,22 @@ City copyCity ( City city){
 }
 
 Path copyPath (Path path){
-  int i, size = path.size;
-  City *cities = path.cities, *cloneCities, arr[size];
+  int i, size = path.size , stop;
+  City *cities = path.cities, *newCites, *cloneCities, arr[size] , head;
   Path newPath;
-  
-  for (i=0 ; i<size ; i++){
-    arr[i] = copyCity( *cities);
+  stop = cities->ID;
+  head = copyCity (*cities);
+  newCites =  cityListNew(&head);
+  cities = cities->next;
+  i = 0;
+  while( cities->ID != stop){
+    arr[i] = copyCity (*cities);
+    addCityList(&newCites, &arr[i]);
     cities = cities->next;
+    i++;
   }
-  newPath = convertArrayToPath( arr, size);
-  
+  addCityList(&newCites, &head);
+  newPath.cities   = newCites;
   newPath.size     = path.size;
   newPath.distance = path.distance;
   return newPath;
@@ -259,38 +265,56 @@ City *getRandomCity ( City *cities, City random){
   return cities;  
 }
 // rake test:Travel
-Path travelInShortestPath( City *cities, City arr[]){
+Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   Path best, better, combine;
-  City rand1, rand2 , rand3, *tour1 = cities, *tour2 = cities;
-  best.cities = cities;
+  City rand1, rand2 , rand3, *tour1 = cities1, *tour2 = cities1;
+  best.cities = cities1;
   best = getDistanceFromPath( best);
-  better = copyPath (best);
+  better.cities = cities2;
+  better = getDistanceFromPath( better);
   int n = best.size, i, counter = 0;
+  
 
+  
   do{ rand1 = arr[rand()%n];
       rand2 = arr[rand()%n];   
-  }while( rand1.ID == rand2.ID);  
+  }while( rand1.ID == rand2.ID);
+  
   tour1 = getRandomCity( tour1, rand1);
   tour2 = getRandomCity( tour2, rand2);
-  
   if( checkingFor2opt( tour1, tour2)){
     best = MutationCities(best, tour1, tour2);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    counter = 0;
+  }
+  else counter = counter + 1;
+
+  rand3 = arr[rand()%n];
+  combine = crossoverCities(best , better, rand3);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = best;
+    best = combine;
+    tour1 = best.cities;
+    tour2 = best.cities;
     counter = 0;
   }
   else counter = counter + 1;
   
-  printf("%d\n",better.cities->ID);
-
+ 
 
   
-
-  // rand3 = arr[rand()%n];
-  // combine = crossoverCities(best , better, rand3);
-  // printf("best    distance: %f\n", best.distance);
+  
+}
+ 
+   // printf("best    distance: %f\n", best.distance);
   // printf("better  distance: %f\n", better.distance);
   // printf("combine distance: %f\n", combine.distance); 
-  // if ( combine.distance > best.distance && combine.distance > better.distance)
-}
+  // printf("%d\n",combine.cities->ID);
+ 
+ 
+// printf("%d\n",better.size);
+// printf("%f\n",better.distance);
  
 // printf("counter: %d\n", counter);  
 // printf("best distance: %f\n", best.distance);
