@@ -15,7 +15,7 @@ struct City{
 };
 
 struct NeighBour{
-  City center;
+  City neighBour;
   City object;
   float distance;
 };
@@ -26,10 +26,6 @@ struct Path{
   int size;
 };
 
-struct Locate{
-  int ID;
-  City city[];
-};
 
 #endif // CityCoordinate_H
 

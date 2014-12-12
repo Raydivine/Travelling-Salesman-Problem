@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 void bubbleSortForPath( Path table[], int size){
   int i,j;
   Path temp;
@@ -24,7 +23,7 @@ void bubbleSortForPath( Path table[], int size){
   }
 }
 
-void bubbleSortForRadius( NeighBour route[], int size){
+void bubbleSortForNeighBour( NeighBour route[], int size){
   int i,j;
   NeighBour temp;
 
@@ -72,30 +71,6 @@ Path getDistanceFromPath( Path path){
   return path;
 }
 
-void destinationDistanceArray(City center, City neighBours[], City allCities[], int size){
-  int i;
-  NeighBour route[size];
-  
-  for( i = 0 ; i < size ; i ++){
-    route[i].center = center;
-    route[i].object = allCities[i];
-    route[i].distance = findDistance( &route[i].center , &route[i].object);
-  } 
-  bubbleSortForRadius( route, size);
-  
-   for( i = 0 ; i < size-1 ; i ++)
-    neighBours[i] = route[i+1].object;   
-}
-
-void getShortestCity(City bestCities[], City target, City allCities[], int size){
-  int i;
-  City ref[size];
-  destinationDistanceArray( target, ref, allCities, 20);
-  
-  for( i = 0 ; i < size ; i ++)
-    bestCities[i] = ref[i];
-}
-
 Path MutationCities(Path path, City *targetA, City *targetB){
   if(targetA->ID == targetB->ID)
     return;
@@ -128,12 +103,13 @@ Path copyPath (Path path){
   return clonePath;
 }
 
-City copyCity(City A, City B){
-  A.x_axis = B.x_axis ;
-  A.y_axis = B.y_axis;
-  A.ID     = B.ID;
-  A.next   = NULL;
-  return A;
+City copyCity ( City city){
+  City clone;
+  clone.x_axis = city.x_axis ;
+  clone.y_axis = city.y_axis;
+  clone.ID     = city.ID;
+  clone.next   = NULL;
+  return clone;
 }
 
 int checkingFor2opt(City *targetA, City *targetB){
@@ -156,7 +132,7 @@ City getFrontParent(City *cities, City target){
 
   while(cities->next->ID != target.ID)
     cities = cities->next;
-  frontParent = copyCity(frontParent, *cities);
+  frontParent = copyCity(*cities);
   return frontParent;
 }
 
@@ -165,7 +141,7 @@ City getBackParent(City *cities, City target){
 
   while(cities->ID != target.ID)
     cities = cities->next;
-  backParent = copyCity(backParent, *cities->next);
+  backParent = copyCity(*cities->next);
   return backParent;
 }
 
@@ -205,7 +181,7 @@ Path convertArrayToPath( City arr[], int range){
   int i;
   Path path;
   City *cities;
-  
+
   arr[0].next = NULL;
   cities =  cityListNew(&arr[0]);
   City *head = cities;
@@ -215,53 +191,79 @@ Path convertArrayToPath( City arr[], int range){
     addCityList(&cities, &arr[i]);
   }
   addCityList(&cities, head);
-  
-  path.cities = cities;  
+
+  path.cities = cities;
   return path;
 }
 
-void addRestOfCities (City arr[], City *cities, int stop, int end, int range){
+void addCityOfNeighBour (City arr[], City lastCityInArr, City *cities, int stop, int range){
+  NeighBour near[range];
+  int i = 0 , sizeNear = 0;
+  
   while(cities->ID != stop){
     if(checkIsCityNotUsed( arr, *cities, range)){
-      addCityToBack (arr, *cities, range, end);
-      end = cities->ID;
+      near[i].neighBour = copyCity(*cities);
+      sizeNear = sizeNear + 1;
+      i++;
     }
     cities = cities->next;
   }
+  
+  for (i = 0; i < sizeNear ; i++)
+    near[i].distance = findDistance( &lastCityInArr, &near[i].neighBour);
+    
+  bubbleSortForNeighBour( near, sizeNear);
+  
+  for (i = 0; i < sizeNear ; i++){
+    addCityToBack (arr, near[i].neighBour, range, lastCityInArr.ID);
+    lastCityInArr = near[i].neighBour;
+  }
 }
- 
-Path crossoverCities(Path path1, Path path2, City target){
 
-  int range = path1.size, i, end = target.ID;
-  City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, *crossCities;
+Path crossoverCities(Path path1, Path path2, City target){
+  int range = path1.size, i;
+  City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, lastCityInArr;
   Path path;
 
   arr[0] = target;
+  lastCityInArr = arr[0];
+  
   while(head1->ID != target.ID)
     head1 = head1->next;
   while(head2->ID != target.ID)
     head2 = head2->next;
 
   front = getFrontParent(head1, target);
-  back = getBackParent(head2, target);
+  back  = getBackParent (head2, target);
 
   while(checkIsCityNotUsed( arr, front, range)){
     addCityToFront(arr, front, range);
     front = getFrontParent(head1, front);
 
     if(checkIsCityNotUsed( arr, back, range)){
-      addCityToBack (arr, back, range, end);
-      end = back.ID;
+      addCityToBack (arr, back, range, lastCityInArr.ID);
+      lastCityInArr = back;
       back = getBackParent(head2, back);
     } else
         break;
   }
 
   head1 = head1->next;
-  addRestOfCities ( arr, head1, target.ID, end, range);
-
+  addCityOfNeighBour( arr, lastCityInArr, head1, target.ID, range);
+  
+  
   path = convertArrayToPath(arr, range);
- 
+  
+// printf("%d\n",path.cities->ID);
+// printf("%d\n",path.cities->next->ID);
+// printf("%d\n",path.cities->next->next->ID);
+// printf("%d\n",path.cities->next->next->next->ID);
+// printf("%d\n",path.cities->next->next->next->next->ID);
+// printf("%d\n",path.cities->next->next->next->next->next->ID);
+// printf("%d\n",path.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",path.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",path.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",path.cities->next->next->next->next->next->next->next->next->next->ID);
   return path;
 }
 
@@ -274,21 +276,7 @@ Path crossoverCities(Path path1, Path path2, City target){
   // printf("%d\n",rand()%50);
   // printf("%d\n",rand()%50);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
   // printf("%f\n", path.distance);
 // printf("%d\n",crossCities->ID);
 // printf("%d\n",crossCities->next->ID);

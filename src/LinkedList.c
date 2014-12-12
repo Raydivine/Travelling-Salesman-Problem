@@ -34,22 +34,6 @@ void addCityListPrev(City **cities, City *city){
   *cities = city;
 }
 
-void reverseLinkedList(City *start, City *end){
-  City *curCities = start , *nxtCities;
-  start = NULL;
-  
-  nxtCities = curCities->next;
-  curCities->next = start;
-  start = curCities;
-  curCities = nxtCities;
-
-  while(curCities != end){
-    nxtCities = curCities->next;
-    curCities->next = start;
-    start = curCities;
-    curCities = nxtCities;
-  }
-}
 
 void reverseTheLinkBetween2City( City *cities, City *start, City *end){
   if(start->ID == end->ID)
@@ -68,31 +52,3 @@ void reverseTheLinkBetween2City( City *cities, City *start, City *end){
     curCities = nxtCities;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

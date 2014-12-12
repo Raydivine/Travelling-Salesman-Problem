@@ -13,10 +13,3 @@ void setPath(Path target, float distance, City *cities, int size){
   target.cities = cities;
   target.size = size;
 }
-
-void setLocate(Locate locate, int ID, City city[], int size){
-  int i;
-  
-  locate.ID = ID;
-  
-}
