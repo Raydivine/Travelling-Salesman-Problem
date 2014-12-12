@@ -87,9 +87,13 @@ Path MutationCities(Path path, City *targetA, City *targetB){
 
 City copyCity ( City city){
   City clone;
-  clone.x_axis = city.x_axis ;
-  clone.y_axis = city.y_axis;
-  clone.ID     = city.ID;
+  float x = city.x_axis;
+  float y = city.y_axis;
+  int ID = city.ID;
+  
+  clone.x_axis = x ;
+  clone.y_axis = y;
+  clone.ID     = ID;
   clone.next   = NULL;
   return clone;
 }
@@ -161,10 +165,10 @@ int checkIsCityNotUsed( City arr[], City target, int range){
 
 void addCityToBack (City arr[], City target, int range, int endID){
   int i;
-
+  City city = copyCity(target);
   for(i = 0 ; i < range ; i ++){
     if(arr[i].ID == endID){
-      arr[i+1] = target;
+      arr[i+1] = city;
       break;
     }
   }
@@ -173,10 +177,10 @@ void addCityToBack (City arr[], City target, int range, int endID){
 void addCityToFront(City arr[], City target, int range){
   int i;
   City arr2[range];
-
+  City city = copyCity(target);
   for(i = 0 ; i < range; i ++)
     arr2[i+1] = arr[i];
-  arr2[0] = target;
+  arr2[0] = city;
   for(i= 0; i < range; i ++)
     arr[i] = arr2[i];
 }
@@ -311,7 +315,7 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   better = getDistanceFromPath( better);
   int n = best.size, i, counter = 0;
   
- // while(counter != n){
+  while(counter != n){
   do{ rand1 = arr[rand()%n];
       rand2 = arr[rand()%n];   
   }while( rand1.ID == rand2.ID);
@@ -322,15 +326,17 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   }
   else counter = counter + 1;
 
-  rand3 = arr[rand()%n];
-  combine = crossoverCities(best , better, rand3);
-  if( combine.distance < best.distance && combine.distance < better.distance){
-    better = best;
-    best = combine;
-    counter = 0;
+  // rand3 = arr[rand()%n];
+  // combine = crossoverCities(best , better, rand3);
+  // if( combine.distance < best.distance && combine.distance < better.distance){
+    // better = best;
+    // best = combine;
+    // counter = 0;
+  // }
+  // else counter = counter + 1;
   }
-  else counter = counter + 1;
- // }
+  // printf("%d\n",counter);
+  // printf("%f\n",best.distance);
 }
  
    // printf("best    distance: %f\n", best.distance);

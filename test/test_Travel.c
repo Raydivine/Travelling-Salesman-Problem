@@ -567,7 +567,7 @@ void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_
 *                                                                       (near  to    far )                *
 *                                                                                                         *
 *---------------------------------------------------------------------------------------------------------*/
-void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
+void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
 
@@ -678,7 +678,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
