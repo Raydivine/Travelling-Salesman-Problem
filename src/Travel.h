@@ -7,7 +7,7 @@ int checkIsCityNotUsed( City arr[], City target, int range);
 int checkingFor2opt(City *targetA, City *targetB);
 void addCityToFront (City arr[], City target, int range);
 void addCityToBack  (City arr[], City target, int range, int endID);
-void addCityOfNeighBour (City arr[], City lastCityInArr, City *cities, int stop, int range);
+void addCityOfNeighbour (City arr[], City lastCityInArr, City *cities, int stop, int range);
 void bubbleSortForPath ( Path table[], int size);
 void bubbleSortForNeighBour( NeighBour route[], int size);
 City *getRandomCity ( City *cities, City random);

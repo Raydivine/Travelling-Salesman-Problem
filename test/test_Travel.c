@@ -131,7 +131,7 @@ void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void test_copyPath_should_copy_a_new_cities_list(void){
+void xtest_copyPath_should_copy_a_new_cities_list(void){
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
