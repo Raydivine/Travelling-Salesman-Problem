@@ -85,24 +85,6 @@ Path MutationCities(Path path, City *targetA, City *targetB){
   return path;
 }
 
-Path copyPath (Path path){
-  City *cities = path.cities, *cloneCities, city[path.size];
-  int i;
-  Path clonePath;
-
-  for(i=0; i<path.size; i++){
-   city[i] = *cities;
-   cities = cities->next;
-   cloneCities = &city[i];
-   cloneCities = cloneCities->next;
-  }
-  clonePath.cities   = cloneCities;
-  clonePath.size     = path.size;
-  clonePath.distance = path.distance;
-
-  return clonePath;
-}
-
 City copyCity ( City city){
   City clone;
   clone.x_axis = city.x_axis ;
@@ -110,6 +92,28 @@ City copyCity ( City city){
   clone.ID     = city.ID;
   clone.next   = NULL;
   return clone;
+}
+
+Path copyPath (Path path){
+  City *cities = path.cities, *cloneCities, city[path.size];
+  int i;
+  Path clonePath;
+  city[0] = copyCity( *cities);
+  cloneCities =  cityListNew(&city[0]);
+  cities = cities->next;
+  
+  for(i=1; i<path.size; i++){
+   city[i] = copyCity( *cities); 
+   addCityList(&cloneCities, &city[i] );
+   cities = cities->next;
+  }
+  addCityList(&cloneCities, &city[0] );
+  
+  clonePath.cities   = cloneCities;
+  clonePath.size     = path.size;
+  clonePath.distance = path.distance;
+
+  return clonePath;
 }
 
 int checkingFor2opt(City *targetA, City *targetB){
@@ -196,10 +200,10 @@ Path convertArrayToPath( City arr[], int range){
   return path;
 }
 
-void addCityOfNeighBour (City arr[], City lastCityInArr, City *cities, int stop, int range){
+void addCityOfNeighBour(City arr[], City lastCityInArr, City *cities, int stop, int range){
   NeighBour near[range];
   int i = 0 , sizeNear = 0;
-  
+
   while(cities->ID != stop){
     if(checkIsCityNotUsed( arr, *cities, range)){
       near[i].neighBour = copyCity(*cities);
@@ -208,12 +212,12 @@ void addCityOfNeighBour (City arr[], City lastCityInArr, City *cities, int stop,
     }
     cities = cities->next;
   }
-  
+
   for (i = 0; i < sizeNear ; i++)
     near[i].distance = findDistance( &lastCityInArr, &near[i].neighBour);
-    
+
   bubbleSortForNeighBour( near, sizeNear);
-  
+
   for (i = 0; i < sizeNear ; i++){
     addCityToBack (arr, near[i].neighBour, range, lastCityInArr.ID);
     lastCityInArr = near[i].neighBour;
@@ -227,7 +231,7 @@ Path crossoverCities(Path path1, Path path2, City target){
 
   arr[0] = target;
   lastCityInArr = arr[0];
-  
+
   while(head1->ID != target.ID)
     head1 = head1->next;
   while(head2->ID != target.ID)
@@ -247,50 +251,112 @@ Path crossoverCities(Path path1, Path path2, City target){
     } else
         break;
   }
-
   head1 = head1->next;
   addCityOfNeighBour( arr, lastCityInArr, head1, target.ID, range);
-  
-  
+
   path = convertArrayToPath(arr, range);
-  
-// printf("%d\n",path.cities->ID);
-// printf("%d\n",path.cities->next->ID);
-// printf("%d\n",path.cities->next->next->ID);
-// printf("%d\n",path.cities->next->next->next->ID);
-// printf("%d\n",path.cities->next->next->next->next->ID);
-// printf("%d\n",path.cities->next->next->next->next->next->ID);
-// printf("%d\n",path.cities->next->next->next->next->next->next->ID);
-// printf("%d\n",path.cities->next->next->next->next->next->next->next->ID);
-// printf("%d\n",path.cities->next->next->next->next->next->next->next->next->ID);
-// printf("%d\n",path.cities->next->next->next->next->next->next->next->next->next->ID);
+  path = getDistanceFromPath(path);
   return path;
 }
 
-Path travelInShortestPath (City arr[]){
+  rand1 = arr[rand()%n];
+  rand2 = arr[rand()%n];
 
+  while( rand1.ID == rand2.ID){
+    rand1 = arr[rand()%n];
+    rand2 = arr[rand()%n];   
+  }
 }
+City *getRandomCity ( City *cities, City random){
+  while(cities->ID != random.ID)
+    cities = cities->next;
+  return cities;  
+}
+// rake test:Travel
+Path travelInShortestPath( City *cities, City arr[]){
+  Path best, better, combine;
+  City rand1, rand2 , rand3, *tour1 = cities, *tour2 = cities;
+  best.cities = cities;
+  best = getDistanceFromPath( best);
+  better = copyPath (best);
+  int n = best.size, i, counter = 0;
 
+// printf("%d\n",better.cities->ID);
+// printf("%d\n",better.cities->next->ID);
+// printf("%d\n",better.cities->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
 
-  // printf("%d\n",rand()%50);
-  // printf("%d\n",rand()%50);
-  // printf("%d\n",rand()%50);
-  // printf("%d\n",rand()%50);
-  // printf("%d\n",rand()%50);
-
+  do{ rand1 = arr[rand()%n];
+      rand2 = arr[rand()%n];   
+  }while( rand1.ID == rand2.ID);  
+  tour1 = getRandomCity( tour1, rand1);
+  tour2 = getRandomCity( tour2, rand2);
   
-  // printf("%f\n", path.distance);
-// printf("%d\n",crossCities->ID);
-// printf("%d\n",crossCities->next->ID);
-// printf("%d\n",crossCities->next->next->ID);
-// printf("%d\n",crossCities->next->next->next->ID);
-// printf("%d\n",crossCities->next->next->next->next->ID);
-// printf("%d\n",crossCities->next->next->next->next->next->ID);
-// printf("%d\n",crossCities->next->next->next->next->next->next->ID);
-// printf("%d\n",crossCities->next->next->next->next->next->next->next->ID);
-// printf("%d\n",crossCities->next->next->next->next->next->next->next->next->ID);
-// printf("%d\n",crossCities->next->next->next->next->next->next->next->next->next->ID);
+  if( checkingFor2opt( tour1, tour2)){
+    best = MutationCities(best, tour1, tour2);
+    counter = 0;
+  }
+  else counter = counter + 1;
+  
+// printf("qq\n");
+// printf("%d\n",better.cities->ID);
+// printf("%d\n",better.cities->next->ID);
+// printf("%d\n",better.cities->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
+  // rand3 = arr[rand()%n];
+  // combine = crossoverCities(best , better, rand3);
+  // printf("best    distance: %f\n", best.distance);
+  // printf("better  distance: %f\n", better.distance);
+  // printf("combine distance: %f\n", combine.distance); 
+  // if ( combine.distance > best.distance && combine.distance > better.distance)
+}
+ 
+// printf("counter: %d\n", counter);  
+// printf("best distance: %f\n", best.distance);
 
+// printf("rand1 : %d\n",rand1.ID);
+// printf("rand2 : %d\n",rand2.ID);
+// printf("rand3 : %d\n",rand3.ID);
+// printf("tour1 : %d\n",tour1->ID);
+// printf("tour2 : %d\n",tour2->ID); 
+
+// printf("%d\n",arr[rand()%N].ID);
+// printf("%d\n",rand1.ID);
+// printf("%d\n",rand2.ID);
+
+// printf("%d\n",better.cities->ID);
+// printf("%d\n",better.cities->next->ID);
+// printf("%d\n",better.cities->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
+
+// printf("%d\n",best.cities->ID);
+// printf("%d\n",best.cities->next->ID);
+// printf("%d\n",best.cities->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->next->next->next->ID);
 
   // printf("%d\n",endID);
   // printf("%d\n",arr[0].ID);
@@ -304,31 +370,6 @@ Path travelInShortestPath (City arr[]){
   // printf("%d\n",front.ID);
   // printf("%d\n",back.ID);
 
-
-    //printf("%p\n",newWalk);
-   // printf("%p\n",ptrBack);
-   // printf("%p\n",newWalk);
-   // printf("%p\n",newWalk->next);
-
-
-  // if(checkIsTargetNotInCities( newWalk, target2) ){
-     // *ptrBack = copyCity(*ptrBack, target2);
-     // ptrBack = ptrBack->next;
-  // }
-  // back  = getBackCity (cities2nd, target2);
-
-
-     // printf("%d\n",newWalk->ID);
-    // printf("%d\n",newWalk->next->ID);
-    // printf("%d\n",newWalk->next->next->ID);
-
-  // printf("%p\n",newWalk);
-  // printf("%p\n",newWalk->next);
-  // printf("%p\n",newWalk->next->next);
-     // printf("%d\n",ptrBack->ID);
-      // printf("%p\n",ptrBack);
-
-
 // printf("%d\n",cloneCities->ID);
 // printf("%d\n",cloneCities->next->ID);
 // printf("%d\n",cloneCities->next->next->ID);
@@ -339,58 +380,5 @@ Path travelInShortestPath (City arr[]){
 // printf("%d\n",cloneCities->next->next->next->next->next->next->next->ID);
 
 
-// printf("%p\n",cities1st);
-// printf("%p\n",cities1st->next);
-// printf("%p\n",cities1st->next->next);
-// printf("%p\n",cities1st->next->next->next);
-// printf("%p\n",cities1st->next->next->next->next);
-// printf("%p\n",cities1st->next->next->next->next->next);
-// printf("%p\n",cities1st->next->next->next->next->next->next);
-// printf("%p\n",cities1st->next->next->next->next->next->next->next);
-// printf("%p\n",cities1st->next->next->next->next->next->next->next->next);
-
-// Path crossoverCities(Path path1, Path path2, City target){
-
-  // int range = path1.size, i, end = target.ID;
-  // City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, *crossCities;
-  // Path path;
-
-  // arr[0] = target;
-  // while(head1->ID != target.ID)
-    // head1 = head1->next;
-  // while(head2->ID != target.ID)
-    // head2 = head2->next;
-
-  // front = getFrontCity(head1, target);
-  // back = getBackCity(head2, target);
-
-  // while(checkIsCityNotUsed( arr, front, range)){
-    // addCityToFront(arr, front, range);
-    // front = getFrontCity(head1, front);
-
-    // if(checkIsCityNotUsed( arr, back, range)){
-      // addCityToBack (arr, back, range, end);
-      // end = back.ID;
-      // back = getBackCity(head2, back);
-    // } else
-        // break;
-  // }
-
-  // head1 = head1->next;
-  // addRestOfCities ( arr, head1, target.ID, end, range);
-
-  // arr[0].next = NULL;
-  // crossCities =  cityListNew(&arr[0]);
-  // City *point = crossCities;
-
-  // for(i = 1 ; i < range; i ++){
-    // arr[i].next = NULL;
-    // addCityList(&crossCities, &arr[i]);
-  // }
-  // addCityList(&crossCities, point);
-
-  // path.cities = crossCities;
-  // return path;
-// }
 
 

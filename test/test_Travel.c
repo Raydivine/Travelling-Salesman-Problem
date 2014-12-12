@@ -131,7 +131,7 @@ void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void xtest_copyPath_should_copy_a_new_cities_list(void){
+void test_copyPath_should_copy_a_new_cities_list(void){
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
@@ -155,6 +155,8 @@ void xtest_copyPath_should_copy_a_new_cities_list(void){
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->ID            , cityG.ID);
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->next->ID      , cityH.ID);
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->next->next->ID, cityA.ID);
+  clearCityList(head);
+  clearCityList(path.cities);
 }
 
 /**
@@ -679,7 +681,17 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
 void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
-  // TravelInShortestPath ( tenCity);
+  City *head =  cityListNew(&cityA);
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityI);
+  addCityList(&head, &cityJ);
+  addCityList(&head, &cityA);
+
+  travelInShortestPath( head, tenCity);
 }
-
-
