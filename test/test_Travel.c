@@ -264,8 +264,7 @@ void xtest_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_
   clearCityList(path.cities);
 }
 
-/**
-*-----------------------------------------------------------------------------------
+/**----------------------------------------------------------------------------------
 * 1.Original Path       $               $                                           *
 *                   cityA--->cityB-->cityC--->cityD                                 *
 *                     ^                          |                                  *
@@ -292,8 +291,7 @@ void xtest_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_
 *                     ^                          |                                  *
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
-*-----------------------------------------------------------------------------------*
-*/
+*-----------------------------------------------------------------------------------*/
 void xtest_MutationCities_given_2_near_city_should_do_reverse(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
@@ -322,8 +320,7 @@ void xtest_MutationCities_given_2_near_city_should_do_reverse(void){
   clearCityList(path.cities);
 }
 
-/**
-*-----------------------------------------------------------------------------------*
+/**---------------------------------------------------------------------------------*
 * 1.Original Path                                                                   *
 *                       $       $                                                   *
 *                   cityA--->cityB-->cityC--->cityD                                 *
@@ -346,8 +343,7 @@ void xtest_MutationCities_given_2_near_city_should_do_reverse(void){
 *                     ^                          |                                  *
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
-*-----------------------------------------------------------------------------------*
-*/
+*-----------------------------------------------------------------------------------*/
 void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
   Path path;
   City *head =  cityListNew(&cityA);
@@ -492,35 +488,71 @@ void xtest_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
   clearCityList(head);
 }
 
-/**
-*-----------------------------------------------------------------------------------------------------------
-* 1) The 2 chromosome cities shown below, and cityE is choose to do crossover                               *
-*                                                                                                           *
-*      ----------------left-------------------       $$$$$                                                  *
-*     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH                *
-*                                                                                                           *
-*                                                                                                           *
-*                              $$$$$       ----------------Right-------------------                         *
-*      CityC------> CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA               *
-*                                                                                                           *
-*                                                                                                           *
-*------------------------------------------------------------------------------------------------------------
-* 2) Select cityE as mid, fill the city 1by1 from chromose1'left and chromose2'Right,                       *
-*    if the coming city is is already exists, then stop and form a crossover link                           *
-*                                                                                                           *
-*                                                                                                           *
-*             CityB----->CityC------>CityD----->CityE----->CityH------>CityG                                *
-*                                                                                                           *
-*                                                                                                           *                                                                                                                                                                                                                                                                                                                                                                                                                                             
-*------------------------------------------------------------------------------------------------------------
-*  3) add the rest of city to behind                                                                        *
-*                                                                                                           *
-*  CityE----->CityH------>CityG----->CityB----->CityF------>CityA----->CityC------>CityD----->CityE         *
-*                                                                                                           *
-*                                                                                                           *
-*------------------------------------------------------------------------------------------------------------
-*/
-void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
+void xtest_getFrontCity_given_linkedList_B_E_C_A_G_and_target_G_should_get_cityA(void){
+  City *head =  cityListNew(&cityB);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityA);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityB);
+  
+  City city = getFrontCity(head, cityG);
+  TEST_ASSERT_EQUAL( city.ID, cityA.ID);
+  clearCityList(head);
+}
+
+void xtest_getBackCity_given_linkedList_B_E_C_A_G_and_target_C_should_get_cityA(void){
+  City *head =  cityListNew(&cityB);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityA);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityB);
+  
+  City city = getBackCity(head, cityC);
+  TEST_ASSERT_EQUAL( city.ID, cityA.ID);
+  clearCityList(head);
+}
+
+void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_C_D_E_(void){
+  City arr[] = {cityA, cityB, cityC, cityD, cityE};
+  
+  Path path = convertArrayToPath( arr, 5);
+  TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityC.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->ID                              , cityD.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID                        , cityE.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityA.ID);
+}
+
+/**--------------------------------------------------------------------------------------------------------
+* 1) The 2 chromosome cities shown below, and cityE is choose to do crossover                             *
+*                                                                                                         *
+*      ----------------left-------------------       $$$$$                                                *
+*     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH              *
+*                                                                                                         *
+*                                                                                                         *
+*                              $$$$$       ----------------Right-------------------                       *
+*      CityC------> CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA             *
+*                                                                                                         *
+*                                                                                                         *
+*----------------------------------------------------------------------------------------------------------
+* 2) Select cityE as mid, fill the city 1by1 from chromose1'left and chromose2'Right,                     *
+*    if the coming city is is already exists, then stop and form a crossover link                         *
+*                                                                                                         *
+*                                                  mid                                                    *
+*             CityB----->CityC------>CityD----->CityE----->CityH------>CityG                              *
+*                                                                                                         *
+*                                                                                                         *                                                                                                                                                                                                                                                                                                                                                                                                                                             
+*----------------------------------------------------------------------------------------------------------
+*  3) add the rest of city to behind cityG, the added city's sequence is based of the distance to cityG   *
+*                                                             $                                           *
+*  CityB----->CityC------>CityD----->CityE----->CityH------>CityG------>CityF------->cityA                *
+*                                                                       (near  to    far )                *
+*                                                                                                         *
+*---------------------------------------------------------------------------------------------------------*/
+void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
 
@@ -550,47 +582,44 @@ void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_an
   path2.cities = head2;
   path2.size   = 8;
 
-  crossoverPath = crossoverCities(path1, path2, cityE);
+  crossoverPath = crossoverCities(path1, path2, cityE); 
   TEST_ASSERT_EQUAL( crossoverPath.cities->ID                                                , cityB.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->ID                                          , cityC.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->ID                                    , cityD.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->ID                              , cityE.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->ID                        , cityH.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->ID                  , cityG.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->ID            , cityF.ID);
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityA.ID);
   clearCityList(head1);
   clearCityList(head2);
   clearCityList(crossoverPath.cities);
 }
 
-/**
-*-----------------------------------------------------------------------------------------------------------
+/**----------------------------------------------------------------------------------------------------------
 * 1) The 2 chromosome cities shown below, and cityA is choose to do crossover                               *
 *                                                                                                           *
 *      $$$$$                                                                                                *
 *     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH                *
-*                                                                                                           *
-*                                                                                                           *
+*                                                                                                           *                                                                                                       *
 *                                                                                       $$$$$               *
 *      CityC------> CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA               *
-*                                                                                                           *
-*                                                                                                           *
+*                                                                                                           *                                                                                                          *
 *------------------------------------------------------------------------------------------------------------
 * 2) Select cityA as mid, fill the city 1by1 from chromose1'left and chromose2'Right,                       *
 *    if the coming city is is already exists, then stop and form a crossover link                           *
 *                                                                                                           *
-*                                                                                                           *
+*                                        mid                                                                *
 *    CityF----->CityG------>CityH----->CityA------>CityC----->CityD------>CityE                             *
-*                                                                                                           *
-*                                                                                                           *                                                                                                                                                                                                                                                                                                                                                                                                                                             
+*                                                                                                           *                                                                                                          *                                                                                                                                                                                                                                                                                                                                                                                                                                             
 *------------------------------------------------------------------------------------------------------------
 *  3) add the rest of city to behind                                                                        *
 *                                                                                                           *
-*  CityE----->CityH------>CityG----->CityB----->CityF------>CityA----->CityC------>CityD----->CityE         *
+*  CityF----->CityG------>CityH----->CityA------>CityC----->CityD------>CityE----->CityB                    *
 *                                                                                                           *
 *                                                                                                           *
-*------------------------------------------------------------------------------------------------------------
-*/
-void test_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_and_form_new_cities(void){
+*-----------------------------------------------------------------------------------------------------------*/
+void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
 
@@ -628,6 +657,7 @@ void test_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_an
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->ID                        , cityC.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->ID                  , cityD.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->ID            , cityE.ID); 
+  TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityB.ID); 
   clearCityList(head1);
   clearCityList(head2);
   clearCityList(crossoverPath.cities);

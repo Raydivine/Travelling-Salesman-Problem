@@ -124,25 +124,25 @@ int checkingFor2opt(City *targetA, City *targetB){
   return 0;
 }
 
-City getFrontParent(City *cities, City target){
-  City frontParent, *front;
+City getFrontCity(City *cities, City target){
+  City frontCity, *front;
 
   if(cities->ID == target.ID)
     cities = cities->next;
 
   while(cities->next->ID != target.ID)
     cities = cities->next;
-  frontParent = copyCity(*cities);
-  return frontParent;
+  frontCity = copyCity(*cities);
+  return frontCity;
 }
 
-City getBackParent(City *cities, City target){
-  City backParent, *back;
+City getBackCity(City *cities, City target){
+  City backCity, *back;
 
   while(cities->ID != target.ID)
     cities = cities->next;
-  backParent = copyCity(*cities->next);
-  return backParent;
+  backCity = copyCity(*cities->next);
+  return backCity;
 }
 
 int checkIsCityNotUsed( City arr[], City target, int range){
@@ -233,17 +233,17 @@ Path crossoverCities(Path path1, Path path2, City target){
   while(head2->ID != target.ID)
     head2 = head2->next;
 
-  front = getFrontParent(head1, target);
-  back  = getBackParent (head2, target);
+  front = getFrontCity(head1, target);
+  back  = getBackCity (head2, target);
 
   while(checkIsCityNotUsed( arr, front, range)){
     addCityToFront(arr, front, range);
-    front = getFrontParent(head1, front);
+    front = getFrontCity(head1, front);
 
     if(checkIsCityNotUsed( arr, back, range)){
       addCityToBack (arr, back, range, lastCityInArr.ID);
       lastCityInArr = back;
-      back = getBackParent(head2, back);
+      back = getBackCity(head2, back);
     } else
         break;
   }
@@ -313,7 +313,7 @@ Path crossoverCities(Path path1, Path path2, City target){
      // *ptrBack = copyCity(*ptrBack, target2);
      // ptrBack = ptrBack->next;
   // }
-  // back  = getBackParent (cities2nd, target2);
+  // back  = getBackCity (cities2nd, target2);
 
 
      // printf("%d\n",newWalk->ID);
@@ -359,17 +359,17 @@ Path crossoverCities(Path path1, Path path2, City target){
   // while(head2->ID != target.ID)
     // head2 = head2->next;
 
-  // front = getFrontParent(head1, target);
-  // back = getBackParent(head2, target);
+  // front = getFrontCity(head1, target);
+  // back = getBackCity(head2, target);
 
   // while(checkIsCityNotUsed( arr, front, range)){
     // addCityToFront(arr, front, range);
-    // front = getFrontParent(head1, front);
+    // front = getFrontCity(head1, front);
 
     // if(checkIsCityNotUsed( arr, back, range)){
       // addCityToBack (arr, back, range, end);
       // end = back.ID;
-      // back = getBackParent(head2, back);
+      // back = getBackCity(head2, back);
     // } else
         // break;
   // }
