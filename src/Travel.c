@@ -264,6 +264,43 @@ City *getRandomCity ( City *cities, City random){
     cities = cities->next;
   return cities;  
 }
+
+int checkingFor2optWithRandomInput(Path path, City targetA, City targetB){
+  City *pointA = path.cities;
+  City *pointB = path.cities;
+  
+  while(pointA->ID != targetA.ID)
+    pointA = pointA->next;
+  while(pointB->ID != targetB.ID)
+    pointB = pointB->next; 
+
+  float oldLink = findDistance( pointA, pointA->next) + findDistance( pointB, pointB->next);
+  float newLink = findDistance( pointA, pointB) + findDistance( pointA->next, pointB->next);
+
+  if(newLink < oldLink)
+    return 1;
+  return 0;
+}
+
+Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB){
+  City *pointA = path.cities;
+  City *pointB = path.cities;
+  
+  while(pointA->ID != targetA.ID)
+    pointA = pointA->next;
+  while(pointB->ID != targetB.ID)
+    pointB = pointB->next;  
+
+  City  *temp1 =  pointA->next , *temp2 =  pointB->next;
+    
+  reverseTheLinkBetween2City( path.cities, pointA, pointB);
+  pointA->next = pointB;
+  temp1->next   = temp2;
+
+  path = getDistanceFromPath(path);
+  return path;
+}
+
 // rake test:Travel
 Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   Path best, better, combine;
@@ -274,18 +311,13 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   better = getDistanceFromPath( better);
   int n = best.size, i, counter = 0;
   
-
-  
+ // while(counter != n){
   do{ rand1 = arr[rand()%n];
       rand2 = arr[rand()%n];   
   }while( rand1.ID == rand2.ID);
   
-  tour1 = getRandomCity( tour1, rand1);
-  tour2 = getRandomCity( tour2, rand2);
-  if( checkingFor2opt( tour1, tour2)){
-    best = MutationCities(best, tour1, tour2);
-    tour1 = best.cities;
-    tour2 = best.cities;
+  if( checkingFor2optWithRandomInput( best, rand1, rand2)){
+    best = MutationCitiesWithRandomInput(best, rand1, rand2);
     counter = 0;
   }
   else counter = counter + 1;
@@ -295,16 +327,10 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   if( combine.distance < best.distance && combine.distance < better.distance){
     better = best;
     best = combine;
-    tour1 = best.cities;
-    tour2 = best.cities;
     counter = 0;
   }
   else counter = counter + 1;
-  
- 
-
-  
-  
+ // }
 }
  
    // printf("best    distance: %f\n", best.distance);
