@@ -4,7 +4,7 @@
 
 float findDistance( City *first, City *second);
 int checkIsCityNotUsed( City arr[], City target, int range);
-int checkingFor2opt(City *targetA, City *targetB);
+int checkingFor2opt(City *cities, City targetA, City targetB);
 void addCityToFront (City arr[], City target, int range);
 void addCityToBack  (City arr[], City target, int range, int endID);
 void addCityOfNeighbour (City arr[], City lastCityInArr, City *cities, int stop, int range);

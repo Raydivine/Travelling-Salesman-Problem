@@ -245,7 +245,7 @@ void xtest_bubbleSortForPath_given_array_of_5_path_should_sort_according_distanc
 *                  cityH<---cityG    cityF--->cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void test_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
+void xtest_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -301,7 +301,7 @@ void test_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_t
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*/
-void test_MutationCities_given_2_near_city_should_do_reverse(void){
+void xtest_MutationCities_given_2_near_city_should_do_reverse(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -353,7 +353,7 @@ void test_MutationCities_given_2_near_city_should_do_reverse(void){
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*/
-void test_MutationCities_given_2_besides_city_should_do_nothing(void){
+void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -388,7 +388,7 @@ void test_MutationCities_given_2_besides_city_should_do_nothing(void){
 *                     |                          v
 *                  cityH<---cityG<---cityF<---cityE
 */
-void test_MutationCities_given_2_same_city_should_directly_return(void){
+void xtest_MutationCities_given_2_same_city_should_directly_return(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -429,7 +429,7 @@ void test_MutationCities_given_2_same_city_should_directly_return(void){
 *
 *                   should not do 2opt because cannot get shorter distance
 */
-void xtest_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
+void test_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -442,7 +442,7 @@ void xtest_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant
   addCityList(&head, &cityA);
   path.cities = head;
 
-  int ans = checkingFor2opt(&cityA, &cityC);
+  int ans = checkingFor2opt(head, cityA, cityC);
   TEST_ASSERT_EQUAL(ans , 0);
   clearCityList(head);
 }
@@ -461,7 +461,7 @@ void xtest_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant
 *
 *                should  do 2opt because  get shorter distance
 */
-void xtest_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_better_chromesome(void){
+void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -474,12 +474,12 @@ void xtest_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce
   addCityList(&head, &cityA);
   path.cities = head;
 
-  int ans = checkingFor2opt(&cityA, &cityF);
+   int ans = checkingFor2opt(head, cityA, cityF);
   TEST_ASSERT_EQUAL(ans , 1);
   clearCityList(head);
 }
 
-void xtest_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
+void test_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -492,7 +492,7 @@ void xtest_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
   addCityList(&head, &cityA);
   path.cities = head;
 
-  int ans = checkingFor2opt(&cityA, &cityA);
+  int ans = checkingFor2opt(head, cityC, cityC);
   TEST_ASSERT_EQUAL(ans , 0);
   clearCityList(head);
 }

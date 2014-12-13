@@ -90,6 +90,26 @@ Path MutationCities(Path path, City targetA, City targetB){
   return path;
 }
 
+int checkingFor2opt(City *cities, City targetA, City targetB){
+  if(targetA.ID == targetB.ID)
+    return 0;
+    
+  City *pointA = cities;
+  City *pointB = cities;
+
+  while(pointA->ID != targetA.ID)
+    pointA = pointA->next;
+  while(pointB->ID != targetB.ID)
+    pointB = pointB->next;
+
+  float oldLink = findDistance( pointA, pointA->next) + findDistance( pointB, pointB->next);
+  float newLink = findDistance( pointA, pointB) + findDistance( pointA->next, pointB->next);
+
+  if(newLink < oldLink)
+    return 1;
+  return 0;
+}
+
 City copyCity ( City city){
   City clone;
   clone.x_axis = city.x_axis;;
@@ -114,18 +134,6 @@ Path copyPath (Path path, City arr[]){
   newPath.size     = path.size;
   newPath.distance = path.distance;
   return newPath;
-}
-
-int checkingFor2opt(City *targetA, City *targetB){
-  if(targetA->ID == targetB->ID)
-    return 0;
-
-  float oldLink = findDistance( targetA, targetA->next) + findDistance( targetB, targetB->next);
-  float newLink = findDistance( targetA, targetB) + findDistance( targetA->next, targetB->next);
-
-  if(newLink < oldLink)
-    return 1;
-  return 0;
 }
 
 City getFrontCity(City *cities, City target){
@@ -264,42 +272,6 @@ City *getRandomCity ( City *cities, City random){
   while(cities->ID != random.ID)
     cities = cities->next;
   return cities;
-}
-
-int checkingFor2optWithRandomInput(Path path, City targetA, City targetB){
-  City *pointA = path.cities;
-  City *pointB = path.cities;
-
-  while(pointA->ID != targetA.ID)
-    pointA = pointA->next;
-  while(pointB->ID != targetB.ID)
-    pointB = pointB->next;
-
-  float oldLink = findDistance( pointA, pointA->next) + findDistance( pointB, pointB->next);
-  float newLink = findDistance( pointA, pointB) + findDistance( pointA->next, pointB->next);
-
-  if(newLink < oldLink)
-    return 1;
-  return 0;
-}
-
-Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB){
-  City *pointA = path.cities;
-  City *pointB = path.cities;
-
-  while(pointA->ID != targetA.ID)
-    pointA = pointA->next;
-  while(pointB->ID != targetB.ID)
-    pointB = pointB->next;
-
-  City  *temp1 =  pointA->next , *temp2 =  pointB->next;
-
-  reverseTheLinkBetween2City( path.cities, pointA, pointB);
-  pointA->next = pointB;
-  temp1->next   = temp2;
-
-  path = getDistanceFromPath(path);
-  return path;
 }
 
 void clearCityArray(City arr[], int size){
