@@ -278,15 +278,6 @@ int checkingFor2optWithRandomInput(Path path, City targetA, City targetB){
   return 0;
 }
 
-Path changeTheLinkedListElementToArrayElement( Path path , City arr[], int size){
-  City *cities = path.cities, *temp;
-  int i;
-  // for( i = 0 ; i < size ; i++){
-    // if(
-  // }
-
-}
-
 Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB){
   City *pointA = path.cities;
   City *pointB = path.cities;
@@ -307,46 +298,7 @@ Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB){
 }
 
 // rake test:Travel
-Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
-  Path best, better, combine;
-  City rand1, rand2 , rand3, *tour1 = cities1, *tour2 = cities1;
-  best.cities = cities1;
-  best = getDistanceFromPath( best);
-  better.cities = cities2;
-  better = getDistanceFromPath( better);
-  int n = best.size, i, counter = 0;
-  
-//  while(counter != n){
-  // do{ rand1 = arr[rand()%n];
-      // rand2 = arr[rand()%n];   
-  // }while( rand1.ID == rand2.ID);
-  
-  // if( checkingFor2optWithRandomInput( best, rand1, rand2)){
-    // best = MutationCitiesWithRandomInput(best, rand1, rand2);
-    // counter = 0;
-  // }
-  // else counter = counter + 1;
-
-  // rand3 = arr[rand()%n];
-  // combine = crossoverCities(best , better, rand3);
-  // if( combine.distance < best.distance && combine.distance < better.distance){
-    // better = best;
-    // best = combine;
-    // counter = 0;
-  // }
- // else counter = counter + 1;
- // }
-
-// printf("%d\n",combine.cities->ID);
-// printf("%d\n",combine.cities->next->ID);
-// printf("%d\n",combine.cities->next->next->ID);
-// printf("%d\n",combine.cities->next->next->next->ID);
-// printf("%d\n",combine.cities->next->next->next->next->ID);
-// printf("%d\n",combine.cities->next->next->next->next->next->ID);
-// printf("%d\n",combine.cities->next->next->next->next->next->next->ID);
-// printf("%d\n",combine.cities->next->next->next->next->next->next->next->ID);
-// printf("%d\n",combine.cities->next->next->next->next->next->next->next->next->ID);
-// printf("%d\n",combine.cities->next->next->next->next->next->next->next->next->next->ID);
+Path travelInShortestPath( City arr[], int size){
 
 
 }
@@ -420,5 +372,35 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
 // printf("%d\n",cloneCities->next->next->next->next->next->next->next->ID);
 
 
+// Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
+  // Path best, better, combine;
+  // City rand1, rand2 , rand3, *tour1 = cities1, *tour2 = cities1;
+  // best.cities = cities1;
+  // best = getDistanceFromPath( best);
+  // better.cities = cities2;
+  // better = getDistanceFromPath( better);
+  // int n = best.size, i, counter = 0;
+  
+//  while(counter != n){
+  // do{ rand1 = arr[rand()%n];
+      // rand2 = arr[rand()%n];   
+  // }while( rand1.ID == rand2.ID);
+  
+  // if( checkingFor2optWithRandomInput( best, rand1, rand2)){
+    // best = MutationCitiesWithRandomInput(best, rand1, rand2);
+    // counter = 0;
+  // }
+  // else counter = counter + 1;
 
+  // rand3 = arr[rand()%n];
+  // combine = crossoverCities(best , better, rand3);
+  // if( combine.distance < best.distance && combine.distance < better.distance){
+    // better = best;
+    // best = combine;
+    // counter = 0;
+  // }
+ // else counter = counter + 1;
+ // }
+
+//}
 

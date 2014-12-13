@@ -688,56 +688,38 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void xtest_changeTheLinkedListElementToArrayElement_given_a_linkedList_should_use_the_element_cointain_in_array(void){
-  City arr[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  Path path;
-  City *head1 =  cityListNew(&cityA);
-  addCityList(&head1, &cityB);
-  addCityList(&head1, &cityC);
-  addCityList(&head1, &cityD);
-  addCityList(&head1, &cityE);
-  addCityList(&head1, &cityF);
-  addCityList(&head1, &cityG);
-  addCityList(&head1, &cityH);
-  addCityList(&head1, &cityI);
-  addCityList(&head1, &cityJ);
-  addCityList(&head1, &cityA);
-  path.cities = head1;
-  
- // changeTheLinkedListElementToArrayElement( path , arr, 10);
-}
-
-void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
-  City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
-        cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
-  
-  City *head1 =  cityListNew(&cityA);
-  addCityList(&head1, &cityB);
-  addCityList(&head1, &cityC);
-  addCityList(&head1, &cityD);
-  addCityList(&head1, &cityE);
-  addCityList(&head1, &cityF);
-  addCityList(&head1, &cityG);
-  addCityList(&head1, &cityH);
-  addCityList(&head1, &cityI);
-  addCityList(&head1, &cityJ);
-  addCityList(&head1, &cityA);
-  
-  City *head2 =  &cityF1;
-  addCityList(&head2, &cityJ1);
-  addCityList(&head2, &cityC1);
-  addCityList(&head2, &cityA1);
-  addCityList(&head2, &cityE1);
-  addCityList(&head2, &cityB1);
-  addCityList(&head2, &cityD1);
-  addCityList(&head2, &cityG1);
-  addCityList(&head2, &cityI1);
-  addCityList(&head2, &cityH1);
-  addCityList(&head2, &cityF1);
-  
-  travelInShortestPath( head1, head2, tenCity);
-  clearCityList(head1);
-  clearCityList(head2);
+
+  travelInShortestPath( tenCity, 10);
+
 }
+
+
+  // City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
+        // cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
+  
+  // City *head1 =  cityListNew(&cityA);
+  // addCityList(&head1, &cityB);
+  // addCityList(&head1, &cityC);
+  // addCityList(&head1, &cityD);
+  // addCityList(&head1, &cityE);
+  // addCityList(&head1, &cityF);
+  // addCityList(&head1, &cityG);
+  // addCityList(&head1, &cityH);
+  // addCityList(&head1, &cityI);
+  // addCityList(&head1, &cityJ);
+  // addCityList(&head1, &cityA);
+  
+  // City *head2 =  &cityF1;
+  // addCityList(&head2, &cityJ1);
+  // addCityList(&head2, &cityC1);
+  // addCityList(&head2, &cityA1);
+  // addCityList(&head2, &cityE1);
+  // addCityList(&head2, &cityB1);
+  // addCityList(&head2, &cityD1);
+  // addCityList(&head2, &cityG1);
+  // addCityList(&head2, &cityI1);
+  // addCityList(&head2, &cityH1);
+  // addCityList(&head2, &cityF1);

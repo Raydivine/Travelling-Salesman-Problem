@@ -18,12 +18,11 @@ Path copyPath (Path path, City arr[]);
 Path getDistanceFromPath( Path path);
 Path convertArrayToPath( City arr[], int range);
 Path MutationCities(Path path, City *targetA, City *targetB);
-
-Path changeTheLinkedListElementToArrayElement( Path path , City arr[], int size);
 Path crossoverCities (Path path1, Path path2, City target, City arr[]);
 Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB);
 int checkingFor2optWithRandomInput(Path path, City targetA, City targetB);
-Path travelInShortestPath( City *cities1, City *cities2, City arr[]);
+Path travelInShortestPath( City arr[], int size);
+//Path travelInShortestPath( City *cities1, City *cities2, City arr[]);
 
 
 
