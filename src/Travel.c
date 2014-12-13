@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/** Input:
+/** Input: coordinate1 and coordinate2
 *
-*   Output:
+*   Output: distance between them
 */
 float findDistance( City *first, City *second){
   float  x,y, powX, powY, ans, rounded;
@@ -24,9 +24,9 @@ float findDistance( City *first, City *second){
   return ((int)(ans * 1000 + .5) / 1000.0); // correct number to 3 significant
 }
 
-/** Input:
+/** Input: Path without distance data
 *
-*   Output:
+*   Output: Path with distance data
 */
 Path getDistanceFromPath( Path path){
   City *cities = path.cities, *cityNext;
@@ -42,44 +42,28 @@ Path getDistanceFromPath( Path path){
     cityNext = cityNext->next;
     size = size + 1;
   }
-
   path.size     = size ;
   path.distance = TotalDistance;
 
   return path;
 }
 
-/** Input:
+/** Input:  Path and 2 points been select to do mutation
 *
-*   Output:
-*/
-Path MutationCities(Path path, City targetA, City targetB){
-  if(targetA.ID == targetB.ID)
-    return;
-  City  *tourA =  path.cities , *tourB = path.cities;
-
-  while(tourA->ID != targetA.ID)
-    tourA = tourA->next;
-  while(tourB->ID != targetB.ID)
-    tourB = tourB->next;
-  City  *temp1 =  tourA->next , *temp2 = tourB->next;
-  
-  reverseTheLinkBetween2City( path.cities, tourA, tourB);
-  tourA->next = tourB;
-  temp1->next = temp2;
-
-  path = getDistanceFromPath(path);
-  return path;
-}
-
-/** Input:
+*   Process: 1. It is a pre checking of mutation, to determine the mutation
+*               whether can produce a better chromosome.
+*            2. First it calculate the distance of original link and
+*               mutated link
+*            3. If the mutation link distance is shorter then original, then
+*               send 1 as true to do mutation, else the linked is longer or the
+*               points are same then send 0 as false
 *
-*   Output:
+*   Output: True (1) or false (0) of the command
 */
 int checkingFor2opt(City *cities, City targetA, City targetB){
   if(targetA.ID == targetB.ID)
     return 0;
-    
+
   City *pointA = cities;
   City *pointB = cities;
 
@@ -96,6 +80,37 @@ int checkingFor2opt(City *cities, City targetA, City targetB){
   return 0;
 }
 
+/** Input: Path and 2 points been select to do mutation
+*
+*   Process: 1. tour1 and tour2 is the link of cities
+*            2. tour1 and tour2 will locate the position of targetA and targetB'
+*            3. tour1 and tour2 will do reverse linkedList between them
+*            4. tour1 will point to tour2, tour1's next point to tour2's next
+*            5. a mutation city list form
+
+*   Output: mutation city list
+*/
+Path MutationCities(Path path, City targetA, City targetB){
+  if(targetA.ID == targetB.ID)
+    return;
+
+  City *tourA =  path.cities , *tourB = path.cities;
+
+  while(tourA->ID != targetA.ID)
+    tourA = tourA->next;
+  while(tourB->ID != targetB.ID)
+    tourB = tourB->next;
+  City *temp1 =  tourA->next , *temp2 = tourB->next;
+
+  reverseTheLinkBetween2City( path.cities, tourA, tourB);
+  tourA->next = tourB;
+  temp1->next = temp2;
+
+  path = getDistanceFromPath(path);
+  return path;
+}
+
+
 City copyCity ( City city){
   City clone;
   clone.x_axis = city.x_axis;;
@@ -105,9 +120,9 @@ City copyCity ( City city){
   return clone;
 }
 
-/** Input:
+/** Input:   sample path
 *
-*   Output:
+*   Output: cloned path
 */
 Path copyPath (Path path, City arr[]){
   int i, size = path.size , stop;
@@ -126,9 +141,9 @@ Path copyPath (Path path, City arr[]){
   return newPath;
 }
 
-/** Input:
+/** Input:  cities and  target city
 *
-*   Output:
+*   Output: the front city of the target in the cities list
 */
 City getFrontCity(City *cities, City target){
   City frontCity, *front;
@@ -142,9 +157,9 @@ City getFrontCity(City *cities, City target){
   return frontCity;
 }
 
-/** Input:
+/** Input:  cities and  target city
 *
-*   Output:
+*   Output: the back city of the target in the cities list
 */
 City getBackCity(City *cities, City target){
   City backCity, *back;
@@ -155,9 +170,12 @@ City getBackCity(City *cities, City target){
   return backCity;
 }
 
-/** Input:
+/** Input: city array and target city
 *
-*   Output:
+*   Process: to determine whether the target city is inside the array
+*            if not inside return1 , else return 0
+*
+*   Output: True (1) or false (0) of the command
 */
 int checkIsCityNotUsed( City arr[], City target, int range){
   int i;
@@ -169,9 +187,11 @@ int checkIsCityNotUsed( City arr[], City target, int range){
   return 1;
 }
 
-/** Input:
+/** Input:  array city and  target city
+*   
+*   Process: endID is the last city's ID of the array, so it know how to add the newCity to back
 *
-*   Output:
+*   Output: array city with added target city in the back
 */
 void addCityToBack (City arr[], City target, int range, int endID){
   int i;
@@ -183,9 +203,9 @@ void addCityToBack (City arr[], City target, int range, int endID){
   }
 }
 
-/** Input:
+/** Input:  array city and  target city
 *
-*   Output:
+*   Output: array city with added target city in the front
 */
 void addCityToFront(City arr[], City target, int range){
   int i;
@@ -198,9 +218,9 @@ void addCityToFront(City arr[], City target, int range){
     arr[i] = arr2[i];
 }
 
-/** Input:
+/** Input: an array
 *
-*   Output:
+*   Output: a path been convert from the array
 */
 Path convertArrayToPath( City arr[], int range){
   int i;
@@ -221,9 +241,9 @@ Path convertArrayToPath( City arr[], int range){
   return path;
 }
 
-/** Input:
+/** Input: an unsorted neighBour array
 *
-*   Output:
+*   Output: a sorted neighBour array according distance
 */
 void bubbleSortForNeighBour( NeighBour route[], int size){
   int i,j;
@@ -240,9 +260,15 @@ void bubbleSortForNeighBour( NeighBour route[], int size){
   }
 }
 
-/** Input:
+/** Input:  city array with missing and linkList
 *
-*   Output:
+*   Process: 1. determine the missing cities in the array by comparing a complete linked list
+*            2. put the missing cities inside neighbour type array
+*            3. get the distance of the missing city between the last element inside the original array
+*            4. sort the neighBour type array according distance 
+*            5. put the cities from the neighBour type array to original array
+*
+*   Output: city array with all city , and the missing cities are sorted according neighbour distance 
 */
 void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, int range){
   NeighBour near[range];
@@ -268,9 +294,17 @@ void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, 
   }
 }
 
-/** Input:
+/** Input:  2 path , target City to do mutation , internal array
 *
-*   Output:
+*   Process: 1. During computing a crossover cities, I need to first building them into a array first,
+*               because if the building structure's is linkedList, the data will continue overwrite in a while loop
+*            2. Assign array[0] to target, and start to putting element from path1's left and path2's right
+*            3. If the coming element was inside the array, then the building process stop.
+*            3. the array will looking the missing element by compare a complete linkedList
+*            4. put the missing cities into array according neighBour's distance of last city of array
+*            5. convert the complete array to path, and return the path
+*
+*   Output: crossover path,  and some of path's cities was arranged
 */
 Path crossoverCities(Path path1, Path path2, City target, City arr[]){
   int range = path1.size, i;
@@ -298,17 +332,17 @@ Path crossoverCities(Path path1, Path path2, City target, City arr[]){
       back = getBackCity(head2, back);
     } else break;
   }
-  head1 = head1->next;
+  head1 = head1->next;    //LinkedList point to next, because head1 is the target which already contain in the array
   addCityOfNeighbour( arr, lastCityInArr, head1, target.ID, range);
-  
+
   path = convertArrayToPath(arr, range);
   path = getDistanceFromPath(path);
   return path;
 }
 
-/** Input:
+/** Input:  cities and random target city
 *
-*   Output:
+*   Output: the cities linked List will located at the target city
 */
 City *getRandomCity ( City *cities, City random){
   while(cities->ID != random.ID)
@@ -316,23 +350,23 @@ City *getRandomCity ( City *cities, City random){
   return cities;
 }
 
-/** Input:
+/** Input: city array contained data
 *
-*   Output:
+*   Output: city array without data
 */
 void clearCityArray(City arr[], int size){
   int i;
-  City empty; 
+  City empty;
        empty.x_axis = 0;
        empty.y_axis = 0;
        empty.ID = 0;
   for(i = 0 ; i<size; i++ )
-    arr[i] = empty; 
+    arr[i] = empty;
 }
 
-/** Input:
+/** Input:  sample array
 *
-*   Output:
+*   Output: clone array 
 */
 void copyArray( City clone[], City arr[], int size){
   int i;
@@ -341,9 +375,20 @@ void copyArray( City clone[], City arr[], int size){
   }
 }
 
-/** Input:
+/** Input: array of all cities. and the number of them
 *
-*   Output:
+*   Process: 1. The function is combined mutation and crossover
+*            2. First, I need 3 models to support the process of this function,
+*               which are best, better and combine
+*            3. Best is the best path I get during the process, and I only do mutation of Best
+*               Better will replace path of Best, after Best get through further good
+*               Combine is the model of crossover between Best and Better
+*            4. A counter is first set to 0, even I can't produce better chromosome during process,
+*               counter will do increment , if I get better chromosome in the generation, the clear the counter
+*            5. If I cant get better chromosome in a row generations of size of the total city,
+*               then stop, and return the path I compute.
+*
+*   Output: path of compute shortest distance
 */
 Path travelInShortestPath( City arr[], int size){
   City rand1, rand2, rand3, arr1[size], arr2[size], comb[size];
@@ -353,13 +398,13 @@ Path travelInShortestPath( City arr[], int size){
   best  = convertArrayToPath( arr1, size);
   best  = getDistanceFromPath( best);
   better = copyPath ( best, arr2);
- 
+
   int i, counter = 0;
   printf("Original distance           : %f\n", best.distance);
   while (counter < size){
     do{ rand1 = arr[rand()%size];
         rand2 = arr[rand()%size];
-    }while( rand1.ID == rand2.ID);
+    }while( rand1.ID == rand2.ID);  // To ensure I get different city for mutation 
 
     if( checkingFor2opt( best.cities, rand1, rand2)){
       best = MutationCities( best, rand1, rand2);
@@ -368,19 +413,14 @@ Path travelInShortestPath( City arr[], int size){
 
     rand3 = arr[rand()%size];
     combine = crossoverCities(best , better, rand3, comb);
-   
-    if( combine.distance < best.distance && combine.distance < better.distance){    
+
+    if( combine.distance < best.distance && combine.distance < better.distance){
       better = copyPath ( best, arr2);
-      best   = copyPath ( combine, arr1);  
+      best   = copyPath ( combine, arr1);
       counter = 0;
     }else counter = counter + 1;
-    
+
     clearCityArray(comb, size);
   }
-
   return best;
 }
-
-
-
-
