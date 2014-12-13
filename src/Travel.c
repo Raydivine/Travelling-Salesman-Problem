@@ -218,9 +218,9 @@ void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, 
   }
 }
 
-Path crossoverCities(Path path1, Path path2, City target){
+Path crossoverCities(Path path1, Path path2, City target, City arr[]){
   int range = path1.size, i;
-  City *head1 = path1.cities, *head2 = path2.cities, arr[range], front, back, lastCityInArr;
+  City *head1 = path1.cities, *head2 = path2.cities, front, back, lastCityInArr;
   Path path;
 
   arr[0] = target;
@@ -317,24 +317,24 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   int n = best.size, i, counter = 0;
   
 //  while(counter != n){
-  do{ rand1 = arr[rand()%n];
-      rand2 = arr[rand()%n];   
-  }while( rand1.ID == rand2.ID);
+  // do{ rand1 = arr[rand()%n];
+      // rand2 = arr[rand()%n];   
+  // }while( rand1.ID == rand2.ID);
   
-  if( checkingFor2optWithRandomInput( best, rand1, rand2)){
-    best = MutationCitiesWithRandomInput(best, rand1, rand2);
-    counter = 0;
-  }
-  else counter = counter + 1;
+  // if( checkingFor2optWithRandomInput( best, rand1, rand2)){
+    // best = MutationCitiesWithRandomInput(best, rand1, rand2);
+    // counter = 0;
+  // }
+  // else counter = counter + 1;
 
-  rand3 = arr[rand()%n];
-  combine = crossoverCities(best , better, rand3);
-  if( combine.distance < best.distance && combine.distance < better.distance){
-    better = best;
-    best = combine;
-    counter = 0;
-  }
-  else counter = counter + 1;
+  // rand3 = arr[rand()%n];
+  // combine = crossoverCities(best , better, rand3);
+  // if( combine.distance < best.distance && combine.distance < better.distance){
+    // better = best;
+    // best = combine;
+    // counter = 0;
+  // }
+ // else counter = counter + 1;
  // }
 
 // printf("%d\n",combine.cities->ID);

@@ -138,7 +138,7 @@ void xtest_copycity_given_pointer_cityB_should_copy_and_hold_the_data(void){
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void test_copyPath_should_copy_a_new_cities_list(void){
+void xtest_copyPath_should_copy_a_new_cities_list(void){
   City arr[8], *head;
   head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -578,8 +578,9 @@ void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_
 void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
-
-  City *head1 =  cityListNew(&cityA);
+  City *head1, *head2, arr[8];
+  
+  head1 =  cityListNew(&cityA);
   addCityList(&head1, &cityB);
   addCityList(&head1, &cityC);
   addCityList(&head1, &cityD);
@@ -589,7 +590,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
   addCityList(&head1, &cityH);
   addCityList(&head1, &cityA);
 
-  City *head2 = &cityC1;
+  head2 = &cityC1;
   addCityList(&head2, &cityD1);
   addCityList(&head2, &cityE1);
   addCityList(&head2, &cityH1);
@@ -605,7 +606,9 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
   path2.cities = head2;
   path2.size   = 8;
 
-  crossoverPath = crossoverCities(path1, path2, cityE);
+  crossoverPath = crossoverCities(path1, path2, cityE, arr);
+  clearCityList(head1);
+  clearCityList(head2);
   TEST_ASSERT_EQUAL( crossoverPath.cities->ID                                                , cityB.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->ID                                          , cityC.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->ID                                    , cityD.ID);
@@ -614,8 +617,6 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->ID                  , cityG.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->ID            , cityF.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityA.ID);
-  clearCityList(head1);
-  clearCityList(head2);
   clearCityList(crossoverPath.cities);
 }
 
@@ -645,8 +646,9 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
 void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
-
-  City *head1 =  cityListNew(&cityA);
+  City *head1, *head2, arr[8];
+  
+  head1 =  cityListNew(&cityA);
   addCityList(&head1, &cityB);
   addCityList(&head1, &cityC);
   addCityList(&head1, &cityD);
@@ -656,7 +658,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   addCityList(&head1, &cityH);
   addCityList(&head1, &cityA);
 
-  City *head2 =  cityListNew(&cityC1);
+  head2 =  cityListNew(&cityC1);
   addCityList(&head2, &cityD1);
   addCityList(&head2, &cityE1);
   addCityList(&head2, &cityH1);
@@ -672,7 +674,9 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   path2.cities = head2;
   path2.size   = 8;
 
-  crossoverPath = crossoverCities(path1, path2, cityA);
+  crossoverPath = crossoverCities(path1, path2, cityA, arr);
+  clearCityList(head1);
+  clearCityList(head2);
   TEST_ASSERT_EQUAL( crossoverPath.cities->ID                                                , cityF.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->ID                                          , cityG.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->ID                                    , cityH.ID);
@@ -681,8 +685,6 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->ID                  , cityD.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->ID            , cityE.ID);
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityB.ID);
-  clearCityList(head1);
-  clearCityList(head2);
   clearCityList(crossoverPath.cities);
 }
 
