@@ -138,8 +138,9 @@ void xtest_copycity_given_pointer_cityB_should_copy_and_hold_the_data(void){
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void xtest_copyPath_should_copy_a_new_cities_list(void){
-  City *head =  cityListNew(&cityA);
+void test_copyPath_should_copy_a_new_cities_list(void){
+  City arr[8], *head;
+  head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
   addCityList(&head, &cityD);
@@ -152,7 +153,8 @@ void xtest_copyPath_should_copy_a_new_cities_list(void){
   path.cities = head;
   path.size = 8;
 
-  Path clonePath = copyPath(path); 
+  Path clonePath = copyPath(path , arr); 
+  clearCityList(head); 
   TEST_ASSERT_EQUAL( clonePath.cities->ID                                                , cityA.ID);
   TEST_ASSERT_EQUAL( clonePath.cities->next->ID                                          , cityB.ID);
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->ID                                    , cityC.ID);
@@ -162,7 +164,6 @@ void xtest_copyPath_should_copy_a_new_cities_list(void){
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->ID            , cityG.ID);
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->next->ID      , cityH.ID);
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->next->next->ID, cityA.ID);
-  clearCityList(head);
   clearCityList(path.cities);
 }
 
@@ -685,7 +686,26 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void xtest_changeTheLinkedListElementToArrayElement_given_a_linkedList_should_use_the_element_cointain_in_array(void){
+  City arr[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  Path path;
+  City *head1 =  cityListNew(&cityA);
+  addCityList(&head1, &cityB);
+  addCityList(&head1, &cityC);
+  addCityList(&head1, &cityD);
+  addCityList(&head1, &cityE);
+  addCityList(&head1, &cityF);
+  addCityList(&head1, &cityG);
+  addCityList(&head1, &cityH);
+  addCityList(&head1, &cityI);
+  addCityList(&head1, &cityJ);
+  addCityList(&head1, &cityA);
+  path.cities = head1;
+  
+ // changeTheLinkedListElementToArrayElement( path , arr, 10);
+}
+
+void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,

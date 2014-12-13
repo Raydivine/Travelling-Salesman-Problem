@@ -94,9 +94,9 @@ City copyCity ( City city){
   return clone;
 }
 
-Path copyPath (Path path){
+Path copyPath (Path path, City arr[]){
   int i, size = path.size , stop;
-  City *cities = path.cities, *newCites, *cloneCities, arr[size] , head;
+  City *cities = path.cities, *newCites, *cloneCities , head;
   Path newPath;
   stop = cities->ID;
   
@@ -278,6 +278,15 @@ int checkingFor2optWithRandomInput(Path path, City targetA, City targetB){
   return 0;
 }
 
+Path changeTheLinkedListElementToArrayElement( Path path , City arr[], int size){
+  City *cities = path.cities, *temp;
+  int i;
+  // for( i = 0 ; i < size ; i++){
+    // if(
+  // }
+
+}
+
 Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB){
   City *pointA = path.cities;
   City *pointB = path.cities;
@@ -307,7 +316,7 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   better = getDistanceFromPath( better);
   int n = best.size, i, counter = 0;
   
- // while(counter != n){
+//  while(counter != n){
   do{ rand1 = arr[rand()%n];
       rand2 = arr[rand()%n];   
   }while( rand1.ID == rand2.ID);
@@ -324,10 +333,20 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
     better = best;
     best = combine;
     counter = 0;
- }
- else counter = counter + 1;
-  
+  }
+  else counter = counter + 1;
+ // }
 
+// printf("%d\n",combine.cities->ID);
+// printf("%d\n",combine.cities->next->ID);
+// printf("%d\n",combine.cities->next->next->ID);
+// printf("%d\n",combine.cities->next->next->next->ID);
+// printf("%d\n",combine.cities->next->next->next->next->ID);
+// printf("%d\n",combine.cities->next->next->next->next->next->ID);
+// printf("%d\n",combine.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",combine.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",combine.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",combine.cities->next->next->next->next->next->next->next->next->next->ID);
 
 
 }

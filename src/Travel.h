@@ -14,12 +14,12 @@ City *getRandomCity ( City *cities, City random);
 City getFrontCity(City *cities, City target);
 City getBackCity (City *cities, City target);
 City copyCity ( City city);
-Path copyPath (Path path);
+Path copyPath (Path path, City arr[]);
 Path getDistanceFromPath( Path path);
 Path convertArrayToPath( City arr[], int range);
 Path MutationCities(Path path, City *targetA, City *targetB);
 
-
+Path changeTheLinkedListElementToArrayElement( Path path , City arr[], int size);
 Path crossoverCities (Path path1, Path path2, City target);
 Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB);
 int checkingFor2optWithRandomInput(Path path, City targetA, City targetB);
