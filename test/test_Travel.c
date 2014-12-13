@@ -245,7 +245,7 @@ void xtest_bubbleSortForPath_given_array_of_5_path_should_sort_according_distanc
 *                  cityH<---cityG    cityF--->cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void xtest_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
+void test_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -258,7 +258,7 @@ void xtest_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_
   addCityList(&head, &cityA);
   path.cities = head;
 
-  path = MutationCities(path, &cityB, &cityF);
+  path = MutationCities(path, cityB, cityF);
   TEST_ASSERT_EQUAL( path.size , 8);
   TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
   TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
@@ -301,7 +301,7 @@ void xtest_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*/
-void xtest_MutationCities_given_2_near_city_should_do_reverse(void){
+void test_MutationCities_given_2_near_city_should_do_reverse(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -314,7 +314,7 @@ void xtest_MutationCities_given_2_near_city_should_do_reverse(void){
   addCityList(&head, &cityA);
   path.cities = head;
 
-  path = MutationCities(path, &cityA, &cityC);
+  path = MutationCities(path, cityA, cityC);
   TEST_ASSERT_EQUAL( path.size , 8);
   TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
   TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityC.ID);
@@ -353,7 +353,7 @@ void xtest_MutationCities_given_2_near_city_should_do_reverse(void){
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*/
-void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
+void test_MutationCities_given_2_besides_city_should_do_nothing(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -366,7 +366,7 @@ void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
   addCityList(&head, &cityA);
   path.cities = head;
 
-  path = MutationCities(path, &cityA, &cityB);
+  path = MutationCities(path, cityA, cityB);
   TEST_ASSERT_EQUAL( path.size , 8);
   TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
   TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
@@ -388,7 +388,7 @@ void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
 *                     |                          v
 *                  cityH<---cityG<---cityF<---cityE
 */
-void xtest_MutationCities_given_2_same_city_should_directly_return(void){
+void test_MutationCities_given_2_same_city_should_directly_return(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -401,7 +401,7 @@ void xtest_MutationCities_given_2_same_city_should_directly_return(void){
   addCityList(&head, &cityA);
   path.cities = head;
 
-  path = MutationCities(path, &cityA, &cityA);
+  path = MutationCities(path, cityA, cityA);
   TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
   TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityB.ID);
   TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityC.ID);
@@ -688,7 +688,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
 
