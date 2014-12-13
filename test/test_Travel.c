@@ -691,36 +691,17 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
 
 void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  Path shortestPath;
 
-
-  travelInShortestPath( tenCity, 10);
-
+  shortestPath = travelInShortestPath( tenCity, 10);
+  printf("Computed distance :%f\n", shortestPath.distance);
 }
 
+void test_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
+  City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ, 
+                        cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
+  Path shortestPath;
 
-  // City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
-        // cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
-  
-  // City *head1 =  cityListNew(&cityA);
-  // addCityList(&head1, &cityB);
-  // addCityList(&head1, &cityC);
-  // addCityList(&head1, &cityD);
-  // addCityList(&head1, &cityE);
-  // addCityList(&head1, &cityF);
-  // addCityList(&head1, &cityG);
-  // addCityList(&head1, &cityH);
-  // addCityList(&head1, &cityI);
-  // addCityList(&head1, &cityJ);
-  // addCityList(&head1, &cityA);
-  
-  // City *head2 =  &cityF1;
-  // addCityList(&head2, &cityJ1);
-  // addCityList(&head2, &cityC1);
-  // addCityList(&head2, &cityA1);
-  // addCityList(&head2, &cityE1);
-  // addCityList(&head2, &cityB1);
-  // addCityList(&head2, &cityD1);
-  // addCityList(&head2, &cityG1);
-  // addCityList(&head2, &cityI1);
-  // addCityList(&head2, &cityH1);
-  // addCityList(&head2, &cityF1);
+  shortestPath = travelInShortestPath( twentyCity, 20);
+  printf("Computed distance :%f\n", shortestPath.distance);
+}

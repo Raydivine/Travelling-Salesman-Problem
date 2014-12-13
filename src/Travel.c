@@ -298,8 +298,8 @@ Path travelInShortestPath( City arr[], int size){
   best  = getDistanceFromPath( best);
   better = copyPath ( best, arr2);
  
-  int i, j, counter = 0;
-
+  int i, counter = 0;
+  printf("Original distance :%f\n", best.distance);
   while (counter < size){
     do{ rand1 = arr[rand()%size];
         rand2 = arr[rand()%size];
@@ -318,18 +318,11 @@ Path travelInShortestPath( City arr[], int size){
       best   = copyPath ( combine, arr1);  
       counter = 0;
     }else counter = counter + 1;
-    clearCityArray(comb, size);
-}
-
     
+    clearCityArray(comb, size);
+  }
 
-
-  printf("better  distance: %f\n", better.distance);
-  printf("best distance: %f\n", best.distance);
-  //printf("best distance: %f\n", combine.distance);
-  //printf("counter : %d\n",counter);
-  
-  
+  return best;
 }
 
 // printf("1 better: %d\n",better.cities->ID);
@@ -377,141 +370,4 @@ Path travelInShortestPath( City arr[], int size){
 // printf("10 combine :%d\n",combine.cities->next->next->next->next->next->next->next->next->next->ID);
 // printf("11 combine :%d\n",combine.cities->next->next->next->next->next->next->next->next->next->next->ID);
 
-
-  // printf("%d\n",comb[0].ID);
-  // printf("%d\n",comb[1].ID);
-  // printf("%d\n",comb[2].ID);
-  // printf("%d\n",comb[3].ID);
-  // printf("%d\n",comb[4].ID);
-  // printf("%d\n",comb[5].ID);
-  // printf("%d\n",comb[6].ID);
-  // printf("%d\n",comb[7].ID);  
-  // printf("%d\n",comb[8].ID);  
-  // printf("%d\n",comb[9].ID);  
-
-
-// printf("better: %d\n",better.cities->ID);
-// printf("better: %d\n",better.cities->next->ID);
-// printf("better: %d\n",better.cities->next->next->ID);
-// printf("better: %d\n",better.cities->next->next->next->ID);
-// printf("better: %d\n",better.cities->next->next->next->next->ID);
-// printf("better: %d\n",better.cities->next->next->next->next->next->ID);
-// printf("better: %d\n",better.cities->next->next->next->next->next->next->ID);
-// printf("better: %d\n",better.cities->next->next->next->next->next->next->next->ID);
-// printf("better: %d\n",better.cities->next->next->next->next->next->next->next->next->ID);
-// printf("better: %d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
-// printf("best:  %d\n",best.cities->ID);
-// printf("best: %d\n",best.cities->next->ID);
-// printf("best: %d\n",best.cities->next->next->ID);
-// printf("best: %d\n",best.cities->next->next->next->ID);
-// printf("best: %d\n",best.cities->next->next->next->next->ID);
-// printf("best: %d\n",best.cities->next->next->next->next->next->ID);
-// printf("best: %d\n",best.cities->next->next->next->next->next->next->ID);
-// printf("best: %d\n",best.cities->next->next->next->next->next->next->next->ID);
-// printf("best: %d\n",best.cities->next->next->next->next->next->next->next->next->ID);
-// printf("best: %d\n",best.cities->next->next->next->next->next->next->next->next->next->ID);
-
-
-// printf("combine :%d\n",combine.cities->ID);
-// printf("combine :%d\n",combine.cities->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->next->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->next->next->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->next->next->next->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->next->next->next->next->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->next->next->next->next->next->next->ID);
-// printf("combine :%d\n",combine.cities->next->next->next->next->next->next->next->next->next->ID);
-
-   // printf("best    distance: %f\n", best.distance);
-  // printf("better  distance: %f\n", better.distance);
-  // printf("combine distance: %f\n", combine.distance);
-  // printf("%d\n",combine.cities->ID);
-
-
-   // printf("%d\n",counter);
-  // printf("%f\n",best.distance);
-
-// printf("better size: %d\n",better.size);
-// printf("better distance: %f\n",better.distance);
-
-// printf("counter: %d\n", counter);
-// printf("best distance: %f\n", best.distance);
-
-// printf("rand1 : %d\n",rand1.ID);
-// printf("rand2 : %d\n",rand2.ID);
-// printf("rand3 : %d\n",rand3.ID);
-// printf("tour1 : %d\n",tour1->ID);
-// printf("tour2 : %d\n",tour2->ID);
-
-// printf("%d\n",arr[rand()%N].ID);
-// printf("%d\n",rand1.ID);
-// printf("%d\n",rand2.ID);
-
-// printf("%d\n",better.cities->ID);
-// printf("%d\n",better.cities->next->ID);
-// printf("%d\n",better.cities->next->next->ID);
-// printf("%d\n",better.cities->next->next->next->ID);
-// printf("%d\n",better.cities->next->next->next->next->ID);
-// printf("%d\n",better.cities->next->next->next->next->next->ID);
-// printf("%d\n",better.cities->next->next->next->next->next->next->ID);
-// printf("%d\n",better.cities->next->next->next->next->next->next->next->ID);
-// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->ID);
-// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
-
-
-
-  // printf("%d\n",endID);
-  // printf("%d\n",arr[0].ID);
-  // printf("%d\n",arr[1].ID);
-  // printf("%d\n",arr[2].ID);
-  // printf("%d\n",arr[3].ID);
-  // printf("%d\n",arr[4].ID);
-  // printf("%d\n",arr[5].ID);
-  // printf("%d\n",arr[6].ID);
-  // printf("%d\n",arr[7].ID);
-  // printf("%d\n",front.ID);
-  // printf("%d\n",back.ID);
-
-// printf("%d\n",cloneCities->ID);
-// printf("%d\n",cloneCities->next->ID);
-// printf("%d\n",cloneCities->next->next->ID);
-// printf("%d\n",cloneCities->next->next->next->ID);
-// printf("%d\n",cloneCities->next->next->next->next->ID);
-// printf("%d\n",cloneCities->next->next->next->next->next->ID);
-// printf("%d\n",cloneCities->next->next->next->next->next->next->ID);
-// printf("%d\n",cloneCities->next->next->next->next->next->next->next->ID);
-
-
-// Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
-  // Path best, better, combine;
-  // City rand1, rand2 , rand3, *tour1 = cities1, *tour2 = cities1;
-  // best.cities = cities1;
-  // best = getDistanceFromPath( best);
-  // better.cities = cities2;
-  // better = getDistanceFromPath( better);
-  // int n = best.size, i, counter = 0;
-
-//  while(counter != n){
-  // do{ rand1 = arr[rand()%n];
-      // rand2 = arr[rand()%n];
-  // }while( rand1.ID == rand2.ID);
-
-  // if( checkingFor2optWithRandomInput( best, rand1, rand2)){
-    // best = MutationCitiesWithRandomInput(best, rand1, rand2);
-    // counter = 0;
-  // }
-  // else counter = counter + 1;
-
-  // rand3 = arr[rand()%n];
-  // combine = crossoverCities(best , better, rand3);
-  // if( combine.distance < best.distance && combine.distance < better.distance){
-    // better = best;
-    // best = combine;
-    // counter = 0;
-  // }
- // else counter = counter + 1;
- // }
-
-//}
 
