@@ -8,6 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/** Input:
+*
+*   Output:
+*/
 float findDistance( City *first, City *second){
   float  x,y, powX, powY, ans, rounded;
   // Cartesian formula
@@ -20,6 +24,10 @@ float findDistance( City *first, City *second){
   return ((int)(ans * 1000 + .5) / 1000.0); // correct number to 3 significant
 }
 
+/** Input:
+*
+*   Output:
+*/
 Path getDistanceFromPath( Path path){
   City *cities = path.cities, *cityNext;
   int   headID = cities->ID;
@@ -41,6 +49,10 @@ Path getDistanceFromPath( Path path){
   return path;
 }
 
+/** Input:
+*
+*   Output:
+*/
 Path MutationCities(Path path, City targetA, City targetB){
   if(targetA.ID == targetB.ID)
     return;
@@ -60,6 +72,10 @@ Path MutationCities(Path path, City targetA, City targetB){
   return path;
 }
 
+/** Input:
+*
+*   Output:
+*/
 int checkingFor2opt(City *cities, City targetA, City targetB){
   if(targetA.ID == targetB.ID)
     return 0;
@@ -89,6 +105,10 @@ City copyCity ( City city){
   return clone;
 }
 
+/** Input:
+*
+*   Output:
+*/
 Path copyPath (Path path, City arr[]){
   int i, size = path.size , stop;
   City *cities = path.cities, *newCites, *cloneCities , head;
@@ -106,6 +126,10 @@ Path copyPath (Path path, City arr[]){
   return newPath;
 }
 
+/** Input:
+*
+*   Output:
+*/
 City getFrontCity(City *cities, City target){
   City frontCity, *front;
 
@@ -118,6 +142,10 @@ City getFrontCity(City *cities, City target){
   return frontCity;
 }
 
+/** Input:
+*
+*   Output:
+*/
 City getBackCity(City *cities, City target){
   City backCity, *back;
 
@@ -127,6 +155,10 @@ City getBackCity(City *cities, City target){
   return backCity;
 }
 
+/** Input:
+*
+*   Output:
+*/
 int checkIsCityNotUsed( City arr[], City target, int range){
   int i;
 
@@ -137,6 +169,10 @@ int checkIsCityNotUsed( City arr[], City target, int range){
   return 1;
 }
 
+/** Input:
+*
+*   Output:
+*/
 void addCityToBack (City arr[], City target, int range, int endID){
   int i;
   for(i = 0 ; i < range ; i ++){
@@ -147,6 +183,10 @@ void addCityToBack (City arr[], City target, int range, int endID){
   }
 }
 
+/** Input:
+*
+*   Output:
+*/
 void addCityToFront(City arr[], City target, int range){
   int i;
   City arr2[range];
@@ -158,6 +198,10 @@ void addCityToFront(City arr[], City target, int range){
     arr[i] = arr2[i];
 }
 
+/** Input:
+*
+*   Output:
+*/
 Path convertArrayToPath( City arr[], int range){
   int i;
   Path path;
@@ -177,6 +221,10 @@ Path convertArrayToPath( City arr[], int range){
   return path;
 }
 
+/** Input:
+*
+*   Output:
+*/
 void bubbleSortForNeighBour( NeighBour route[], int size){
   int i,j;
   NeighBour temp;
@@ -192,6 +240,10 @@ void bubbleSortForNeighBour( NeighBour route[], int size){
   }
 }
 
+/** Input:
+*
+*   Output:
+*/
 void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, int range){
   NeighBour near[range];
   int i = 0 , sizeNear = 0;
@@ -216,6 +268,10 @@ void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, 
   }
 }
 
+/** Input:
+*
+*   Output:
+*/
 Path crossoverCities(Path path1, Path path2, City target, City arr[]){
   int range = path1.size, i;
   City *head1 = path1.cities, *head2 = path2.cities, front, back, lastCityInArr;
@@ -250,12 +306,20 @@ Path crossoverCities(Path path1, Path path2, City target, City arr[]){
   return path;
 }
 
+/** Input:
+*
+*   Output:
+*/
 City *getRandomCity ( City *cities, City random){
   while(cities->ID != random.ID)
     cities = cities->next;
   return cities;
 }
 
+/** Input:
+*
+*   Output:
+*/
 void clearCityArray(City arr[], int size){
   int i;
   City empty; 
@@ -266,6 +330,10 @@ void clearCityArray(City arr[], int size){
     arr[i] = empty; 
 }
 
+/** Input:
+*
+*   Output:
+*/
 void copyArray( City clone[], City arr[], int size){
   int i;
   for(i=0 ; i < size ; i++){
@@ -273,7 +341,10 @@ void copyArray( City clone[], City arr[], int size){
   }
 }
 
-// rake test:Travel
+/** Input:
+*
+*   Output:
+*/
 Path travelInShortestPath( City arr[], int size){
   City rand1, rand2, rand3, arr1[size], arr2[size], comb[size];
   Path best, better, combine;

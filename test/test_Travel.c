@@ -551,7 +551,7 @@ void Xtest_bubbleSortForNeighBour_given_an_NeighBour_array_should_sort_according
 *                     Neighbour Neighbour
 * --------------------------------------------------------------------------------------------
 */
-void test_addCityOfNeighbour_given_array_and_it_want_to_add_mising_element_from_LinkedList_should_add_the_city_according_neighBour(void){
+void xtest_addCityOfNeighbour_given_array_and_it_want_to_add_mising_element_from_LinkedList_should_add_the_city_according_neighBour(void){
   City  cityA1 = cityA, cityB1 = cityB, cityD1 = cityD;
   City arr[] = { cityB1, cityD1 , cityA1 };
   City *head1 =  cityListNew(&cityA);
@@ -567,6 +567,7 @@ void test_addCityOfNeighbour_given_array_and_it_want_to_add_mising_element_from_
   TEST_ASSERT_EQUAL ( arr[2].ID, cityA.ID);
   TEST_ASSERT_EQUAL ( arr[3].ID, cityE.ID);
   TEST_ASSERT_EQUAL ( arr[4].ID, cityC.ID);
+  clearCityList(head1);
 }
 
 /**--------------------------------------------------------------------------------------------------------
