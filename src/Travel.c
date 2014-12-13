@@ -299,9 +299,67 @@ Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB){
 
 // rake test:Travel
 Path travelInShortestPath( City arr[], int size){
-
-
+  City *tour1, *tour2, rand1, rand2, rand3, comb[size], arr2[size];
+  Path best, better, combine;
+  best   = convertArrayToPath( arr, size);
+  best = getDistanceFromPath( best);
+  better = copyPath ( best, arr2);
+  tour1  = best.cities;
+  tour2  = best.cities;
+  int i, counter = 0;
+  
+  do{ rand1 = arr[rand()%size];
+      rand2 = arr[rand()%size];   
+  }while( rand1.ID == rand2.ID);
+  tour1 = getRandomCity( tour1, rand1);
+  tour2 = getRandomCity( tour2, rand2);
+  
+  if( checkingFor2opt( tour1, tour2)){
+    best = MutationCities( best, tour1, tour2);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    counter = 0;
+  }else counter = counter + 1;
+  
+  
+  rand3 = arr[rand()%size]; 
+  combine = crossoverCities(best , better, rand3, comb);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = best;
+    best = combine;
+    tour1 = best.cities;
+    tour2 = best.cities;
+    counter = 0;
+  }else counter = counter + 1;
+  
+  
+  
+  printf("best    distance: %f\n", best.distance);
+  printf("better  distance: %f\n", better.distance);
+  printf("combine distance: %f\n", combine.distance); 
 }
+
+// printf("%d\n",better.cities->ID);
+// printf("%d\n",better.cities->next->ID);
+// printf("%d\n",better.cities->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
+//printf("qq\n");
+// printf("%d\n",best.cities->ID);
+// printf("%d\n",best.cities->next->ID);
+// printf("%d\n",best.cities->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->next->next->ID);
+// printf("%d\n",best.cities->next->next->next->next->next->next->next->next->next->ID);
  
    // printf("best    distance: %f\n", best.distance);
   // printf("better  distance: %f\n", better.distance);
@@ -312,8 +370,8 @@ Path travelInShortestPath( City arr[], int size){
    // printf("%d\n",counter);
   // printf("%f\n",best.distance);
  
-// printf("%d\n",better.size);
-// printf("%f\n",better.distance);
+// printf("better size: %d\n",better.size);
+// printf("better distance: %f\n",better.distance);
  
 // printf("counter: %d\n", counter);  
 // printf("best distance: %f\n", best.distance);
@@ -339,16 +397,7 @@ Path travelInShortestPath( City arr[], int size){
 // printf("%d\n",better.cities->next->next->next->next->next->next->next->next->ID);
 // printf("%d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
 
-// printf("%d\n",best.cities->ID);
-// printf("%d\n",best.cities->next->ID);
-// printf("%d\n",best.cities->next->next->ID);
-// printf("%d\n",best.cities->next->next->next->ID);
-// printf("%d\n",best.cities->next->next->next->next->ID);
-// printf("%d\n",best.cities->next->next->next->next->next->ID);
-// printf("%d\n",best.cities->next->next->next->next->next->next->ID);
-// printf("%d\n",best.cities->next->next->next->next->next->next->next->ID);
-// printf("%d\n",best.cities->next->next->next->next->next->next->next->next->ID);
-// printf("%d\n",best.cities->next->next->next->next->next->next->next->next->next->ID);
+
 
   // printf("%d\n",endID);
   // printf("%d\n",arr[0].ID);
