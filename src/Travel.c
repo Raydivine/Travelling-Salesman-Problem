@@ -86,7 +86,7 @@ Path MutationCities(Path path, City *targetA, City *targetB){
 }
 
 City copyCity ( City city){
-  City clone; 
+  City clone;
   clone.x_axis = city.x_axis;;
   clone.y_axis = city.y_axis;
   clone.ID     = city.ID;
@@ -99,12 +99,12 @@ Path copyPath (Path path, City arr[]){
   City *cities = path.cities, *newCites, *cloneCities , head;
   Path newPath;
   stop = cities->ID;
-  
+
   for( i = 0; i < size ; i ++){
     arr[i] = *cities;
     cities = cities->next;
   }
-  
+
   newPath = convertArrayToPath( arr,  size);
   newPath.size     = path.size;
   newPath.distance = path.distance;
@@ -246,11 +246,11 @@ Path crossoverCities(Path path1, Path path2, City target, City arr[]){
   }
   head1 = head1->next;
   addCityOfNeighbour( arr, lastCityInArr, head1, target.ID, range);
-  
+
   clearCityList(head1);
   clearCityList(head2);
- 
-  path = convertArrayToPath(arr, range); 
+
+  path = convertArrayToPath(arr, range);
   path = getDistanceFromPath(path);
   return path;
 }
@@ -258,17 +258,17 @@ Path crossoverCities(Path path1, Path path2, City target, City arr[]){
 City *getRandomCity ( City *cities, City random){
   while(cities->ID != random.ID)
     cities = cities->next;
-  return cities;  
+  return cities;
 }
 
 int checkingFor2optWithRandomInput(Path path, City targetA, City targetB){
   City *pointA = path.cities;
   City *pointB = path.cities;
-  
+
   while(pointA->ID != targetA.ID)
     pointA = pointA->next;
   while(pointB->ID != targetB.ID)
-    pointB = pointB->next; 
+    pointB = pointB->next;
 
   float oldLink = findDistance( pointA, pointA->next) + findDistance( pointB, pointB->next);
   float newLink = findDistance( pointA, pointB) + findDistance( pointA->next, pointB->next);
@@ -281,20 +281,27 @@ int checkingFor2optWithRandomInput(Path path, City targetA, City targetB){
 Path MutationCitiesWithRandomInput(Path path, City targetA, City targetB){
   City *pointA = path.cities;
   City *pointB = path.cities;
-  
+
   while(pointA->ID != targetA.ID)
     pointA = pointA->next;
   while(pointB->ID != targetB.ID)
-    pointB = pointB->next;  
+    pointB = pointB->next;
 
   City  *temp1 =  pointA->next , *temp2 =  pointB->next;
-    
+
   reverseTheLinkBetween2City( path.cities, pointA, pointB);
   pointA->next = pointB;
   temp1->next   = temp2;
 
   path = getDistanceFromPath(path);
   return path;
+}
+
+void clearCityArray(City arr[], int size){
+  int i;
+  City empty[size]; 
+  for(i = 0 ; i<size; i++ )
+    arr[i] = empty[i]; 
 }
 
 // rake test:Travel
@@ -308,36 +315,180 @@ Path travelInShortestPath( City arr[], int size){
   tour2  = best.cities;
   int i, counter = 0;
   
+//  1----------------------------------------------------------------------------------
   do{ rand1 = arr[rand()%size];
-      rand2 = arr[rand()%size];   
+      rand2 = arr[rand()%size];
   }while( rand1.ID == rand2.ID);
   tour1 = getRandomCity( tour1, rand1);
   tour2 = getRandomCity( tour2, rand2);
-  
+
   if( checkingFor2opt( tour1, tour2)){
     best = MutationCities( best, tour1, tour2);
     tour1 = best.cities;
     tour2 = best.cities;
     counter = 0;
   }else counter = counter + 1;
-  
-  
-  rand3 = arr[rand()%size]; 
+
+  rand3 = arr[rand()%size];
   combine = crossoverCities(best , better, rand3, comb);
   if( combine.distance < best.distance && combine.distance < better.distance){
-    better = best;
-    best = combine;
+    better = copyPath ( best, arr2);
+    best   = copyPath ( combine, arr);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    clearCityArray(comb, size);
+    counter = 0;
+  }else counter = counter + 1;
+
+//  2----------------------------------------------------------------------------------
+  do{ rand1 = arr[rand()%size];
+      rand2 = arr[rand()%size];
+  }while( rand1.ID == rand2.ID);
+  tour1 = getRandomCity( tour1, rand1);
+  tour2 = getRandomCity( tour2, rand2);
+
+  if( checkingFor2opt( tour1, tour2)){
+    best = MutationCities( best, tour1, tour2);
     tour1 = best.cities;
     tour2 = best.cities;
     counter = 0;
   }else counter = counter + 1;
+
+  rand3 = arr[rand()%size];
+  combine = crossoverCities(best , better, rand3, comb);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = copyPath ( best, arr2);
+    best   = copyPath ( combine, arr);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    clearCityArray(comb, size);
+    counter = 0;
+  }else counter = counter + 1;
+
+//  3----------------------------------------------------------------------------------
+  do{ rand1 = arr[rand()%size];
+      rand2 = arr[rand()%size];
+  }while( rand1.ID == rand2.ID);
+  tour1 = getRandomCity( tour1, rand1);
+  tour2 = getRandomCity( tour2, rand2);
+
+  if( checkingFor2opt( tour1, tour2)){
+    best = MutationCities( best, tour1, tour2);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    counter = 0;
+  }else counter = counter + 1;
+
+  rand3 = arr[rand()%size];
+  combine = crossoverCities(best , better, rand3, comb);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = copyPath ( best, arr2);
+    best   = copyPath ( combine, arr);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    clearCityArray(comb, size);
+    counter = 0;
+  }else counter = counter + 1;
+
+//  4----------------------------------------------------------------------------------
+  do{ rand1 = arr[rand()%size];
+      rand2 = arr[rand()%size];
+  }while( rand1.ID == rand2.ID);
+  tour1 = getRandomCity( tour1, rand1);
+  tour2 = getRandomCity( tour2, rand2);
+
+  if( checkingFor2opt( tour1, tour2)){
+    best = MutationCities( best, tour1, tour2);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    counter = 0;
+  }else counter = counter + 1;
+
+  rand3 = arr[rand()%size];
+  combine = crossoverCities(best , better, rand3, comb);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = copyPath ( best, arr2);
+    best   = copyPath ( combine, arr);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    clearCityArray(comb, size);
+    counter = 0;
+  }else counter = counter + 1;
+
+//  5----------------------------------------------------------------------------------
+  do{ rand1 = arr[rand()%size];
+      rand2 = arr[rand()%size];
+  }while( rand1.ID == rand2.ID);
+  tour1 = getRandomCity( tour1, rand1);
+  tour2 = getRandomCity( tour2, rand2);
+
+  if( checkingFor2opt( tour1, tour2)){
+    best = MutationCities( best, tour1, tour2);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    counter = 0;
+  }else counter = counter + 1;
+
+  rand3 = arr[rand()%size];
+  combine = crossoverCities(best , better, rand3, comb);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = copyPath ( best, arr2);
+    best   = copyPath ( combine, arr);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    clearCityArray(comb, size);
+    counter = 0;
+  }else counter = counter + 1;  
+  
+//  7----------------------------------------------------------------------------------
+  do{ rand1 = arr[rand()%size];
+      rand2 = arr[rand()%size];
+  }while( rand1.ID == rand2.ID);
+  tour1 = getRandomCity( tour1, rand1);
+  tour2 = getRandomCity( tour2, rand2);
+
+  if( checkingFor2opt( tour1, tour2)){
+    best = MutationCities( best, tour1, tour2);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    counter = 0;
+  }else counter = counter + 1;
+
+  rand3 = arr[rand()%size];
+  combine = crossoverCities(best , better, rand3, comb);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = copyPath ( best, arr2);
+    best   = copyPath ( combine, arr);
+    tour1 = best.cities;
+    tour2 = best.cities;
+    clearCityArray(comb, size);
+    counter = 0;
+  }else counter = counter + 1;  
+  
+
+  
   
   
   
   printf("best    distance: %f\n", best.distance);
   printf("better  distance: %f\n", better.distance);
-  printf("combine distance: %f\n", combine.distance); 
+  printf("combine distance: %f\n", combine.distance);
+  printf("counter : %d\n",counter);
+  
+  
+  
+  
 }
+
+// printf("%d\n",comb[0].ID);
+  // printf("%d\n",comb[1].ID);
+  // printf("%d\n",comb[2].ID);
+  // printf("%d\n",comb[3].ID);
+  // printf("%d\n",comb[4].ID);
+  // printf("%d\n",comb[5].ID);
+  // printf("%d\n",comb[6].ID);
+  // printf("%d\n",comb[7].ID);
+
 
 // printf("%d\n",better.cities->ID);
 // printf("%d\n",better.cities->next->ID);
@@ -360,27 +511,27 @@ Path travelInShortestPath( City arr[], int size){
 // printf("%d\n",best.cities->next->next->next->next->next->next->next->ID);
 // printf("%d\n",best.cities->next->next->next->next->next->next->next->next->ID);
 // printf("%d\n",best.cities->next->next->next->next->next->next->next->next->next->ID);
- 
+
    // printf("best    distance: %f\n", best.distance);
   // printf("better  distance: %f\n", better.distance);
-  // printf("combine distance: %f\n", combine.distance); 
+  // printf("combine distance: %f\n", combine.distance);
   // printf("%d\n",combine.cities->ID);
- 
- 
+
+
    // printf("%d\n",counter);
   // printf("%f\n",best.distance);
- 
+
 // printf("better size: %d\n",better.size);
 // printf("better distance: %f\n",better.distance);
- 
-// printf("counter: %d\n", counter);  
+
+// printf("counter: %d\n", counter);
 // printf("best distance: %f\n", best.distance);
 
 // printf("rand1 : %d\n",rand1.ID);
 // printf("rand2 : %d\n",rand2.ID);
 // printf("rand3 : %d\n",rand3.ID);
 // printf("tour1 : %d\n",tour1->ID);
-// printf("tour2 : %d\n",tour2->ID); 
+// printf("tour2 : %d\n",tour2->ID);
 
 // printf("%d\n",arr[rand()%N].ID);
 // printf("%d\n",rand1.ID);
@@ -429,12 +580,12 @@ Path travelInShortestPath( City arr[], int size){
   // better.cities = cities2;
   // better = getDistanceFromPath( better);
   // int n = best.size, i, counter = 0;
-  
+
 //  while(counter != n){
   // do{ rand1 = arr[rand()%n];
-      // rand2 = arr[rand()%n];   
+      // rand2 = arr[rand()%n];
   // }while( rand1.ID == rand2.ID);
-  
+
   // if( checkingFor2optWithRandomInput( best, rand1, rand2)){
     // best = MutationCitiesWithRandomInput(best, rand1, rand2);
     // counter = 0;
