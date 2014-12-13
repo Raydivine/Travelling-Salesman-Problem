@@ -16,7 +16,6 @@ struct City{
 
 struct NeighBour{
   City neighBour;
-  City object;
   float distance;
 };
 

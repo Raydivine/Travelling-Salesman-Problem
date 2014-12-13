@@ -8,36 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void bubbleSortForPath( Path table[], int size){
-  int i,j;
-  Path temp;
-
-  for (i = 1; i < size; i++){
-    for (j = 0; j < size - 1; j++) {
-      if( table[j].distance >table[j+1].distance ){
-        temp= table[j+1];
-        table[j+1] = table[j];
-        table[j] = temp;
-      }
-    }
-  }
-}
-
-void bubbleSortForNeighBour( NeighBour route[], int size){
-  int i,j;
-  NeighBour temp;
-
-  for (i = 1; i < size; i++){
-    for (j = 0; j < size - 1; j++) {
-      if( route[j].distance >route[j+1].distance ){
-        temp= route[j+1];
-        route[j+1] = route[j];
-        route[j] = temp;
-      }
-    }
-  }
-}
-
 float findDistance( City *first, City *second){
   float  x,y, powX, powY, ans, rounded;
   // Cartesian formula
@@ -207,6 +177,21 @@ Path convertArrayToPath( City arr[], int range){
   return path;
 }
 
+void bubbleSortForNeighBour( NeighBour route[], int size){
+  int i,j;
+  NeighBour temp;
+
+  for (i = 1; i < size; i++){
+    for (j = 0; j < size - 1; j++) {
+      if( route[j].distance >route[j+1].distance ){
+        temp= route[j+1];
+        route[j+1] = route[j];
+        route[j] = temp;
+      }
+    }
+  }
+}
+
 void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, int range){
   NeighBour near[range];
   int i = 0 , sizeNear = 0;
@@ -299,7 +284,7 @@ Path travelInShortestPath( City arr[], int size){
   better = copyPath ( best, arr2);
  
   int i, counter = 0;
-  printf("Original distance :%f\n", best.distance);
+  printf("Original distance           : %f\n", best.distance);
   while (counter < size){
     do{ rand1 = arr[rand()%size];
         rand2 = arr[rand()%size];
@@ -325,49 +310,6 @@ Path travelInShortestPath( City arr[], int size){
   return best;
 }
 
-// printf("1 better: %d\n",better.cities->ID);
-// printf("2 better: %d\n",better.cities->next->ID);
-// printf("3 better: %d\n",better.cities->next->next->ID);
-// printf("4 better: %d\n",better.cities->next->next->next->ID);
-// printf("5 better: %d\n",better.cities->next->next->next->next->ID);
-// printf("6 better: %d\n",better.cities->next->next->next->next->next->ID);
-// printf("7 better: %d\n",better.cities->next->next->next->next->next->next->ID);
-// printf("8 better: %d\n",better.cities->next->next->next->next->next->next->next->ID);
-// printf("9 better: %d\n",better.cities->next->next->next->next->next->next->next->next->ID);
-// printf("10 better: %d\n",better.cities->next->next->next->next->next->next->next->next->next->ID);
-// printf("11 better: %d\n",better.cities->next->next->next->next->next->next->next->next->next->next->ID);
-// printf("1 best: %d\n",best.cities->ID);
-// printf("2 best: %d\n",best.cities->next->ID);
-// printf("3 best: %d\n",best.cities->next->next->ID);
-// printf("4 best: %d\n",best.cities->next->next->next->ID);
-// printf("5 best: %d\n",best.cities->next->next->next->next->ID);
-// printf("6 best: %d\n",best.cities->next->next->next->next->next->ID);
-// printf("7 best: %d\n",best.cities->next->next->next->next->next->next->ID);
-// printf("8 best: %d\n",best.cities->next->next->next->next->next->next->next->ID);
-// printf("9 best: %d\n",best.cities->next->next->next->next->next->next->next->next->ID);
-// printf("10 best: %d\n",best.cities->next->next->next->next->next->next->next->next->next->ID);
-// printf("10 best: %d\n",best.cities->next->next->next->next->next->next->next->next->next->next->ID);
-// printf("1 comb: %d\n",comb[0].ID);
-// printf("2 comb: %d\n",comb[1].ID);
-// printf("3 comb: %d\n",comb[2].ID);
-// printf("4 comb: %d\n",comb[3].ID);
-// printf("5 comb: %d\n",comb[4].ID);
-// printf("6 comb: %d\n",comb[5].ID);
-// printf("7 comb: %d\n",comb[6].ID);
-// printf("8 comb: %d\n",comb[7].ID);  
-// printf("9 comb: %d\n",comb[8].ID);  
-// printf("10 comb: %d\n",comb[9].ID);  
 
-// printf("1 combine :%d\n",combine.cities->ID);
-// printf("2 combine :%d\n",combine.cities->next->ID);
-// printf("3 combine :%d\n",combine.cities->next->next->ID);
-// printf("4 combine :%d\n",combine.cities->next->next->next->ID);
-// printf("5 combine :%d\n",combine.cities->next->next->next->next->ID);
-// printf("6 combine :%d\n",combine.cities->next->next->next->next->next->ID);
-// printf("7 combine :%d\n",combine.cities->next->next->next->next->next->next->ID);
-// printf("8 combine :%d\n",combine.cities->next->next->next->next->next->next->next->ID);
-// printf("9 combine :%d\n",combine.cities->next->next->next->next->next->next->next->next->ID);
-// printf("10 combine :%d\n",combine.cities->next->next->next->next->next->next->next->next->next->ID);
-// printf("11 combine :%d\n",combine.cities->next->next->next->next->next->next->next->next->next->next->ID);
 
 

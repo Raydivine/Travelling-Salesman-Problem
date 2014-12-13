@@ -124,7 +124,7 @@ void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(
   clearCityList(path.cities);
 }
 
-void xtest_copycity_given_pointer_cityB_should_copy_and_hold_the_data(void){
+void xtest_copycity_given_pointer_cityB_should_copy_and_hold_the_city(void){
   City *head =  cityListNew(&cityB);
   City clone = copyCity(*head);
   clearCityList(head);
@@ -138,7 +138,7 @@ void xtest_copycity_given_pointer_cityB_should_copy_and_hold_the_data(void){
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void xtest_copyPath_should_copy_a_new_cities_list(void){
+void xtest_copyPath_should_copy_and_hold_the_cities_list(void){
   City arr[8], *head;
   head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -165,53 +165,6 @@ void xtest_copyPath_should_copy_a_new_cities_list(void){
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->next->ID      , cityH.ID);
   TEST_ASSERT_EQUAL( clonePath.cities->next->next->next->next->next->next->next->next->ID, cityA.ID);
   clearCityList(path.cities);
-}
-
-/**
-* path1->distance = 22.156, path2->distance = 15.156
-*
-*                 sort
-*  path1-path2  -------> path2-path1
-*/
-void xtest_bubbleSortForPath_given_array_of_2_path_should_sort_according_distance(void){
-  Path path1, path2, pathArray[10];
-  path1.distance = 22.156;
-  path2.distance = 15.156;
-  pathArray[0] = path1;
-  pathArray[1] = path2;
-
-  bubbleSortForPath( pathArray,2);
-  TEST_ASSERT_EQUAL( pathArray[0].distance, path2.distance);
-  TEST_ASSERT_EQUAL( pathArray[1].distance, path1.distance);
-}
-
-/**
-*
-*
-*  path1 ---> path2 ---> path3 ---> path4 ---> path5
-*                     |sort
-*                     v
-*  path2 ---> path1 ---> path5 ---> path3 ---> path4
-*/
-void xtest_bubbleSortForPath_given_array_of_5_path_should_sort_according_distance(void){
-  Path path1, path2, path3, path4, path5, pathArray[10];
-  path1.distance = 22.156;
-  path2.distance = 45.156;
-  path3.distance = 75.156;
-  path4.distance = 95.156;
-  path5.distance = 55.156;
-  pathArray[0] = path1;
-  pathArray[1] = path2;
-  pathArray[2] = path3;
-  pathArray[3] = path4;
-  pathArray[4] = path5;
-
-  bubbleSortForPath( pathArray,5);
-  TEST_ASSERT_EQUAL( pathArray[0].distance, path1.distance);
-  TEST_ASSERT_EQUAL( pathArray[1].distance, path2.distance);
-  TEST_ASSERT_EQUAL( pathArray[2].distance, path5.distance);
-  TEST_ASSERT_EQUAL( pathArray[3].distance, path3.distance);
-  TEST_ASSERT_EQUAL( pathArray[4].distance, path4.distance);
 }
 
 /**
@@ -281,10 +234,8 @@ void xtest_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *                                                                                   *
 *-----------------------------------------------------------------------------------*
-* 2. select cityA and cityC as target , reverse the link between them               *                                                                              *
-*                                                                                   *
-*                                                                                   *
-*                                                                                   *
+* 2. select cityA and cityC as target , reverse the link between them               *                                                                              
+*                                                                                   *                                                                                                                                                                   
 *             -------------------------                                             *
 *            |                        |                                             *
 *            v                        v                                             *
@@ -382,7 +333,7 @@ void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
 }
 
 /**
-*                       $
+*                     $  $
 *                   cityA--->cityB-->cityC--->cityD
 *                     ^                          |
 *                     |                          v
@@ -459,7 +410,7 @@ void xtest_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant
 *
 *                         AF+BG  <  AB + FG
 *
-*                should  do 2opt because  get shorter distance
+*                should  do 2opt because can get shorter distance
 */
 void xtest_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_better_chromesome(void){
   Path path;
@@ -537,6 +488,26 @@ void xtest_getBackCity_given_linkedList_B_E_C_A_G_and_target_C_should_get_cityA(
   clearCityList(head);
 }
 
+void xtest_addCityToFront_given_a_city_array_A_H_I_and_add_D_to_front_should_become_D_A_H_I(void){
+  City arr[4] = { cityA, cityH, cityI};
+  
+  addCityToFront( arr, cityD, 4);
+  TEST_ASSERT_EQUAL ( arr[0].ID, cityD.ID);
+  TEST_ASSERT_EQUAL ( arr[1].ID, cityA.ID);
+  TEST_ASSERT_EQUAL ( arr[2].ID, cityH.ID);
+  TEST_ASSERT_EQUAL ( arr[3].ID, cityI.ID);
+}
+
+void xtest_addCityToBack_given_a_city_array_A_H_I_and_add_D_to_front_should_become_A_H_I_D(void){
+  City arr[4] = { cityA, cityH, cityI};
+  
+  addCityToBack( arr, cityD, 4, cityI.ID);
+  TEST_ASSERT_EQUAL ( arr[0].ID, cityA.ID);
+  TEST_ASSERT_EQUAL ( arr[1].ID, cityH.ID);
+  TEST_ASSERT_EQUAL ( arr[2].ID, cityI.ID);
+  TEST_ASSERT_EQUAL ( arr[3].ID, cityD.ID);
+}
+
 void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_C_D_E_(void){
   City arr[] = {cityA, cityB, cityC, cityD, cityE};
 
@@ -547,6 +518,55 @@ void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_
   TEST_ASSERT_EQUAL( path.cities->next->next->next->ID                              , cityD.ID);
   TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID                        , cityE.ID);
   TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityA.ID);
+}
+
+void Xtest_bubbleSortForNeighBour_given_an_NeighBour_array_should_sort_according_distance(void){
+  NeighBour neigh1, neigh2, neigh3;
+  neigh1.distance = 5.34 , neigh2.distance = 9.12 , neigh3.distance = 3.55 ;
+  neigh1.neighBour = cityA, neigh2.neighBour = cityB , neigh3.neighBour = cityC;
+  NeighBour arr[] = { neigh1, neigh2, neigh3 };
+  
+  bubbleSortForNeighBour( arr, 3);
+  TEST_ASSERT_EQUAL ( arr[0].neighBour.ID, neigh3.neighBour.ID);
+  TEST_ASSERT_EQUAL ( arr[1].neighBour.ID, neigh1.neighBour.ID);
+  TEST_ASSERT_EQUAL ( arr[2].neighBour.ID, neigh2.neighBour.ID);
+}
+
+/**------------------------------------------------------------------------------------------
+* 1. During my crossover function processing, after the condition break,
+*   it will produce a crossover array, but the array is missing some element,
+*   so it need to rest of element behind 
+*
+* 2. given array and linked list shown  below, cityC and cityE is missing inside the array,        
+*
+*         arr                                    LinkedList
+*   cityB--CityD--cityA                   cityA--CityB--cityC--CityD--cityE
+*                   *                                      *             *                     
+*                                                                                              
+* 3. so should add cityC and cityE into the array behind cityA, but for efficient of computing,
+*    the adding sequence should add according the distance between cityA, which is neighbour 
+*
+* 4. The city is add inside the array according distance of neighbour 
+*   cityB--CityD--cityA--cityE--cityC
+*                     Neighbour Neighbour
+* --------------------------------------------------------------------------------------------
+*/
+void test_addCityOfNeighbour_given_array_and_it_want_to_add_mising_element_from_LinkedList_should_add_the_city_according_neighBour(void){
+  City  cityA1 = cityA, cityB1 = cityB, cityD1 = cityD;
+  City arr[] = { cityB1, cityD1 , cityA1 };
+  City *head1 =  cityListNew(&cityA);
+  addCityList(&head1, &cityB);
+  addCityList(&head1, &cityC);
+  addCityList(&head1, &cityD);
+  addCityList(&head1, &cityE);
+  addCityList(&head1, &cityA);
+
+  addCityOfNeighbour( arr, cityA, &cityB, cityA.ID, 5);
+  TEST_ASSERT_EQUAL ( arr[0].ID, cityB.ID);
+  TEST_ASSERT_EQUAL ( arr[1].ID, cityD.ID);
+  TEST_ASSERT_EQUAL ( arr[2].ID, cityA.ID);
+  TEST_ASSERT_EQUAL ( arr[3].ID, cityE.ID);
+  TEST_ASSERT_EQUAL ( arr[4].ID, cityC.ID);
 }
 
 /**--------------------------------------------------------------------------------------------------------
@@ -689,19 +709,19 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;
 
   shortestPath = travelInShortestPath( tenCity, 10);
-  printf("Computed distance :%f\n", shortestPath.distance);
+  printf("Computed distance of 10 city: %f\n", shortestPath.distance);
 }
 
-void test_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
+void xtest_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
   City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ, 
                         cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
   Path shortestPath;
 
   shortestPath = travelInShortestPath( twentyCity, 20);
-  printf("Computed distance :%f\n", shortestPath.distance);
+  printf("Computed distance of 20 city: %f\n", shortestPath.distance);
 }
