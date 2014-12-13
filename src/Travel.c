@@ -86,14 +86,10 @@ Path MutationCities(Path path, City *targetA, City *targetB){
 }
 
 City copyCity ( City city){
-  City clone;
-  float x = city.x_axis;
-  float y = city.y_axis;
-  int ID = city.ID;
-  
-  clone.x_axis = x ;
-  clone.y_axis = y;
-  clone.ID     = ID;
+  City clone; 
+  clone.x_axis = city.x_axis;;
+  clone.y_axis = city.y_axis;
+  clone.ID     = city.ID;
   clone.next   = NULL;
   return clone;
 }
@@ -103,18 +99,13 @@ Path copyPath (Path path){
   City *cities = path.cities, *newCites, *cloneCities, arr[size] , head;
   Path newPath;
   stop = cities->ID;
-  head = copyCity (*cities);
-  newCites =  cityListNew(&head);
-  cities = cities->next;
-  i = 0;
-  while( cities->ID != stop){
-    arr[i] = copyCity (*cities);
-    addCityList(&newCites, &arr[i]);
+  
+  for( i = 0; i < size ; i ++){
+    arr[i] = *cities;
     cities = cities->next;
-    i++;
   }
-  addCityList(&newCites, &head);
-  newPath.cities   = newCites;
+  
+  newPath = convertArrayToPath( arr,  size);
   newPath.size     = path.size;
   newPath.distance = path.distance;
   return newPath;
@@ -165,10 +156,9 @@ int checkIsCityNotUsed( City arr[], City target, int range){
 
 void addCityToBack (City arr[], City target, int range, int endID){
   int i;
-  City city = copyCity(target);
   for(i = 0 ; i < range ; i ++){
     if(arr[i].ID == endID){
-      arr[i+1] = city;
+      arr[i+1] = copyCity(target);
       break;
     }
   }
@@ -177,10 +167,10 @@ void addCityToBack (City arr[], City target, int range, int endID){
 void addCityToFront(City arr[], City target, int range){
   int i;
   City arr2[range];
-  City city = copyCity(target);
+
   for(i = 0 ; i < range; i ++)
     arr2[i+1] = arr[i];
-  arr2[0] = city;
+  arr2[0] = copyCity(target);
   for(i= 0; i < range; i ++)
     arr[i] = arr2[i];
 }
@@ -252,13 +242,15 @@ Path crossoverCities(Path path1, Path path2, City target){
       addCityToBack (arr, back, range, lastCityInArr.ID);
       lastCityInArr = back;
       back = getBackCity(head2, back);
-    } else
-        break;
+    } else break;
   }
   head1 = head1->next;
   addCityOfNeighbour( arr, lastCityInArr, head1, target.ID, range);
-
-  path = convertArrayToPath(arr, range);
+  
+  clearCityList(head1);
+  clearCityList(head2);
+ 
+  path = convertArrayToPath(arr, range); 
   path = getDistanceFromPath(path);
   return path;
 }
@@ -315,7 +307,7 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   better = getDistanceFromPath( better);
   int n = best.size, i, counter = 0;
   
-  while(counter != n){
+ // while(counter != n){
   do{ rand1 = arr[rand()%n];
       rand2 = arr[rand()%n];   
   }while( rand1.ID == rand2.ID);
@@ -326,17 +318,18 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   }
   else counter = counter + 1;
 
-  // rand3 = arr[rand()%n];
-  // combine = crossoverCities(best , better, rand3);
-  // if( combine.distance < best.distance && combine.distance < better.distance){
-    // better = best;
-    // best = combine;
-    // counter = 0;
-  // }
-  // else counter = counter + 1;
-  }
-  // printf("%d\n",counter);
-  // printf("%f\n",best.distance);
+  rand3 = arr[rand()%n];
+  combine = crossoverCities(best , better, rand3);
+  if( combine.distance < best.distance && combine.distance < better.distance){
+    better = best;
+    best = combine;
+    counter = 0;
+ }
+ else counter = counter + 1;
+  
+
+
+
 }
  
    // printf("best    distance: %f\n", best.distance);
@@ -344,6 +337,9 @@ Path travelInShortestPath( City *cities1, City *cities2, City arr[]){
   // printf("combine distance: %f\n", combine.distance); 
   // printf("%d\n",combine.cities->ID);
  
+ 
+   // printf("%d\n",counter);
+  // printf("%f\n",best.distance);
  
 // printf("%d\n",better.size);
 // printf("%f\n",better.distance);

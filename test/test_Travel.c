@@ -124,6 +124,13 @@ void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(
   clearCityList(path.cities);
 }
 
+void xtest_copycity_given_pointer_cityB_should_copy_and_hold_the_data(void){
+  City *head =  cityListNew(&cityB);
+  City clone = copyCity(*head);
+  clearCityList(head);
+  TEST_ASSERT_EQUAL( clone.ID  , cityB.ID); 
+}
+
 /**
 *
 *   Original:   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
@@ -131,7 +138,7 @@ void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void test_copyPath_should_copy_a_new_cities_list(void){
+void xtest_copyPath_should_copy_a_new_cities_list(void){
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
@@ -567,7 +574,7 @@ void Xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_
 *                                                                       (near  to    far )                *
 *                                                                                                         *
 *---------------------------------------------------------------------------------------------------------*/
-void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
+void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
 
@@ -581,7 +588,7 @@ void test_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_an
   addCityList(&head1, &cityH);
   addCityList(&head1, &cityA);
 
-  City *head2 =  cityListNew(&cityC1);
+  City *head2 = &cityC1;
   addCityList(&head2, &cityD1);
   addCityList(&head2, &cityE1);
   addCityList(&head2, &cityH1);
@@ -678,7 +685,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
@@ -696,7 +703,7 @@ void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_pat
   addCityList(&head1, &cityJ);
   addCityList(&head1, &cityA);
   
-  City *head2 =  cityListNew(&cityF1);
+  City *head2 =  &cityF1;
   addCityList(&head2, &cityJ1);
   addCityList(&head2, &cityC1);
   addCityList(&head2, &cityA1);
@@ -709,4 +716,6 @@ void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_pat
   addCityList(&head2, &cityF1);
   
   travelInShortestPath( head1, head2, tenCity);
+  clearCityList(head1);
+  clearCityList(head2);
 }
