@@ -711,19 +711,48 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
+void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_distance_70_should_sort_according_ditance(void){
+  Path path1, path2, path3;
+  path1.distance = 100;
+  path2.distance = 50;
+  path3.distance = 70;
+  
+  Path array[] = { path1, path2, path3 };
+  bubbleSortForPath ( array , 3);
+  TEST_ASSERT_EQUAL ( array[0].distance, path2.distance);
+  TEST_ASSERT_EQUAL ( array[1].distance, path3.distance);
+  TEST_ASSERT_EQUAL ( array[2].distance, path1.distance);
+}
+
+void xtest_initializePopulation_given_an_array_of_cities_should_initliaze_the_populations_of_number_of_cities(void){
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  City tour[10];
+  Path population;
+  
+  initializePopulation ( population, tour, tenCity, 10);
+}
+
 void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;
 
   shortestPath = travelInShortestPath( tenCity, 10);
-  printf("Computed distance of 10 city: %f\n\n", shortestPath.distance);
+  //printf("Computed distance of 10 city: %f\n\n", shortestPath.distance);
 }
 
-void test_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
-  City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ, 
-                        cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
-  Path shortestPath;
+// void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+  // City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  // Path shortestPath;
 
-  shortestPath = travelInShortestPath( twentyCity, 20);
-  printf("Computed distance of 20 city: %f\n\n", shortestPath.distance);
-}
+  // shortestPath = travelInShortestPath( tenCity, 10);
+  // printf("Computed distance of 10 city: %f\n\n", shortestPath.distance);
+// }
+
+// void xtest_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
+  // City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ, 
+                        // cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
+  // Path shortestPath;
+
+  // shortestPath = travelInShortestPath( twentyCity, 20);
+  // printf("Computed distance of 20 city: %f\n\n", shortestPath.distance);
+// }

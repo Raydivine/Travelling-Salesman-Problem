@@ -28,13 +28,6 @@ void addCityList(City **cities, City *city){
   tail->next = city;
 }
 
-void addCityListPrev(City **cities, City *city){
-  City **temp = cities;
-  city->next = *temp;
-  *cities = city;
-}
-
-
 void reverseTheLinkBetween2City( City *cities, City *start, City *end){
   if(start->ID == end->ID)
     return ;
