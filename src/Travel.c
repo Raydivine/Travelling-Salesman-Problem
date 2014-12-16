@@ -401,9 +401,45 @@ Path initializePopulation (Path population, City tour[], City arr[], int size){
 
 
 Path initPopulationTable(City arr[], int sizeOfPopulation, int size){
-  Path population;
-  City tour[sizeOfPopulation][size];
+  Path population[sizeOfPopulation];
+  City tour[sizeOfPopulation][size], temp;
+  int i,j,x;
   
+  for( i=0 ; i<sizeOfPopulation; i++){
+    copyArray( tour[i], arr, size); 
+    for ( j=0 ; j<size ; j++){   // shuffer the array
+      x = rand()%(size);
+      temp = tour[i][x];
+      tour[i][x] = tour[i][j];
+      tour[i][j] = temp;
+    }
+    population[i] = convertArrayToPath( tour[i], size);
+    population[i] = getDistanceFromPath( population[i]);
+  }
+  
+   City *cities = population[9].cities;
+    int stop = cities->ID;
+    printf("%d\n",cities->ID);
+    cities = cities->next;
+   while(cities->ID != stop){
+    printf("%d\n",cities->ID);
+    cities = cities->next;
+   }
+   printf("next\n");
+    cities = population[8].cities;
+    stop = cities->ID;
+    printf("%d\n",cities->ID);
+    cities = cities->next;
+   while(cities->ID != stop){
+    printf("%d\n",cities->ID);
+    cities = cities->next;
+   }
+   
+
+
+ 
+
+
 }
 
 
@@ -499,6 +535,16 @@ Path travelInShortestPath( City arr[], int size){
 // }
 
 
+// printf("%d\n",tour[0][0].ID);
+// printf("%d\n",tour[0][1].ID);
+// printf("%d\n",tour[0][2].ID);
+// printf("%d\n",tour[0][3].ID);
+// printf("%d\n",tour[0][4].ID);
+// printf("%d\n",tour[0][5].ID);
+// printf("%d\n",tour[0][6].ID);
+// printf("%d\n",tour[0][7].ID);
+// printf("%d\n",tour[0][8].ID);
+// printf("%d\n",tour[0][9].ID);
 
 // printf("population distance : %f\n", population.distance);
 // printf("population size     : %d\n", population.size);
@@ -517,6 +563,17 @@ Path travelInShortestPath( City arr[], int size){
    // printf("%d\n",cities->ID);
    // cities = cities->next;
    // }
+   
+     // printf("next\n");
+    // cities = population[8].cities;
+    // stop = cities->ID;
+    // printf("%d\n",cities->ID);
+    // cities = cities->next;
+   // while(cities->ID != stop){
+    // printf("%d\n",cities->ID);
+    // cities = cities->next;
+   // }
+
    
    
      
