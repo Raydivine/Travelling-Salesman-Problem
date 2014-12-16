@@ -729,7 +729,7 @@ void xtest_initializePopulation_given_an_array_of_cities_should_initliaze_the_po
   City tour[10];
   Path population;
   
-  initializePopulation ( population, tour, tenCity, 10);
+  //initializePopulation ( population, tour, tenCity, 10);
 }
 
 void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
