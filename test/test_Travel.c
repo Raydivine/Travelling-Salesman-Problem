@@ -724,26 +724,39 @@ void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_dis
   TEST_ASSERT_EQUAL ( array[2].distance, path1.distance);
 }
 
-void xtest_initializePopulation_given_an_array_of_cities_should_initliaze_the_populations_of_number_of_cities(void){
-  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  City tour[10];
-  Path population;
-  
-  //initializePopulation ( population, tour, tenCity, 10);
-}
 
-void test_initPopulationTable_given_10_cities(void){
+void test_initPopulationTable_given_10_cities_should_set_the_population_table_as_10(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  initPopulationTable(tenCity, 10, 10);
+
+ // Path population = initPopulationTable(tenCity, 10, 10);
 }
 
 void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;
 
-  shortestPath = travelInShortestPath( tenCity, 10);
-  //printf("Computed distance of 10 city: %f\n\n", shortestPath.distance);
+  shortestPath = travelInShortestPath( tenCity, 15, 10);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   // City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };

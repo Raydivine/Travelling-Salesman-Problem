@@ -383,31 +383,32 @@ void copyArray( City clone[], City arr[], int size){
   }
 }
 
-Path initializePopulation (Path population, City tour[], City arr[], int size){
-  int i, x;
-  City temp;
-  copyArray( tour, arr, size);
+// Path initPopulationTable(City arr[], int sizeOfPopulation, int size){
+  // Path population[sizeOfPopulation];
+  // City tour[sizeOfPopulation][size], temp;
+  // int i,j,x;
   
-  for ( i=0 ; i<size ; i++){ // shuffer the array
-    x = rand()%(size);
-    temp = tour[x];
-    tour[x] = tour[i];
-    tour[i] = temp;
-  }
-  population = convertArrayToPath( tour, size);
-  population = getDistanceFromPath( population);
-  return population;
-}
+  // for( i=0 ; i<sizeOfPopulation; i++){
+    // copyArray( tour[i], arr, size); 
+    // for ( j=0 ; j < size ; j++){   // shuffer the array
+      // x = rand()%(size);
+      // temp = tour[i][x];
+      // tour[i][x] = tour[i][j];
+      // tour[i][j] = temp;
+    // }
+    // population[i] = convertArrayToPath( tour[i], size);
+    // population[i] = getDistanceFromPath( population[i]);
+  // }
+  // return *population;
+// }
 
-
-Path initPopulationTable(City arr[], int sizeOfPopulation, int size){
-  Path population[sizeOfPopulation];
+void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, int size){
   City tour[sizeOfPopulation][size], temp;
   int i,j,x;
   
   for( i=0 ; i<sizeOfPopulation; i++){
     copyArray( tour[i], arr, size); 
-    for ( j=0 ; j<size ; j++){   // shuffer the array
+    for ( j=0 ; j < size ; j++){   // shuffer the array
       x = rand()%(size);
       temp = tour[i][x];
       tour[i][x] = tour[i][j];
@@ -416,30 +417,6 @@ Path initPopulationTable(City arr[], int sizeOfPopulation, int size){
     population[i] = convertArrayToPath( tour[i], size);
     population[i] = getDistanceFromPath( population[i]);
   }
-  
-   City *cities = population[9].cities;
-    int stop = cities->ID;
-    printf("%d\n",cities->ID);
-    cities = cities->next;
-   while(cities->ID != stop){
-    printf("%d\n",cities->ID);
-    cities = cities->next;
-   }
-   printf("next\n");
-    cities = population[8].cities;
-    stop = cities->ID;
-    printf("%d\n",cities->ID);
-    cities = cities->next;
-   while(cities->ID != stop){
-    printf("%d\n",cities->ID);
-    cities = cities->next;
-   }
-   
-
-
- 
-
-
 }
 
 
@@ -458,28 +435,15 @@ Path initPopulationTable(City arr[], int sizeOfPopulation, int size){
 *
 *   Output: path of compute shortest distance
 */
-Path travelInShortestPath( City arr[], int size){
-  City rand1, rand2, rand3, tour[size], tour2[size],tour3[size],tour4[size];
-  Path population[size];
+Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
+  City rand1, rand2, rand3;
+  Path population[sizeOfPopulation], table;
   int i = 0;
   
- // for ( i=0 ; i<size ; i++)
-     population[0] = initializePopulation (population[0], tour, arr, size);
-     population[1] = initializePopulation (population[1], tour2, arr, size);
-     population[2] = initializePopulation (population[2], tour3, arr, size);
-     population[3] = initializePopulation (population[3], tour4, arr, size);
-     
-
-    
-  // for ( i=0 ; i<size ; i++){
-    // printf("%d  :  ",i);
-    // printf("population distance : %f\n", population[i].distance);
-    // printf("%d  :  ",i);
-    // printf("population size     : %d\n", population[i].size);
-  // }
+  initPopulationTable( population, arr, sizeOfPopulation, size);
+  
   
 
- 
 }
 
 
@@ -555,7 +519,7 @@ Path travelInShortestPath( City arr[], int size){
    // printf("---------------\n");
    
    
-   // City *cities = population.cities;
+     // City *cities = population[1].cities;
    // int stop = cities->ID;
    // printf("%d\n",cities->ID);
    // cities = cities->next;

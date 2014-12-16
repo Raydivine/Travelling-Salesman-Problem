@@ -18,10 +18,10 @@ Path copyPath (Path path, City arr[]);
 Path getDistanceFromPath( Path path);
 Path convertArrayToPath( City arr[], int range);
 Path MutationCities(Path path, City targetA, City targetB);
-Path initializePopulation (Path population, City tour[], City arr[], int size);
-Path initPopulationTable(City arr[], int sizeOfPopulation, int size);
+//Path initPopulationTable(City arr[], int sizeOfPopulation, int size);
+void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, int size);
 Path crossoverCities (Path path1, Path path2, City target, City arr[]);
-Path travelInShortestPath( City arr[], int size);
+Path travelInShortestPath( City arr[], int sizeOfPopulation, int size);
 
 
 
