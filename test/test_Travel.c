@@ -732,6 +732,11 @@ void xtest_initializePopulation_given_an_array_of_cities_should_initliaze_the_po
   //initializePopulation ( population, tour, tenCity, 10);
 }
 
+void test_initPopulationTable_given_10_cities(void){
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  initPopulationTable(tenCity, 10, 10);
+}
+
 void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;

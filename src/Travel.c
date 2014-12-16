@@ -358,7 +358,6 @@ Path crossoverCities(Path path1, Path path2, City target, City arr[]){
   return path;
 }
 
-
 /** Input: city array contained data
 *
 *   Output: city array without data
@@ -399,6 +398,14 @@ Path initializePopulation (Path population, City tour[], City arr[], int size){
   population = getDistanceFromPath( population);
   return population;
 }
+
+
+Path initPopulationTable(City arr[], int sizeOfPopulation, int size){
+  Path population;
+  City tour[sizeOfPopulation][size];
+  
+}
+
 
 /** Input: array of all cities. and the number of them
 *
