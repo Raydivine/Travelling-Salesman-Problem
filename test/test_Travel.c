@@ -4,6 +4,7 @@
 #include "InitCity.h"
 #include <stdlib.h>
 #include "LinkedList.h"
+#include "Random.h"
 
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
      cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
@@ -711,6 +712,14 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
+
+void test_doCrossoverAmongThePopulation(void){
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  
+  doCrossoverAmongThePopulation( tenCity, 10, 10);
+
+}
+
 void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_distance_70_should_sort_according_ditance(void){
   Path path1, path2, path3;
   path1.distance = 100;
@@ -725,29 +734,12 @@ void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_dis
 }
 
 
-void test_doMutationAmongThePopulation(void){
-  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  Path population[10];
-  
-  initPopulationTable( population, tenCity, 10, 10);
-  doMutationAmongThePopulation( population, tenCity, 10, 10);
-  freePopulationTable( population, 10);
-}
 
-void test_doCrossoverAmongThePopulation(void){
-  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  Path population[10];
-  
-  initPopulationTable( population, tenCity, 10, 10);
-  doCrossoverAmongThePopulation( population, tenCity, 10, 10);
-  // freePopulationTable( population, 10);
-}
-
-void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;
 
-  shortestPath = travelInShortestPath( tenCity, 15, 10);
+ // shortestPath = travelInShortestPath( tenCity, 10, 10);
 }
 
 
