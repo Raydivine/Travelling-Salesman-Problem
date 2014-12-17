@@ -11,7 +11,7 @@ City *cityListNew(City *city){
 }
 
 void clearCityList(City *cities){
-  free(cities);
+  free(cities); 
 }
 
 void addCityList(City **cities, City *city){

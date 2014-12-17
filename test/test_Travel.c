@@ -725,13 +725,25 @@ void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_dis
 }
 
 
-void test_initPopulationTable_given_10_cities_should_set_the_population_table_as_10(void){
+void test_doMutationAmongThePopulation(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-
- // Path population = initPopulationTable(tenCity, 10, 10);
+  Path population[10];
+  
+  initPopulationTable( population, tenCity, 10, 10);
+  doMutationAmongThePopulation( population, tenCity, 10, 10);
+  freePopulationTable( population, 10);
 }
 
-void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void test_doCrossoverAmongThePopulation(void){
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  Path population[10];
+  
+  initPopulationTable( population, tenCity, 10, 10);
+  doCrossoverAmongThePopulation( population, tenCity, 10, 10);
+  // freePopulationTable( population, 10);
+}
+
+void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;
 

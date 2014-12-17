@@ -383,32 +383,13 @@ void copyArray( City clone[], City arr[], int size){
   }
 }
 
-// Path initPopulationTable(City arr[], int sizeOfPopulation, int size){
-  // Path population[sizeOfPopulation];
-  // City tour[sizeOfPopulation][size], temp;
-  // int i,j,x;
-  
-  // for( i=0 ; i<sizeOfPopulation; i++){
-    // copyArray( tour[i], arr, size); 
-    // for ( j=0 ; j < size ; j++){   // shuffer the array
-      // x = rand()%(size);
-      // temp = tour[i][x];
-      // tour[i][x] = tour[i][j];
-      // tour[i][j] = temp;
-    // }
-    // population[i] = convertArrayToPath( tour[i], size);
-    // population[i] = getDistanceFromPath( population[i]);
-  // }
-  // return *population;
-// }
-
 void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, int size){
   City tour[sizeOfPopulation][size], temp;
   int i,j,x;
   
   for( i=0 ; i<sizeOfPopulation; i++){
     copyArray( tour[i], arr, size); 
-    for ( j=0 ; j < size ; j++){   // shuffer the array
+    for ( j=0 ; j < size ; j++){   // shuffle the array
       x = rand()%(size);
       temp = tour[i][x];
       tour[i][x] = tour[i][j];
@@ -419,6 +400,49 @@ void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, i
   }
 }
 
+
+void freePopulationTable(Path population[], int sizeOfPopulation){
+  int i;
+  City *cities;
+  
+  for( i = 0 ; i < 5 ; i++){
+    cities = population[i].cities;
+    clearCityList(cities);
+  }
+  
+}
+
+
+void doMutationAmongThePopulation(Path population[], City arr[], int sizeOfPopulation, int size){
+  int x = rand()%sizeOfPopulation;
+  City rand1, rand2;
+  
+  do{ rand1 = arr[rand()%size];
+      rand2 = arr[rand()%size];
+    } while( rand1.ID == rand2.ID);   
+
+  if( checkingFor2opt( population[x].cities, rand1, rand2))
+      population[x] = MutationCities( population[x], rand1, rand2);
+}
+
+void doCrossoverAmongThePopulation(Path population[], City arr[], int sizeOfPopulation, int size){
+  int x,y;
+  City target = arr[rand()%size], tempArr[size];
+  Path cross;
+  
+   do{ x = rand()%sizeOfPopulation;
+       y = rand()%sizeOfPopulation;
+     }while( x == y); 
+     
+  // printf("%d\n",x);
+  // printf("%d\n",y);
+     
+     
+    
+       
+ // cross = crossoverCities(population[0] , population[9], target, tempArr);  
+     
+}
 
 /** Input: array of all cities. and the number of them
 *
@@ -436,12 +460,12 @@ void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, i
 *   Output: path of compute shortest distance
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
-  City rand1, rand2, rand3;
-  Path population[sizeOfPopulation], table;
-  int i = 0;
+  Path population[sizeOfPopulation], cross;
+  City targetA, targetB, targetC, tempArray[size],comb[size];
+  int i=0,j, x, y, z, counter = 0;
+  float preDistance , postDistance, different;
   
-  initPopulationTable( population, arr, sizeOfPopulation, size);
-  
+ // initPopulationTable( population, arr, sizeOfPopulation, size);
   
 
 }
@@ -539,9 +563,7 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
    // }
 
    
-   
-     
-  // for ( i=0 ; i<size ; i++){
+    // for ( i=0 ; i<sizeOfPopulation ; i++){
     // printf("%d  :  ",i);
     // printf("population distance : %f\n", population[i].distance);
     // printf("%d  :  ",i);
