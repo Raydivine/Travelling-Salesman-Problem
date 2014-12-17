@@ -424,10 +424,14 @@ Path doCrossoverAmongThePopulation( City arr[], int sizeOfPopulation, int size){
   int x,y;
   Path cross;
   
-
-  do{ x = random(sizeOfPopulation);
-      y = random(sizeOfPopulation);
-    } while( x == y);    
+  x = random(sizeOfPopulation);
+  y = random(sizeOfPopulation);
+  
+  printf("%d\n",x);
+  printf("%d\n",y);
+  // do{ x = random(sizeOfPopulation);
+      // y = random(sizeOfPopulation);
+    // } while( x == y);    
 }
 
 
@@ -453,41 +457,10 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
   int i=0 ,j, a, b, c, counter = 0;
   float pre , post, diff;
   
- // initPopulationTable( population, arr, sizeOfPopulation, size);
+  initPopulationTable( population, arr, sizeOfPopulation, size);
   
-   // City *cities = population[6].cities;
-   // int stop = cities->ID;
-   // printf("%d\n",cities->ID);
-   // cities = cities->next;
-   // while(cities->ID != stop){
-   // printf("%d\n",cities->ID);
-   // cities = cities->next;
-   // }
-   
-
-  // a = rand()%sizeOfPopulation;
-  // population[a] = doMutation( population[a], arr, sizeOfPopulation, size);
-  // printf("a : %d\n",a);
- 
-     // printf("next\n");
-    // cities = population[6].cities;
-    // stop = cities->ID;
-    // printf("%d\n",cities->ID);
-    // cities = cities->next;
-   // while(cities->ID != stop){
-    // printf("%d\n",cities->ID);
-    // cities = cities->next;
-   // }
-
-  // pre = population[0].distance;
-  // bubbleSortForPath( population, sizeOfPopulation);
-  // post = population[0].distance;
-  // diff = pre - post;
-  
-  // if(diff < 1)
-  // counter = counter + 1;
-  // else counter = 0;  
 }
+  
 
 
 

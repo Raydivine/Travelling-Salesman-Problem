@@ -4,7 +4,7 @@
 #include "InitCity.h"
 #include <stdlib.h>
 #include "LinkedList.h"
-#include "Random.h"
+#include "mock_Random.h"
 
 City cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
      cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT;
@@ -716,7 +716,10 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
 void test_doCrossoverAmongThePopulation(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   
+  random_ExpectAndReturn(10,1);
+  random_ExpectAndReturn(10,9);
   doCrossoverAmongThePopulation( tenCity, 10, 10);
+ 
 
 }
 
@@ -739,7 +742,7 @@ void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;
 
- // shortestPath = travelInShortestPath( tenCity, 10, 10);
+  shortestPath = travelInShortestPath( tenCity, 10, 10);
 }
 
 
