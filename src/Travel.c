@@ -9,6 +9,17 @@
 #include <stdlib.h>
 #include "Random.h"
 
+void printOutACities( City *cities){
+   int stop = cities->ID;
+   printf("%d\n",cities->ID);
+
+   cities = cities->next;
+   while(cities->ID != stop){
+   printf("%d\n",cities->ID);
+   cities = cities->next;
+   }
+}
+
 /** Input: coordinate1 and coordinate2
 *
 *   Output: distance between them
@@ -405,13 +416,13 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
   int i,j;
   City *cities;
 
+  printf("-------------------Table of City ID-------------------\n");
+
   for(j = 0; j <size; j ++)
     printf("   %d ",j+1);
     printf("\n");
 
-  for(j = 0; j <size; j ++)
-    printf("------",j);
-    printf("\n");
+  printf("------------------------------------------------------\n");
 
   for ( i = 0; i < sizeOfPopulation ; i++){
     cities = population[i].cities;
@@ -451,26 +462,54 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 *   Output: path of compute shortest distance
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
-  Path population[sizeOfPopulation], cross;
+  Path population[sizeOfPopulation], mutateA, mutateB, crossC;
   City tour[sizeOfPopulation][size], tempArr[sizeOfPopulation][size];
-
   int i=0 ,j, a, b, c, counter = 0;
   float pre , post, diff;
+
+  initPopulationTable( sizeOfPopulation, size, population, tour, arr);
+ // printfOutThePopulatointable( sizeOfPopulation, size, population);
+
+  while (counter < sizeOfPopulation){
+    a = rand()%sizeOfPopulation;
+    //printf("a : %d\n",a+1);
+    population[a] = doMutation( population[a], arr, size);
+
+  pre  = population[0].distance;
+  bubbleSortForPath (population, sizeOfPopulation);
+  post = population[0].distance;
+  diff = pre - post;
+  printf( "Distance : %f\n", population[0].distance);
+  if( diff < 1)
+    counter = counter + 1;
+    else counter = 0;
+  }
+
+  printfOutThePopulatointable( sizeOfPopulation, size, population);
+
 }
 
 
 Path doMutation( Path path, City arr[], int size){
   City rand1, rand2;
-  int A = random(size);
-  int B = random(size);
+  int A,B;
 
-  do{ rand1 = arr[A];
-      rand2 = arr[B];
-    } while( rand1.ID == rand2.ID);
+  do{
+      A = rand()%size;
+      B = rand()%size;
+      // A = random(size);
+      // B = random(size);
+    } while ( A == B);
+
+  rand1 = arr[A];
+  rand2 = arr[B];
 
   if( checkingFor2opt( path.cities, rand1, rand2))
+  {
     path = MutationCities( path, rand1, rand2);
-
+   // printf("mutated\n");
+  }
+ //  printOutACities(path.cities);
   return path;
 }
 
@@ -480,7 +519,6 @@ Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size)
   Path crossoverPath;
 
   crossoverPath = crossoverCities( path1, path2, rand1, crossArr);
-  
   return crossoverPath;
 }
 
