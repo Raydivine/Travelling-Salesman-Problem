@@ -711,9 +711,37 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityB.ID);
   clearCityList(crossoverPath.cities);
 }
+/**
+*  City 1 2 3 4 5 6 7 8 9 10
+*Path
+* 1
+* 2
+* 3
+* 4
+* 5
+* 6
+* 7
+* 8
+* 9 
+* 10
+* 11 
+* 12
+* 13
+* 14
+* 15
+*/
+void test_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+  int sizeOfPopulation = 15, sizeOfCity = 10;
+  
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  Path population[sizeOfPopulation];
+  City tour[sizeOfPopulation][sizeOfCity];
+   
+  initPopulationTable( sizeOfPopulation, sizeOfCity, population, tour, tenCity);
+  printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
+}
 
-
-void test_doCrossoverAmongThePopulation(void){
+void xtest_doCrossoverAmongThePopulation(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   
   random_ExpectAndReturn(10,1);
@@ -738,7 +766,7 @@ void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_dis
 
 
 
-void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path shortestPath;
 

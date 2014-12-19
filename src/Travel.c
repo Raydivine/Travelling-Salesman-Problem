@@ -384,8 +384,8 @@ void copyArray( City clone[], City arr[], int size){
   }
 }
 
-void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, int size){
-  City tour[sizeOfPopulation][size], temp;
+void initPopulationTable( int sizeOfPopulation, int size, Path population[], City tour[sizeOfPopulation][size], City arr[]){
+  City temp;
   int i,j,x;
   
   for( i=0 ; i<sizeOfPopulation; i++){
@@ -403,9 +403,35 @@ void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, i
 
 void freePopulationTable(Path population[], int sizeOfPopulation){
   int i;
-  for( i = 0 ; i < 5 ; i++)
+  for( i = 0 ; i < sizeOfPopulation ; i++)
     clearCityList(population[i].cities);
 }
+
+
+/** Input: array of all cities. and the number of them
+*
+*   Process: 1. The function is combined mutation and crossover
+*            2. First, I need 3 models to support the process of this function,
+*               which are best, better and combine
+*            3. Best is the best path I get during the process, and I only do mutation of Best
+*               Better will replace path of Best, after Best get through further good
+*               Combine is the model of crossover between Best and Better
+*            4. A counter is first set to 0, even I can't produce better chromosome during process,
+*               counter will do increment , if I get better chromosome in the generation, the clear the counter
+*            5. If I cant get better chromosome in a row generations of size of the total city,
+*               then stop, and return the path I compute.
+*
+*   Output: path of compute shortest distance
+*/
+Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
+  Path population[sizeOfPopulation], cross;
+  City targetA, targetB, targetC, tempArray[size],comb[size];
+  
+  int i=0 ,j, a, b, c, counter = 0;
+  float pre , post, diff;
+  
+}
+  
 
 Path doMutation( Path path, City arr[], int sizeOfPopulation, int size){
 
@@ -434,34 +460,28 @@ Path doCrossoverAmongThePopulation( City arr[], int sizeOfPopulation, int size){
     // } while( x == y);    
 }
 
-
-/** Input: array of all cities. and the number of them
-*
-*   Process: 1. The function is combined mutation and crossover
-*            2. First, I need 3 models to support the process of this function,
-*               which are best, better and combine
-*            3. Best is the best path I get during the process, and I only do mutation of Best
-*               Better will replace path of Best, after Best get through further good
-*               Combine is the model of crossover between Best and Better
-*            4. A counter is first set to 0, even I can't produce better chromosome during process,
-*               counter will do increment , if I get better chromosome in the generation, the clear the counter
-*            5. If I cant get better chromosome in a row generations of size of the total city,
-*               then stop, and return the path I compute.
-*
-*   Output: path of compute shortest distance
-*/
-Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
-  Path population[sizeOfPopulation], cross;
-  City targetA, targetB, targetC, tempArray[size],comb[size];
+void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population[]){
+  int i,j;
+  City *cities;
   
-  int i=0 ,j, a, b, c, counter = 0;
-  float pre , post, diff;
+  for(j = 0; j <size; j ++)
+    printf("   %d ",j+1);
+  printf("\n");
   
-  initPopulationTable( population, arr, sizeOfPopulation, size);
+   for(j = 0; j <size; j ++)
+    printf("------",j);
+  printf("\n");
   
+  for ( i = 0; i < sizeOfPopulation ; i++){
+    cities = population[i].cities;
+    printf("%d| ",i+1);
+    for( j = 0 ; j < size ; j ++){   
+      printf("%d  ",cities->ID);
+      cities = cities->next;
+    }
+    printf("\n");
+  }
 }
-  
-
 
 
 
