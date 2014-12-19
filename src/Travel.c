@@ -475,18 +475,14 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
     //printf("a : %d\n",a+1);
     population[a] = doMutation( population[a], arr, size);
 
-  pre  = population[0].distance;
-  bubbleSortForPath (population, sizeOfPopulation);
-  post = population[0].distance;
-  diff = pre - post;
-  printf( "Distance : %f\n", population[0].distance);
-  if( diff < 1)
-    counter = counter + 1;
-    else counter = 0;
+    pre  = population[0].distance;
+    bubbleSortForPath (population, sizeOfPopulation);
+    post = population[0].distance;
+    printf( "Distance : %f\n", population[0].distance);
+    if( (pre - post) < 1)
+      counter = counter + 1;
+      else counter = 0;
   }
-
-  printfOutThePopulatointable( sizeOfPopulation, size, population);
-
 }
 
 
