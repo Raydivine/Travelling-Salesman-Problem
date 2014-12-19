@@ -415,7 +415,7 @@ void initPopulationTable( int sizeOfPopulation, int size, Path population[], Cit
 void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population[]){
   int i,j;
   City *cities;
-
+  printf("\n");
   printf("-------------------Table of City ID-------------------\n");
 
   for(j = 0; j <size; j ++)
@@ -434,6 +434,7 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
     }
     printf("\n");
   }
+  printf("\n");
 }
 
 void freePopulationTable(Path population[], int sizeOfPopulation){
@@ -446,45 +447,57 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 }
 
 
-/** Input: array of all cities. and the number of them
+/** Input: array of all cities, size of population, size of cities
 *
 *   Process: 1. The function is combined mutation and crossover
-*            2. First, I need 3 models to support the process of this function,
-*               which are best, better and combine
-*            3. Best is the best path I get during the process, and I only do mutation of Best
-*               Better will replace path of Best, after Best get through further good
-*               Combine is the model of crossover between Best and Better
-*            4. A counter is first set to 0, even I can't produce better chromosome during process,
-*               counter will do increment , if I get better chromosome in the generation, the clear the counter
-*            5. If I cant get better chromosome in a row generations of size of the total city,
-*               then stop, and return the path I compute.
-*
+*            2. First, created a population table for the give size
+*            3. do mutation and crossover by randomly select the target from the population table
+*            4. arrange the population table according distance
+*            5. calculate the changing of the value of the 1st seat of the population table
+*            6. If the changing is too small, which means less then 1 during 1 generations, then counter increment,
+*               else the large changing value is provided, clear the counter
+*            7. If the changing of value is always too small during row of generations, break the loop.
+*            8. Return the population table [0] as the shortest path among all the cities
+
 *   Output: path of compute shortest distance
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
-  Path population[sizeOfPopulation], mutateA, mutateB, crossC;
-  City tour[sizeOfPopulation][size], tempArr[sizeOfPopulation][size];
+  Path population[sizeOfPopulation], crossPath;
+  City tour[sizeOfPopulation][size], tempArr[sizeOfPopulation][size], crossArray[size];
   int i=0 ,j, a, b, c, counter = 0;
-  float pre , post, diff;
+  float pre , post;
 
   initPopulationTable( sizeOfPopulation, size, population, tour, arr);
  // printfOutThePopulatointable( sizeOfPopulation, size, population);
 
   while (counter < sizeOfPopulation){
     a = rand()%sizeOfPopulation;
-    //printf("a : %d\n",a+1);
     population[a] = doMutation( population[a], arr, size);
+
+    b = rand()%sizeOfPopulation;
+    c = rand()%sizeOfPopulation;
+    crossPath = doCrossover( population[b], population[c], arr, crossArray, size);
+
+    if( crossPath.distance<population[b].distance &&  crossPath.distance<population[c].distance ){
+      population[b] = copyPath ( crossPath, tempArr[i]);
+      i++;
+    }
+    clearCityArray( crossArray, size);
 
     pre  = population[0].distance;
     bubbleSortForPath (population, sizeOfPopulation);
     post = population[0].distance;
+
     printf( "Distance : %f\n", population[0].distance);
+
     if( (pre - post) < 1)
       counter = counter + 1;
-      else counter = 0;
+    else counter = 0;
   }
-}
+  return population[0];
 
+ // printfOutThePopulatointable( sizeOfPopulation, size, population);
+}
 
 Path doMutation( Path path, City arr[], int size){
   City rand1, rand2;
@@ -501,133 +514,17 @@ Path doMutation( Path path, City arr[], int size){
   rand2 = arr[B];
 
   if( checkingFor2opt( path.cities, rand1, rand2))
-  {
     path = MutationCities( path, rand1, rand2);
-   // printf("mutated\n");
-  }
- //  printOutACities(path.cities);
+
   return path;
 }
 
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
-  int A = random(size);
+  //int A = random(size);
+  int  A = rand()%size;
   City rand1 = arr[A];
   Path crossoverPath;
 
   crossoverPath = crossoverCities( path1, path2, rand1, crossArr);
   return crossoverPath;
 }
-
-
-
-
-// Path initializePopulation (Path population, City tour[], City arr[], int size){
-  // int i, x;
-  // City temp;
-  // copyArray( tour, arr, size);
-
-  // for ( i=0 ; i<size ; i++){ // shuffer the array
-    // x = rand()%(size);
-    // temp = tour[x];
-    // tour[x] = tour[i];
-    // tour[i] = temp;
-  // }
-  // population = convertArrayToPath( tour, size);
-  // population = getDistanceFromPath( population);
-  // return population;
-// }
-
-
-// printf("%d\n",tour[0][0].ID);
-// printf("%d\n",tour[0][1].ID);
-// printf("%d\n",tour[0][2].ID);
-// printf("%d\n",tour[0][3].ID);
-// printf("%d\n",tour[0][4].ID);
-// printf("%d\n",tour[0][5].ID);
-// printf("%d\n",tour[0][6].ID);
-// printf("%d\n",tour[0][7].ID);
-// printf("%d\n",tour[0][8].ID);
-// printf("%d\n",tour[0][9].ID);
-
-// printf("population distance : %f\n", population.distance);
-// printf("population size     : %d\n", population.size);
-
-// for ( i=0 ; i<size ; i++)
-    // printf("%d\n",tour[i].ID);
-
-   // printf("---------------\n");
-
-
-    // City *cities = population[1].cities;
-   // int stop = cities->ID;
-   // printf("%d\n",cities->ID);
-   // cities = cities->next;
-   // while(cities->ID != stop){
-   // printf("%d\n",cities->ID);
-   // cities = cities->next;
-   // }
-
-     // printf("next\n");
-    // cities = population[14].cities;
-    // stop = cities->ID;
-    // printf("%d\n",cities->ID);
-    // cities = cities->next;
-   // while(cities->ID != stop){
-    // printf("%d\n",cities->ID);
-    // cities = cities->next;
-   // }
-
-      // int r;
-   // for( r= 0; r < size ; r ++)
-   // printf("%d %d\n", r, crossArr[r].ID);
-
-    // for ( i=0 ; i<sizeOfPopulation ; i++){
-    // printf("%d  :  ",i);
-    // printf("population distance : %f\n", population[i].distance);
-    // printf("%d  :  ",i);
-    // printf("population size     : %d\n", population[i].size);
-  // }
-
-
-
-
-
-
-
-
-
-
-  // Path travelInShortestPath( City arr[], int size){
-  // City rand1, rand2, rand3, arr1[size], arr2[size], comb[size];
-  // Path best, better, combine;
-  // copyArray( arr1, arr, size);
-  // copyArray( arr2, arr, size);
-  // best  = convertArrayToPath( arr1, size);
-  // best  = getDistanceFromPath( best);
-  // better = copyPath ( best, arr2);
-
-  // int i, counter = 0;
-  // printf("Original distance           : %f\n", best.distance);
-  // while (counter < size){
-    // do{ rand1 = arr[rand()%size];
-        // rand2 = arr[rand()%size];
-    // }while( rand1.ID == rand2.ID);  // To ensure I get different city for mutation
-
-    // if( checkingFor2opt( best.cities, rand1, rand2)){
-      // best = MutationCities( best, rand1, rand2);
-      // counter = 0;
-    // }else counter = counter + 1;
-
-    // rand3 = arr[rand()%size];
-    // combine = crossoverCities(best , better, rand3, comb);
-
-    // if( combine.distance < best.distance && combine.distance < better.distance){
-      // better = copyPath ( best, arr2);
-      // best   = copyPath ( combine, arr1);
-      // counter = 0;
-    // }else counter = counter + 1;
-
-    // clearCityArray(comb, size);
-  // }
-  // return best;
-// }

@@ -725,7 +725,7 @@ void Xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+void test_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
   int sizeOfPopulation = 15, sizeOfCity = 10;
   
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
@@ -737,7 +737,7 @@ void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_shoul
   freePopulationTable( population, sizeOfPopulation);
 }
 
-void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+void test_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
   int sizeOfPopulation = 20, sizeOfCity = 10;
   
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
@@ -780,7 +780,7 @@ void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_shoul
 *        cityH<---cityG    cityF--->cityE--->cityD                                   *
 *-----------------------------------------------------------------------------------*
 */
-void ctest_doMutation_given_mock_the_random_target_to_A_F_should_choose_A_F_and_do_mutation(void){
+void xtest_doMutation_given_mock_the_random_target_to_A_F_should_choose_A_F_and_do_mutation(void){
   City eigthCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH};
   Path path;
   City *head =  cityListNew(&cityA);  
@@ -894,49 +894,15 @@ void test_travelInShortestPath_given_tenCity_should_create_the_population_15_sho
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
   Path shortestPath;
+  printf("\nGiven 10 city and 15 population\n");
   travelInShortestPath( tenCity, sizeOfPopulation, sizeOfCity);
 }
 
-void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
-  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+  int sizeOfPopulation = 20, sizeOfCity = 20;
+  City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ, 
+                        cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
   Path shortestPath;
-
-  shortestPath = travelInShortestPath( tenCity, 10, 10);
+  printf("\nGiven 20 city and 20 population\n");
+  shortestPath = travelInShortestPath( twentyCity, sizeOfPopulation, sizeOfCity);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
-  // City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  // Path shortestPath;
-
-  // shortestPath = travelInShortestPath( tenCity, 10);
-  // printf("Computed distance of 10 city: %f\n\n", shortestPath.distance);
-// }
-
-// void xtest_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
-  // City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ, 
-                        // cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
-  // Path shortestPath;
-
-  // shortestPath = travelInShortestPath( twentyCity, 20);
-  // printf("Computed distance of 20 city: %f\n\n", shortestPath.distance);
-// }
