@@ -170,7 +170,7 @@ void test_copyPath_should_copy_and_hold_the_cities_list(void){
 
 /**
 *-----------------------------------------------------------------------------------
-* 1.Original Path      $                                                            *
+* 1.Original Path               $                                                   *
 *                   cityA--->cityB-->cityC--->cityD                                 *
 *                     ^                          |                                  *
 *                     |                $          v                                 *
@@ -199,7 +199,7 @@ void test_copyPath_should_copy_and_hold_the_cities_list(void){
 *                  cityH<---cityG    cityF--->cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void test_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_the_link(void){
+void test_MutationCities_given_cityB_and_cityF_as_target_should_do_mutation_of_the_link(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -253,9 +253,9 @@ void test_MutationCities_given_cityB_and_cityH_as_target_should_do_mutation_of_t
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*/
-void test_MutationCities_given_2_near_city_should_do_reverse(void){
+void test_MutationCities_given_2_near_city_should_do_mutation_of_the_link(void){
   Path path;
-  City *head =  cityListNew(&cityA);  // assign cityA as head
+  City *head =  cityListNew(&cityA);  
   addCityList(&head, &cityB);
   addCityList(&head, &cityC);
   addCityList(&head, &cityD);
@@ -381,7 +381,7 @@ void test_MutationCities_given_2_same_city_should_directly_return(void){
 *
 *                   should not do 2opt because cannot get shorter distance
 */
-void test_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
+void test_checkingFor2opt_given_cityA_cityC_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -413,7 +413,7 @@ void test_checkingFor2opt_given_cityA_cityG_should_no_do_2opt_because_they_cant_
 *
 *                should  do 2opt because can get shorter distance
 */
-void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_better_chromesome(void){
+void test_checkingFor2opt_given_cityA_cityF_should_do_2opt_because_they_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -426,7 +426,7 @@ void test_checkingFor2opt_given_cityA_cityG_should_do_2opt_because_they_produce_
   addCityList(&head, &cityA);
   path.cities = head;
 
-   int ans = checkingFor2opt(head, cityA, cityF);
+  int ans = checkingFor2opt(head, cityA, cityF);
   TEST_ASSERT_EQUAL(ans , 1);
   clearCityList(head);
 }
@@ -536,7 +536,7 @@ void test_bubbleSortForNeighBour_given_an_NeighBour_array_should_sort_according_
 /**------------------------------------------------------------------------------------------
 * 1. During my crossover function processing, after the condition break,
 *   it will produce a crossover array, but the array is missing some element,
-*   so it need to rest of element behind 
+*   so it need to fill rest of element behind 
 *
 * 2. given array and linked list shown  below, cityC and cityE is missing inside the array,        
 *
@@ -711,26 +711,8 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   TEST_ASSERT_EQUAL( crossoverPath.cities->next->next->next->next->next->next->next->ID      , cityB.ID);
   clearCityList(crossoverPath.cities);
 }
-/**
-*  City 1 2 3 4 5 6 7 8 9 10
-*Path
-* 1
-* 2
-* 3
-* 4
-* 5
-* 6
-* 7
-* 8
-* 9 
-* 10
-* 11 
-* 12
-* 13
-* 14
-* 15
-*/
-void test_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+
+void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
   int sizeOfPopulation = 15, sizeOfCity = 10;
   
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
@@ -738,7 +720,84 @@ void test_initPopulationTable_given_population_size_15_and_cities_size_10_should
   City tour[sizeOfPopulation][sizeOfCity];
    
   initPopulationTable( sizeOfPopulation, sizeOfCity, population, tour, tenCity);
-  printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
+//printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
+  freePopulationTable( population, sizeOfPopulation);
+}
+
+void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+  int sizeOfPopulation = 20, sizeOfCity = 10;
+  
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  Path population[sizeOfPopulation];
+  City tour[sizeOfPopulation][sizeOfCity];
+   
+  initPopulationTable( sizeOfPopulation, sizeOfCity, population, tour, tenCity);
+//printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
+  freePopulationTable( population, sizeOfPopulation);
+}
+
+/**
+*-----------------------------------------------------------------------------------
+* 1.Original Path     $                                                             *
+*                   cityA--->cityB-->cityC--->cityD                                 *
+*                     ^                          |                                  *
+*                     |                $          v                                 *
+*                  cityH<---cityG<---cityF<---cityE                                 *
+*                                                                                   *
+*-----------------------------------------------------------------------------------*
+* 2. select cityA and cityF as target , reverse the link between them               *
+*                                                                                   *
+*                                                                                   *
+*                                 NULL                                              *
+*                                 ^                                                 *
+*                                 |                                                 *
+*                   (cityA)--->cityB<---cityC<---cityD                              *
+*                     ^                            ^                                *
+*                     |                            |                                *
+*                  cityH<---cityG   (cityF)----->cityE                              *
+*                                                                                   *
+*-----------------------------------------------------------------------------------*
+* 3.Mutation                                                                        *
+*                                                                                   *
+*           --------> cityA   cityB<--- cityC<--                                     *
+*           |            \    /                |                                     *
+*           |             \ /                  |                                     *
+*           |             / \                  |                                     *
+*           |           v   v                  |                                     *
+*        cityH<---cityG    cityF--->cityE--->cityD                                   *
+*-----------------------------------------------------------------------------------*
+*/
+void test_doMutation_given_mock_the_random_target_to_A_F_should_choose_A_F_and_do_mutation(void){
+  City eigthCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH};
+  Path path;
+  City *head =  cityListNew(&cityA);  
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  path.cities = head;
+  
+  random_ExpectAndReturn(8,0);
+  random_ExpectAndReturn(8,5);
+  path = doMutation( path, eigthCity, 8);
+  
+  TEST_ASSERT_EQUAL( path.size , 8);
+  TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityF.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityE.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->ID                              , cityD.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID                        , cityC.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityB.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID            , cityG.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->ID      , cityH.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->next->ID, cityA.ID);
+  clearCityList(head);
+  clearCityList(path.cities);
+  
 }
 
 void xtest_doCrossoverAmongThePopulation(void){

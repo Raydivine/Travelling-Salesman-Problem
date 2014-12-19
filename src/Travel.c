@@ -188,7 +188,7 @@ int checkIsCityNotUsed( City arr[], City target, int range){
 }
 
 /** Input:  array city and  target city
-*   
+*
 *   Process: endID is the last city's ID of the array, so it know how to add the newCity to back
 *
 *   Output: array city with added target city in the back
@@ -284,10 +284,10 @@ void bubbleSortForPath( Path path[], int size){
 *   Process: 1. determine the missing cities in the array by comparing a complete linked list
 *            2. put the missing cities inside neighbour type array
 *            3. get the distance of the missing city between the last element inside the original array
-*            4. sort the neighBour type array according distance 
+*            4. sort the neighBour type array according distance
 *            5. put the cities from the neighBour type array to original array
 *
-*   Output: city array with all city , and the missing cities are sorted according neighbour distance 
+*   Output: city array with all city , and the missing cities are sorted according neighbour distance
 */
 void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, int range){
   NeighBour near[range];
@@ -375,7 +375,7 @@ void clearCityArray(City arr[], int size){
 
 /** Input:  sample array
 *
-*   Output: clone array 
+*   Output: clone array
 */
 void copyArray( City clone[], City arr[], int size){
   int i;
@@ -387,9 +387,9 @@ void copyArray( City clone[], City arr[], int size){
 void initPopulationTable( int sizeOfPopulation, int size, Path population[], City tour[sizeOfPopulation][size], City arr[]){
   City temp;
   int i,j,x;
-  
+
   for( i=0 ; i<sizeOfPopulation; i++){
-    copyArray( tour[i], arr, size); 
+    copyArray( tour[i], arr, size);
     for ( j=0 ; j < size ; j++){   // shuffle the array
       x = rand()%(size);
       temp = tour[i][x];
@@ -403,8 +403,11 @@ void initPopulationTable( int sizeOfPopulation, int size, Path population[], Cit
 
 void freePopulationTable(Path population[], int sizeOfPopulation){
   int i;
-  for( i = 0 ; i < sizeOfPopulation ; i++)
-    clearCityList(population[i].cities);
+  City *cities;
+  for( i = 0 ; i < sizeOfPopulation ; i++){
+    cities = population[i].cities;
+    clearCityList(cities);
+  }
 }
 
 
@@ -426,56 +429,58 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
   Path population[sizeOfPopulation], cross;
   City targetA, targetB, targetC, tempArray[size],comb[size];
-  
+
   int i=0 ,j, a, b, c, counter = 0;
   float pre , post, diff;
-  
+
 }
-  
 
-Path doMutation( Path path, City arr[], int sizeOfPopulation, int size){
 
+Path doMutation( Path path, City arr[], int size){
   City rand1, rand2;
-   
-  do{ rand1 = arr[rand()%size];
-      rand2 = arr[rand()%size];
-    } while( rand1.ID == rand2.ID);   
+  int A = random(size);
+  int B = random(size);
+
+  do{ rand1 = arr[A];
+      rand2 = arr[B];
+    } while( rand1.ID == rand2.ID);
 
   if( checkingFor2opt( path.cities, rand1, rand2))
-    path = MutationCities( path, rand1, rand2);
+    path = MutationCities( path, rand1, rand2); 
+  
   return path;
 }
 
-Path doCrossoverAmongThePopulation( City arr[], int sizeOfPopulation, int size){
+Path doCrossoverAmongThePopulation( City arr[], int size){
   int x,y;
   Path cross;
-  
-  x = random(sizeOfPopulation);
-  y = random(sizeOfPopulation);
-  
-  printf("%d\n",x);
-  printf("%d\n",y);
+
+  // x = random(sizeOfPopulation);
+  // y = random(sizeOfPopulation);
+
+  // printf("%d\n",x);
+  // printf("%d\n",y);
   // do{ x = random(sizeOfPopulation);
       // y = random(sizeOfPopulation);
-    // } while( x == y);    
+    // } while( x == y);
 }
 
 void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population[]){
   int i,j;
   City *cities;
-  
+
   for(j = 0; j <size; j ++)
     printf("   %d ",j+1);
   printf("\n");
-  
+
    for(j = 0; j <size; j ++)
     printf("------",j);
   printf("\n");
-  
+
   for ( i = 0; i < sizeOfPopulation ; i++){
     cities = population[i].cities;
     printf("%d| ",i+1);
-    for( j = 0 ; j < size ; j ++){   
+    for( j = 0 ; j < size ; j ++){
       printf("%d  ",cities->ID);
       cities = cities->next;
     }
@@ -489,7 +494,7 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
   // int i, x;
   // City temp;
   // copyArray( tour, arr, size);
-  
+
   // for ( i=0 ; i<size ; i++){ // shuffer the array
     // x = rand()%(size);
     // temp = tour[x];
@@ -520,8 +525,8 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
     // printf("%d\n",tour[i].ID);
 
    // printf("---------------\n");
-   
-   
+
+
     // City *cities = population[1].cities;
    // int stop = cities->ID;
    // printf("%d\n",cities->ID);
@@ -530,7 +535,7 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
    // printf("%d\n",cities->ID);
    // cities = cities->next;
    // }
-   
+
      // printf("next\n");
     // cities = population[14].cities;
     // stop = cities->ID;
@@ -541,23 +546,23 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
     // cities = cities->next;
    // }
 
-   
+
     // for ( i=0 ; i<sizeOfPopulation ; i++){
     // printf("%d  :  ",i);
     // printf("population distance : %f\n", population[i].distance);
     // printf("%d  :  ",i);
     // printf("population size     : %d\n", population[i].size);
   // }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
   // Path travelInShortestPath( City arr[], int size){
   // City rand1, rand2, rand3, arr1[size], arr2[size], comb[size];
   // Path best, better, combine;
@@ -572,7 +577,7 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
   // while (counter < size){
     // do{ rand1 = arr[rand()%size];
         // rand2 = arr[rand()%size];
-    // }while( rand1.ID == rand2.ID);  // To ensure I get different city for mutation 
+    // }while( rand1.ID == rand2.ID);  // To ensure I get different city for mutation
 
     // if( checkingFor2opt( best.cities, rand1, rand2)){
       // best = MutationCities( best, rand1, rand2);

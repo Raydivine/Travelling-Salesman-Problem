@@ -20,8 +20,8 @@ Path convertArrayToPath( City arr[], int range);
 Path MutationCities(Path path, City targetA, City targetB);
 //Path initPopulationTable(City arr[], int sizeOfPopulation, int size);
 void freePopulationTable(Path population[], int sizeOfPopulation);
-Path doMutation ( Path path, City arr[], int sizeOfPopulation, int size);
-Path doCrossover( City arr[], int sizeOfPopulation, int size);
+Path doMutation ( Path path, City arr[], int size);
+Path doCrossover( City arr[], int size);
 Path crossoverCities (Path path1, Path path2, City target, City arr[]);
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size);
 
