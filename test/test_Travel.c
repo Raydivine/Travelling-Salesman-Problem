@@ -533,6 +533,19 @@ void test_bubbleSortForNeighBour_given_an_NeighBour_array_should_sort_according_
   TEST_ASSERT_EQUAL ( arr[2].neighBour.ID, neigh2.neighBour.ID);
 }
 
+void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_distance_70_should_sort_according_ditance(void){
+  Path path1, path2, path3;
+  path1.distance = 100;
+  path2.distance = 50;
+  path3.distance = 70;
+  
+  Path array[] = { path1, path2, path3 };
+  bubbleSortForPath ( array , 3);
+  TEST_ASSERT_EQUAL ( array[0].distance, path2.distance);
+  TEST_ASSERT_EQUAL ( array[1].distance, path3.distance);
+  TEST_ASSERT_EQUAL ( array[2].distance, path1.distance);
+}
+
 /**------------------------------------------------------------------------------------------
 * 1. During my crossover function processing, after the condition break,
 *   it will produce a crossover array, but the array is missing some element,
@@ -667,7 +680,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
 *                                                                                                           *
 *                                                                                                           *
 *-----------------------------------------------------------------------------------------------------------*/
-void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_and_form_new_cities(void){
+void Xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_and_form_new_cities(void){
   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
   City *head1, *head2, arr[8];
@@ -800,30 +813,89 @@ void test_doMutation_given_mock_the_random_target_to_A_F_should_choose_A_F_and_d
   
 }
 
-void xtest_doCrossoverAmongThePopulation(void){
+/**--------------------------------------------------------------------------------------------------------
+* 1) The 2 chromosome cities shown below, and cityE is choose to do crossover ,                           *
+*     it should break loop at cityB                                                                       *
+*                                                                                                         *
+*                    -----------left-----------------$$$$$                                                *
+*     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH              *
+*                  same                                                                                   *
+*                                                                                                         *
+*                              $$$$$ ---------Right-------------                                          *
+*      CityC------> CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA             *
+*                                                                 same                                    *
+*                                                                                                         *
+*----------------------------------------------------------------------------------------------------------
+* 2) Select cityE as mid, fill the city 1by1 from chromose1'left and chromose2'Right,                     *
+*    if the coming cityB is is already exists, then stop and form a crossover link                        *
+*                                                                                                         *
+*                                                mid                                                      *
+*             CityB----->CityC------>CityD----->CityE----->CityH------>CityG   (cityB)                    *
+*                                                                                                         *
+*                                                                                                         *
+*----------------------------------------------------------------------------------------------------------
+*  3) add the rest of city to behind cityG, the added city's sequence is based of the distance to cityG   *
+*                                                             $                                           *
+*  CityB----->CityC------>CityD----->CityE----->CityH------>CityG------>CityF------->cityA                *
+*                                                                       (near  to    far )                *
+*                                                                                                         *
+*---------------------------------------------------------------------------------------------------------*/
+void test_doCrossoverAmongThePopulation_given_mock_the_random_target_cityE_should_do_crossover_and_from_new_path(void){
+   City  cityA1 = cityA, cityB1 = cityB, cityC1 = cityC, cityD1 = cityD, cityE1 = cityE,
+         cityF1 = cityF, cityG1 = cityG, cityH1 = cityH, cityI1 = cityI, cityJ1 = cityJ;
+
+  City eigthCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH}, arr[8];
+  
+  City *head1, *head2;
+  
+  head1 =  cityListNew(&cityA);
+  addCityList(&head1, &cityB);
+  addCityList(&head1, &cityC);
+  addCityList(&head1, &cityD);
+  addCityList(&head1, &cityE);
+  addCityList(&head1, &cityF);
+  addCityList(&head1, &cityG);
+  addCityList(&head1, &cityH);
+  addCityList(&head1, &cityA);
+  
+  head2 = &cityC1;
+  addCityList(&head2, &cityD1);
+  addCityList(&head2, &cityE1);
+  addCityList(&head2, &cityH1);
+  addCityList(&head2, &cityG1);
+  addCityList(&head2, &cityB1);
+  addCityList(&head2, &cityF1);
+  addCityList(&head2, &cityA1);
+  addCityList(&head2, &cityC1);
+
+  Path path1, path2, cross;
+  path1.cities = head1;
+  path1.size   = 8;
+  path2.cities = head2;
+  path2.size   = 8;
+  
+  random_ExpectAndReturn(8,3);
+  cross = doCrossover ( path1, path2, eigthCity, arr, 8);
+  clearCityList(head1);
+  clearCityList(head2);
+  TEST_ASSERT_EQUAL( cross.cities->ID                                                , cityA.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->ID                                          , cityB.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->ID                                    , cityC.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->ID                              , cityD.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->ID                        , cityE.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->next->ID                  , cityH.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->next->next->ID            , cityG.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->next->next->next->ID      , cityF.ID);
+  clearCityList(cross.cities);
+}
+
+void test_travelInShortestPath_given_tenCity_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
+  int sizeOfPopulation = 15, sizeOfCity = 10;
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  
-  random_ExpectAndReturn(10,1);
-  random_ExpectAndReturn(10,9);
-  doCrossoverAmongThePopulation( tenCity, 10, 10);
- 
 
+  Path shortestPath;
+   
 }
-
-void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_distance_70_should_sort_according_ditance(void){
-  Path path1, path2, path3;
-  path1.distance = 100;
-  path2.distance = 50;
-  path3.distance = 70;
-  
-  Path array[] = { path1, path2, path3 };
-  bubbleSortForPath ( array , 3);
-  TEST_ASSERT_EQUAL ( array[0].distance, path2.distance);
-  TEST_ASSERT_EQUAL ( array[1].distance, path3.distance);
-  TEST_ASSERT_EQUAL ( array[2].distance, path1.distance);
-}
-
-
 
 void xtest_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };

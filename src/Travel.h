@@ -10,6 +10,7 @@ void addCityToBack  (City arr[], City target, int range, int endID);
 void addCityOfNeighbour (City arr[], City lastCityInArr, City *cities, int stop, int range);
 void bubbleSortForNeighBour( NeighBour route[], int size);
 void bubbleSortForPath( Path path[], int size);
+void freePopulationTable(Path population[], int sizeOfPopulation);
 City getFrontCity(City *cities, City target);
 City getBackCity (City *cities, City target);
 City copyCity    ( City city);
@@ -18,15 +19,13 @@ Path copyPath (Path path, City arr[]);
 Path getDistanceFromPath( Path path);
 Path convertArrayToPath( City arr[], int range);
 Path MutationCities(Path path, City targetA, City targetB);
-//Path initPopulationTable(City arr[], int sizeOfPopulation, int size);
-void freePopulationTable(Path population[], int sizeOfPopulation);
-Path doMutation ( Path path, City arr[], int size);
-Path doCrossover( City arr[], int size);
 Path crossoverCities (Path path1, Path path2, City target, City arr[]);
+Path doMutation ( Path path, City arr[], int size);
+Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size);
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size);
 
 
 
-
+//Path initPopulationTable(City arr[], int sizeOfPopulation, int size);
 
 #endif // Travel_H

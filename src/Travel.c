@@ -401,6 +401,30 @@ void initPopulationTable( int sizeOfPopulation, int size, Path population[], Cit
   }
 }
 
+void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population[]){
+  int i,j;
+  City *cities;
+
+  for(j = 0; j <size; j ++)
+    printf("   %d ",j+1);
+    printf("\n");
+
+  for(j = 0; j <size; j ++)
+    printf("------",j);
+    printf("\n");
+
+  for ( i = 0; i < sizeOfPopulation ; i++){
+    cities = population[i].cities;
+    printf("%d| ",i+1);
+
+    for( j = 0 ; j < size ; j ++){
+      printf("%d  ",cities->ID);
+      cities = cities->next;
+    }
+    printf("\n");
+  }
+}
+
 void freePopulationTable(Path population[], int sizeOfPopulation){
   int i;
   City *cities;
@@ -428,11 +452,10 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
   Path population[sizeOfPopulation], cross;
-  City targetA, targetB, targetC, tempArray[size],comb[size];
+  City tour[sizeOfPopulation][size], tempArr[sizeOfPopulation][size];
 
   int i=0 ,j, a, b, c, counter = 0;
   float pre , post, diff;
-
 }
 
 
@@ -446,47 +469,21 @@ Path doMutation( Path path, City arr[], int size){
     } while( rand1.ID == rand2.ID);
 
   if( checkingFor2opt( path.cities, rand1, rand2))
-    path = MutationCities( path, rand1, rand2); 
-  
+    path = MutationCities( path, rand1, rand2);
+
   return path;
 }
 
-Path doCrossoverAmongThePopulation( City arr[], int size){
-  int x,y;
-  Path cross;
+Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
+  int A = random(size);
+  City rand1 = arr[A];
+  Path crossoverPath;
 
-  // x = random(sizeOfPopulation);
-  // y = random(sizeOfPopulation);
-
-  // printf("%d\n",x);
-  // printf("%d\n",y);
-  // do{ x = random(sizeOfPopulation);
-      // y = random(sizeOfPopulation);
-    // } while( x == y);
+  crossoverPath = crossoverCities( path1, path2, rand1, crossArr);
+  
+  return crossoverPath;
 }
 
-void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population[]){
-  int i,j;
-  City *cities;
-
-  for(j = 0; j <size; j ++)
-    printf("   %d ",j+1);
-  printf("\n");
-
-   for(j = 0; j <size; j ++)
-    printf("------",j);
-  printf("\n");
-
-  for ( i = 0; i < sizeOfPopulation ; i++){
-    cities = population[i].cities;
-    printf("%d| ",i+1);
-    for( j = 0 ; j < size ; j ++){
-      printf("%d  ",cities->ID);
-      cities = cities->next;
-    }
-    printf("\n");
-  }
-}
 
 
 
@@ -546,6 +543,9 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
     // cities = cities->next;
    // }
 
+      // int r;
+   // for( r= 0; r < size ; r ++)
+   // printf("%d %d\n", r, crossArr[r].ID);
 
     // for ( i=0 ; i<sizeOfPopulation ; i++){
     // printf("%d  :  ",i);
