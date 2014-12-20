@@ -471,11 +471,14 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
  // printfOutThePopulatointable( sizeOfPopulation, size, population);
 
   while (counter < sizeOfPopulation){
+     //mutation operation
     a = rand()%sizeOfPopulation;
     population[a] = doMutation( population[a], arr, size);
-
-    b = rand()%sizeOfPopulation;
-    c = rand()%sizeOfPopulation;
+    
+    // crossover operation
+    do{  b = rand()%sizeOfPopulation;
+         c = rand()%sizeOfPopulation;
+      } while ( b == c );
     crossPath = doCrossover( population[b], population[c], arr, crossArray, size);
 
     if( crossPath.distance<population[b].distance &&  crossPath.distance<population[c].distance ){
