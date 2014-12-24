@@ -429,7 +429,6 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
   for ( i = 0; i < sizeOfPopulation ; i++){
     cities = population[i].cities;
     printf("%d| ",i+1);
-
     for( j = 0 ; j < size ; j ++){
       printf("%d  ",cities->ID);
       cities = cities->next;
@@ -451,38 +450,37 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 
 /** Input: array of all cities, size of population, size of cities
 *
-*   Process: 1. The function is combined mutation and crossover
-*            2. First, created a population table for the give size
-*            3. do mutation and crossover by randomly select the target from the population table
+*   Process: 1. The function is combined mutation and crossover 
+*            2. First, created a population table for the give size, declare a targetNumber, which is  (sizeOfPopulation + sizeOfCity)
+*            3. Created a while loop, the while loop break when the counter increment until reach value of targetNumber 
+*            4. do mutation and crossover by randomly select the target from the population table
 *            4. Record the table[0] distance as "pre",
 *               arrange the population table according distance
 *               Record the table[0] distance as "post",
 *            5. If the "post" value is less then "pre" value, clear the counter, else increment the counter
-*            6. while the counter increment reach the sizeOfPopulation , break the loop
+*            6. while the counter increment reach the target number , break the loop
 *            7. Return the population table [0] as the shortest path among all the cities
 *   Output: path of compute shortest distance
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
   Path population[sizeOfPopulation], crossPath;
   City tour[sizeOfPopulation][size], tempArr[sizeOfPopulation][size], crossArray[size];
-  int i=0 ,j, a, b, c, counter = 0;
+  int i=0 ,j, a, b, c, counter = 0 ,  targetNumber = sizeOfPopulation + size;
   float pre , post;
 
   initPopulationTable( sizeOfPopulation, size, population, tour, arr);
  // printfOutThePopulatointable( sizeOfPopulation, size, population);
 
-  while (counter < sizeOfPopulation){
-     //mutation operation
+  while (counter < targetNumber){
     a = rand()%sizeOfPopulation;
     population[a] = doMutation( population[a], arr, size);
 
-    // crossover operation
     do{  b = rand()%sizeOfPopulation;
          c = rand()%sizeOfPopulation;
       } while ( b == c );
     crossPath = doCrossover( population[b], population[c], arr, crossArray, size);
 
-    if( crossPath.distance<population[b].distance &&  crossPath.distance<population[c].distance ){
+    if( (crossPath.distance<population[b].distance) &&  (crossPath.distance<population[c].distance) ){
       population[b] = copyPath ( crossPath, tempArr[i]);
       i++;
     }
@@ -491,21 +489,14 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
     pre  = population[0].distance;
     bubbleSortForPath (population, sizeOfPopulation);
     post = population[0].distance;
-
-    printf( "Distance : %f\n", population[0].distance);
-
     if( post < pre )
       counter = 0 ;
-    else counter = counter + 1;
-
-    printf("counter value: %d\n", counter);
-  }
+    else counter = counter + 1;   
+    printf( "Distance : %f\n", population[0].distance);
+  }  
+  //printfOutThePopulatointable( sizeOfPopulation, size, population);
   
-  printfOutThePopulatointable( sizeOfPopulation, size, population);
-  
-  return population[0];
-
-  
+  return population[0]; 
 }
 
 Path doMutation( Path path, City arr[], int size){
@@ -515,8 +506,6 @@ Path doMutation( Path path, City arr[], int size){
   do{
       A = rand()%size;
       B = rand()%size;
-      // A = random(size);
-      // B = random(size);
     } while ( A == B);
 
   rand1 = arr[A];
@@ -529,7 +518,7 @@ Path doMutation( Path path, City arr[], int size){
 }
 
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
-  //int A = random(size);
+
   int  A = rand()%size;
   City rand1 = arr[A];
   Path crossoverPath;
