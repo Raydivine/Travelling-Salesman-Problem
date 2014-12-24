@@ -86,7 +86,7 @@ void tearDown(void){}
 * distance = square root ( 4^2 + 6^2 )
 * distance  = 7.211
 */
-void test_fitnessScore_to_find_the_distance_of_2_city(void){
+void xtest_fitnessScore_to_find_the_distance_of_2_city(void){
   float ans = findDistance(&cityA, &cityB);
 
   TEST_ASSERT_EQUAL( ans, 7.211);
@@ -100,7 +100,7 @@ void test_fitnessScore_to_find_the_distance_of_2_city(void){
 *                                           7.6
 *   Total Distance = 22.1
 */
-void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
+void xtest_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(void){
   Path path;
   City *head =  cityListNew(&cityF);// assign cityF as head
   addCityList(&head, &cityB);
@@ -125,7 +125,7 @@ void test_TotalDistanceCities_given_travel_FBHGCF_should_return_total_distance(v
   clearCityList(path.cities);
 }
 
-void test_copycity_given_pointer_cityB_should_copy_and_hold_the_city(void){
+void xtest_copycity_given_pointer_cityB_should_copy_and_hold_the_city(void){
   City *head =  cityListNew(&cityB);
   City clone = copyCity(*head);
   clearCityList(head);
@@ -139,7 +139,7 @@ void test_copycity_given_pointer_cityB_should_copy_and_hold_the_city(void){
 *   Clone   :   CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH
 *
 */
-void test_copyPath_should_copy_and_hold_the_cities_list(void){
+void xtest_copyPath_should_copy_and_hold_the_cities_list(void){
   City arr[8], *head;
   head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -199,7 +199,7 @@ void test_copyPath_should_copy_and_hold_the_cities_list(void){
 *                  cityH<---cityG    cityF--->cityE                                 *
 *-----------------------------------------------------------------------------------*
 */
-void test_MutationCities_given_cityB_and_cityF_as_target_should_do_mutation_of_the_link(void){
+void xtest_MutationCities_given_cityB_and_cityF_as_target_should_do_mutation_of_the_link(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -253,7 +253,7 @@ void test_MutationCities_given_cityB_and_cityF_as_target_should_do_mutation_of_t
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*/
-void test_MutationCities_given_2_near_city_should_do_mutation_of_the_link(void){
+void xtest_MutationCities_given_2_near_city_should_do_mutation_of_the_link(void){
   Path path;
   City *head =  cityListNew(&cityA);  
   addCityList(&head, &cityB);
@@ -305,7 +305,7 @@ void test_MutationCities_given_2_near_city_should_do_mutation_of_the_link(void){
 *                     |                          v                                  *
 *                  cityH<---cityG<---cityF<---cityE                                 *
 *-----------------------------------------------------------------------------------*/
-void test_MutationCities_given_2_besides_city_should_do_nothing(void){
+void xtest_MutationCities_given_2_besides_city_should_do_nothing(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -340,7 +340,7 @@ void test_MutationCities_given_2_besides_city_should_do_nothing(void){
 *                     |                          v
 *                  cityH<---cityG<---cityF<---cityE
 */
-void test_MutationCities_given_2_same_city_should_directly_return(void){
+void xtest_MutationCities_given_2_same_city_should_directly_return(void){
   Path path;
   City *head =  cityListNew(&cityA);
   addCityList(&head, &cityB);
@@ -381,7 +381,7 @@ void test_MutationCities_given_2_same_city_should_directly_return(void){
 *
 *                   should not do 2opt because cannot get shorter distance
 */
-void test_checkingFor2opt_given_cityA_cityC_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
+void xtest_checkingFor2opt_given_cityA_cityC_should_no_do_2opt_because_they_cant_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -413,7 +413,7 @@ void test_checkingFor2opt_given_cityA_cityC_should_no_do_2opt_because_they_cant_
 *
 *                should  do 2opt because can get shorter distance
 */
-void test_checkingFor2opt_given_cityA_cityF_should_do_2opt_because_they_produce_better_chromesome(void){
+void xtest_checkingFor2opt_given_cityA_cityF_should_do_2opt_because_they_produce_better_chromesome(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -431,7 +431,7 @@ void test_checkingFor2opt_given_cityA_cityF_should_do_2opt_because_they_produce_
   clearCityList(head);
 }
 
-void test_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
+void xtest_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
   Path path;
   City *head =  cityListNew(&cityA);  // assign cityA as head
   addCityList(&head, &cityB);
@@ -449,21 +449,21 @@ void test_checkingFor2opt_given_same_city_to_do_2opt_should_return_0(void){
   clearCityList(head);
 }
 
-void test_checkIsCityNotUsed_given_array_A_B_C_and_put_in_cityD_should_return_1_because_cityD_is_not_inside(void){
+void xtest_checkIsCityNotUsed_given_array_A_B_C_and_put_in_cityD_should_return_1_because_cityD_is_not_inside(void){
   City arr[] = { cityA, cityB, cityC };
 
   int ans = checkIsCityNotUsed( arr, cityD, 4);
   TEST_ASSERT_EQUAL( ans, 1);
 }
 
-void test_checkIsCityNotUsed_given_array_A_B_C_and_put_in_cityA_should_return_0_because_cityA_is_inside(void){
+void xtest_checkIsCityNotUsed_given_array_A_B_C_and_put_in_cityA_should_return_0_because_cityA_is_inside(void){
   City arr[] = { cityA, cityB, cityC };
 
   int ans = checkIsCityNotUsed( arr, cityA, 4);
   TEST_ASSERT_EQUAL( ans, 0);
 }
 
-void test_getFrontCity_given_linkedList_B_E_C_A_G_and_target_G_should_get_cityA(void){
+void xtest_getFrontCity_given_linkedList_B_E_C_A_G_and_target_G_should_get_cityA(void){
   City *head =  cityListNew(&cityB);
   addCityList(&head, &cityE);
   addCityList(&head, &cityC);
@@ -476,7 +476,7 @@ void test_getFrontCity_given_linkedList_B_E_C_A_G_and_target_G_should_get_cityA(
   clearCityList(head);
 }
 
-void test_getBackCity_given_linkedList_B_E_C_A_G_and_target_C_should_get_cityA(void){
+void xtest_getBackCity_given_linkedList_B_E_C_A_G_and_target_C_should_get_cityA(void){
   City *head =  cityListNew(&cityB);
   addCityList(&head, &cityE);
   addCityList(&head, &cityC);
@@ -489,7 +489,7 @@ void test_getBackCity_given_linkedList_B_E_C_A_G_and_target_C_should_get_cityA(v
   clearCityList(head);
 }
 
-void test_addCityToFront_given_a_city_array_A_H_I_and_add_D_to_front_should_become_D_A_H_I(void){
+void xtest_addCityToFront_given_a_city_array_A_H_I_and_add_D_to_front_should_become_D_A_H_I(void){
   City arr[4] = { cityA, cityH, cityI};
   
   addCityToFront( arr, cityD, 4);
@@ -499,7 +499,7 @@ void test_addCityToFront_given_a_city_array_A_H_I_and_add_D_to_front_should_beco
   TEST_ASSERT_EQUAL ( arr[3].ID, cityI.ID);
 }
 
-void test_addCityToBack_given_a_city_array_A_H_I_and_add_D_to_front_should_become_A_H_I_D(void){
+void xtest_addCityToBack_given_a_city_array_A_H_I_and_add_D_to_front_should_become_A_H_I_D(void){
   City arr[4] = { cityA, cityH, cityI};
   
   addCityToBack( arr, cityD, 4, cityI.ID);
@@ -509,7 +509,7 @@ void test_addCityToBack_given_a_city_array_A_H_I_and_add_D_to_front_should_becom
   TEST_ASSERT_EQUAL ( arr[3].ID, cityD.ID);
 }
 
-void test_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_C_D_E_(void){
+void xtest_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_C_D_E_(void){
   City arr[] = {cityA, cityB, cityC, cityD, cityE};
 
   Path path = convertArrayToPath( arr, 5);
@@ -521,7 +521,7 @@ void test_convertArrayToPath_given_array_A_B_C_D_E_should_convert_to_path__A_B_C
   TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityA.ID);
 }
 
-void test_bubbleSortForNeighBour_given_an_NeighBour_array_should_sort_according_distance(void){
+void xtest_bubbleSortForNeighBour_given_an_NeighBour_array_should_sort_according_distance(void){
   NeighBour neigh1, neigh2, neigh3;
   neigh1.distance = 5.34 , neigh2.distance = 9.12 , neigh3.distance = 3.55 ;
   neigh1.neighBour = cityA, neigh2.neighBour = cityB , neigh3.neighBour = cityC;
@@ -533,7 +533,7 @@ void test_bubbleSortForNeighBour_given_an_NeighBour_array_should_sort_according_
   TEST_ASSERT_EQUAL ( arr[2].neighBour.ID, neigh2.neighBour.ID);
 }
 
-void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_distance_70_should_sort_according_ditance(void){
+void xtest_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_distance_70_should_sort_according_ditance(void){
   Path path1, path2, path3;
   path1.distance = 100;
   path2.distance = 50;
@@ -565,7 +565,7 @@ void test_bubbleSortForPath_given_path1_distance_100_path2_distance_50_path3_dis
 *                     Neighbour Neighbour
 * --------------------------------------------------------------------------------------------
 */
-void test_addCityOfNeighbour_given_array_and_it_want_to_add_mising_element_from_LinkedList_should_add_the_city_according_neighBour(void){
+void xtest_addCityOfNeighbour_given_array_and_it_want_to_add_mising_element_from_LinkedList_should_add_the_city_according_neighBour(void){
   City  cityA1 = cityA, cityB1 = cityB, cityD1 = cityD;
   City arr[] = { cityB1, cityD1 , cityA1 };
   City *head1 =  cityListNew(&cityA);
@@ -725,7 +725,7 @@ void Xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void test_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
   int sizeOfPopulation = 15, sizeOfCity = 10;
   
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
@@ -737,7 +737,7 @@ void test_initPopulationTable_given_population_size_15_and_cities_size_10_should
   freePopulationTable( population, sizeOfPopulation);
 }
 
-void test_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
   int sizeOfPopulation = 20, sizeOfCity = 10;
   
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
@@ -889,7 +889,7 @@ void xtest_doCrossoverAmongThePopulation_given_mock_the_random_target_cityE_shou
   clearCityList(cross.cities);
 }
 
-void test_travelInShortestPath_given_tenCity_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
+void test_travelInShortestPath_given_10_City_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
   int sizeOfPopulation = 15, sizeOfCity = 10;
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
@@ -898,11 +898,12 @@ void test_travelInShortestPath_given_tenCity_should_create_the_population_15_sho
   travelInShortestPath( tenCity, sizeOfPopulation, sizeOfCity);
 }
 
-void test_travelInShortestPath_given_10_city_should_get_the_shortest_travel_path(void){
+void xtest_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
   int sizeOfPopulation = 20, sizeOfCity = 20;
   City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ, 
                         cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
   Path shortestPath;
   printf("\nGiven 20 city and 20 population\n");
   shortestPath = travelInShortestPath( twentyCity, sizeOfPopulation, sizeOfCity);
+  printf("the shortest distance:  %f\n ", shortestPath.distance);
 }

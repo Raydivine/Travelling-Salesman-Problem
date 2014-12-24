@@ -422,7 +422,9 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
     printf("   %d ",j+1);
     printf("\n");
 
-  printf("------------------------------------------------------\n");
+  for(j = 0; j <size; j ++)
+    printf("------");
+    printf("\n");
 
   for ( i = 0; i < sizeOfPopulation ; i++){
     cities = population[i].cities;
@@ -452,13 +454,12 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 *   Process: 1. The function is combined mutation and crossover
 *            2. First, created a population table for the give size
 *            3. do mutation and crossover by randomly select the target from the population table
-*            4. arrange the population table according distance
-*            5. calculate the changing of the value of the 1st seat of the population table
-*            6. If the changing is too small, which means less then 1 during 1 generations, then counter increment,
-*               else the large changing value is provided, clear the counter
-*            7. If the changing of value is always too small during row of generations, break the loop.
-*            8. Return the population table [0] as the shortest path among all the cities
-
+*            4. Record the table[0] distance as "pre",
+*               arrange the population table according distance
+*               Record the table[0] distance as "post",
+*            5. If the "post" value is less then "pre" value, clear the counter, else increment the counter
+*            6. while the counter increment reach the sizeOfPopulation , break the loop
+*            7. Return the population table [0] as the shortest path among all the cities
 *   Output: path of compute shortest distance
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
@@ -474,7 +475,7 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
      //mutation operation
     a = rand()%sizeOfPopulation;
     population[a] = doMutation( population[a], arr, size);
-    
+
     // crossover operation
     do{  b = rand()%sizeOfPopulation;
          c = rand()%sizeOfPopulation;
@@ -493,13 +494,18 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
 
     printf( "Distance : %f\n", population[0].distance);
 
-    if( (pre - post) < 1)
-      counter = counter + 1;
-    else counter = 0;
+    if( post < pre )
+      counter = 0 ;
+    else counter = counter + 1;
+
+    printf("counter value: %d\n", counter);
   }
+  
+  printfOutThePopulatointable( sizeOfPopulation, size, population);
+  
   return population[0];
 
- // printfOutThePopulatointable( sizeOfPopulation, size, population);
+  
 }
 
 Path doMutation( Path path, City arr[], int size){
