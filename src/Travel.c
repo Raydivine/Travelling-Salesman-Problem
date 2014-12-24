@@ -10,14 +10,14 @@
 #include "Random.h"
 
 void printOutACities( City *cities){
-   int stop = cities->ID;
-   printf("%d\n",cities->ID);
+  int stop = cities->ID;
+  printf("%d\n",cities->ID);
 
-   cities = cities->next;
-   while(cities->ID != stop){
-   printf("%d\n",cities->ID);
-   cities = cities->next;
-   }
+  cities = cities->next;
+  while(cities->ID != stop){
+    printf("%d\n",cities->ID);
+    cities = cities->next;
+  }
 }
 
 /** Input: coordinate1 and coordinate2
@@ -193,7 +193,7 @@ int checkIsCityNotUsed( City arr[], City target, int range){
 
   for(i = 0 ; i < range ; i ++){
     if( arr[i].ID == target.ID)
-      return 0;
+      return 0;    
   }
   return 1;
 }
@@ -337,10 +337,9 @@ void addCityOfNeighbour(City arr[], City lastCityInArr, City *cities, int stop, 
 *   Output: crossover path,  and some of path's cities was arranged
 */
 Path crossoverCities(Path path1, Path path2, City target, City arr[]){
-  int range = path1.size, i;
+  int range = path1.size;
   City *head1 = path1.cities, *head2 = path2.cities, front, back, lastCityInArr;
   Path path;
-
   arr[0] = target;
   lastCityInArr = arr[0];
 
@@ -351,7 +350,7 @@ Path crossoverCities(Path path1, Path path2, City target, City arr[]){
 
   front = getFrontCity(head1, target);
   back  = getBackCity (head2, target);
-
+  
   while(checkIsCityNotUsed( arr, front, range)){
     addCityToFront(arr, front, range);
     front = getFrontCity(head1, front);
@@ -441,10 +440,9 @@ void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population
 void freePopulationTable(Path population[], int sizeOfPopulation){
   int i;
   City *cities;
-  for( i = 0 ; i < sizeOfPopulation ; i++){
-    cities = population[i].cities;
-    clearCityList(cities);
-  }
+  for( i = 0 ; i < sizeOfPopulation ; i++)
+    clearCityList(population[i].cities);
+  
 }
 
 
@@ -459,16 +457,17 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 *               Record the table[0] distance as "post",
 *            5. If the "post" value is less then "pre" value, clear the counter, else increment the counter
 *            6. while the counter increment reach the target number , break the loop
-*            7. Return the population table [0] as the shortest path among all the cities
+*            7. Record table[0] as shortest path, and return it.
 *   Output: path of compute shortest distance
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
-  Path population[sizeOfPopulation], crossPath;
-  City store[sizeOfPopulation][size], tempArr[sizeOfPopulation][size], crossArray[size];
-  int counter = 0 ,i=0 ,j, a, b, c, targetNumber = sizeOfPopulation + size;
+  Path population[sizeOfPopulation], crossPath, shortestPath;
+  City storeArr[sizeOfPopulation][size], tempArr[sizeOfPopulation][size], crossArr[size], shortestArr[size]; // those arrays are use to store the element for the population table 
+  int  targetNumber = sizeOfPopulation + size, counter = 0, i = 0 ,a, b, c;
   float pre , post;
-
-  initPopulationTable( sizeOfPopulation, size, population, store, arr);
+  
+  clearCityArray( crossArr, 8); // To ensure crossArr is empty
+  initPopulationTable( sizeOfPopulation, size, population, storeArr, arr);
  // printfOutThePopulatointable( sizeOfPopulation, size, population);
 
   while (counter < targetNumber){
@@ -478,25 +477,26 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
     do{  b = rand()%sizeOfPopulation;
          c = rand()%sizeOfPopulation;
       } while ( b == c );
-    crossPath = doCrossover( population[b], population[c], arr, crossArray, size);
+    crossPath = doCrossover( population[b], population[c], arr, crossArr, size);
 
-    if( (crossPath.distance<population[b].distance) &&  (crossPath.distance<population[c].distance) ){
+    if( crossPath.distance < population[b].distance &&  crossPath.distance < population[c].distance){
       population[b] = copyPath ( crossPath, tempArr[i]);
       i++;
-    }
-    clearCityArray( crossArray, size);
+    } clearCityArray( crossArr, size);
 
     pre  = population[0].distance;
     bubbleSortForPath (population, sizeOfPopulation);
     post = population[0].distance;
     if( post < pre )
-      counter = 0 ;
+      counter = 0 ; 
     else counter = counter + 1;   
+    
     printf( "Distance : %f\n", population[0].distance);
   }  
-  //printfOutThePopulatointable( sizeOfPopulation, size, population);
-  
-  return population[0]; 
+ // printfOutThePopulatointable( sizeOfPopulation, size, population);
+ 
+  shortestPath = copyPath(population[0], shortestArr);
+  return shortestPath; 
 }
 
 Path doMutation( Path path, City arr[], int size){
@@ -507,18 +507,15 @@ Path doMutation( Path path, City arr[], int size){
       A = rand()%size;
       B = rand()%size;
     } while ( A == B);
-
   rand1 = arr[A];
   rand2 = arr[B];
 
   if( checkingFor2opt( path.cities, rand1, rand2))
     path = MutationCities( path, rand1, rand2);
-
   return path;
 }
 
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
-
   int  A = rand()%size;
   City rand1 = arr[A];
   Path crossoverPath;
