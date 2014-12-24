@@ -725,7 +725,7 @@ void Xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(crossoverPath.cities);
 }
 
-void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+void test_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15(void){
   int sizeOfPopulation = 15, sizeOfCity = 10;
   
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
@@ -737,7 +737,7 @@ void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_shoul
   freePopulationTable( population, sizeOfPopulation);
 }
 
-void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15_(void){
+void test_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x20(void){
   int sizeOfPopulation = 20, sizeOfCity = 10;
   
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };

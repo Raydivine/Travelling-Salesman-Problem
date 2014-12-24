@@ -464,11 +464,11 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
 */
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
   Path population[sizeOfPopulation], crossPath;
-  City tour[sizeOfPopulation][size], tempArr[sizeOfPopulation][size], crossArray[size];
-  int i=0 ,j, a, b, c, counter = 0 ,  targetNumber = sizeOfPopulation + size;
+  City store[sizeOfPopulation][size], tempArr[sizeOfPopulation][size], crossArray[size];
+  int counter = 0 ,i=0 ,j, a, b, c, targetNumber = sizeOfPopulation + size;
   float pre , post;
 
-  initPopulationTable( sizeOfPopulation, size, population, tour, arr);
+  initPopulationTable( sizeOfPopulation, size, population, store, arr);
  // printfOutThePopulatointable( sizeOfPopulation, size, population);
 
   while (counter < targetNumber){
