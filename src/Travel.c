@@ -579,6 +579,7 @@ Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGener
   //printfOutPopulatointable( population, sizeP);
 
   while( counter < maxNumGeneration){
+    pre  = population[0].distance;
     // 1. Mutation process
     a = rand()%sizeP;
     population[a] = doMutation( population[a], arr, sizeC);
@@ -595,7 +596,6 @@ Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGener
     clearCityArray( crossArr, sizeC);   
   
     // 3. Counter process, to determine are the path improving 
-    pre  = population[0].distance;
     bubbleSortForPath (population, sizeOfPopulation);
     post = population[0].distance;
     if( post < pre )
