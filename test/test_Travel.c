@@ -684,7 +684,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityA_should_do_crossover_a
   clearCityList(cross.cities);
 }
 
-void test_InitPathFromTheGivenArray_given_a_sampleArray_should_init_the_path_and_use_the_local_array_as_element(void){
+void xtest_InitPathFromTheGivenArray_given_a_sampleArray_should_init_the_path_and_use_the_local_array_as_element(void){
   City localArr[]= { cityA, cityB, cityC, cityD, cityE, cityF, cityG, cityH, cityI, cityJ }, 
        sampleArr[]={ cityA, cityD, cityC, cityB, cityE, cityI, cityH, cityJ, cityG, cityF } ;
   Path path;
@@ -712,16 +712,16 @@ void test_InitPathFromTheGivenArray_given_a_sampleArray_should_init_the_path_and
 
 
 
-void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15(void){
+void test_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15(void){
   int sizeOfPopulation = 15, sizeOfCity = 10;
-
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path population[sizeOfPopulation];
   City tour[sizeOfPopulation][sizeOfCity];
 
-  initPopulationTable( sizeOfPopulation, sizeOfCity, population, tour, tenCity);
+  initPopulationTable( population, tenCity, sizeOfPopulation, sizeOfCity);
+  printfOutPopulatointable( population, sizeOfPopulation);
 //printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
-  freePopulationTable( population, sizeOfPopulation);
+//  freePopulationTable( population, sizeOfPopulation);
 }
 
 void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x20(void){
@@ -731,9 +731,9 @@ void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_shoul
   Path population[sizeOfPopulation];
   City tour[sizeOfPopulation][sizeOfCity];
 
-  initPopulationTable( sizeOfPopulation, sizeOfCity, population, tour, tenCity);
+ // initPopulationTable( sizeOfPopulation, sizeOfCity, population, tour, tenCity);
 //printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
-  freePopulationTable( population, sizeOfPopulation);
+//  freePopulationTable( population, sizeOfPopulation);
 }
 
 void xtest_travelInShortestPath_given_10_City_should_create_the_population_15_should_find_the_shortest_travel_distance(void){

@@ -11,9 +11,11 @@ void addCityOfNeighbour (City arr[], City lastCityInArr, City *cities, int stop,
 void bubbleSortForNeighBour( NeighBour route[], int size);
 void bubbleSortForPath( Path path[], int size);
 void shuffleArray( City randArr[], int size);
-void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population[]);
+void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, int size);
+void printfOutPopulatointable(Path population[], int sizeOfPopulation);
 void freePopulationTable(Path population[], int sizeOfPopulation);
-void printOutACities( City *cities);
+void printOutCitiesID( City *cities);
+void copyArray( City clone[], City arr[], int size);
 void clearCityArray(City arr[], int size);
 City getFrontCity(City *cities, City target);
 City getBackCity (City *cities, City target);

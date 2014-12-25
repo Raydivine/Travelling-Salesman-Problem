@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include "Random.h"
 
-void printOutACities( City *cities){
+void printOutCitiesID( City *cities){
   int stop = cities->ID;
   printf("%d  ",cities->ID);
 
@@ -437,47 +437,32 @@ Path InitPathFromTheGivenArrayByUsingLocalElement( City sampleArr[], City localA
   return path;
 }
 
-void initPopulationTable( int sizeOfPopulation, int size, Path population[], City tour[sizeOfPopulation][size], City arr[]){
-  City temp;
-  int i,j,x;
-
+/** Input  : population array, local city array 
+*   Process: This function is used to init population table, and the tour ordering is randomize
+*            1. Created randomArr, this array will always be shuffle to get a randomize order
+*            2. The path will be init based on the randomize array, and the path is using element from local array
+*            3. The population table will be init given the sizeOfPopulation
+*
+*   Output : population table with randomize order sequence        
+*/
+void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, int size){
+  int i;
+  City randArr[size];
+  copyArray( randArr, arr, size);
+  
   for( i=0 ; i<sizeOfPopulation; i++){
-    copyArray( tour[i], arr, size);
-    for ( j=0 ; j < size ; j++){   // shuffle the array
-      x = rand()%(size);
-      temp = tour[i][x];
-      tour[i][x] = tour[i][j];
-      tour[i][j] = temp;
-    }
-    population[i] = convertArrayToPath( tour[i], size);
-    population[i] = getDistanceFromPath( population[i]);
-  }
+    shuffleArray( randArr, size);
+    population[i] = InitPathFromTheGivenArrayByUsingLocalElement( randArr, arr, size);
+  } 
 }
 
-void printfOutThePopulatointable(int sizeOfPopulation, int size, Path population[]){
-  int i,j;
-  City *cities;
-  printf("\n");
-  printf("-------------------Table of City ID-------------------\n");
-
-  for(j = 0; j <size; j ++)
-    printf("   %d ",j+1);
-    printf("\n");
-
-  for(j = 0; j <size; j ++)
-    printf("------");
-    printf("\n");
-
-  for ( i = 0; i < sizeOfPopulation ; i++){
-    cities = population[i].cities;
-    printf("%d| ",i+1);
-    for( j = 0 ; j < size ; j ++){
-      printf("%d  ",cities->ID);
-      cities = cities->next;
-    }
+void printfOutPopulatointable(Path population[], int sizeOfPopulation){
+  int i;
+  for( i=0 ; i<sizeOfPopulation; i++){
+    printf("path %d : ", i);
+    printOutCitiesID( population[i].cities);
     printf("\n");
   }
-  printf("\n");
 }
 
 void freePopulationTable(Path population[], int sizeOfPopulation){
@@ -508,7 +493,7 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
   float pre , post;
   
   clearCityArray( crossArr, 8); // To ensure crossArr is empty
-  initPopulationTable( sizeOfPopulation, size, population, storeArr, arr);
+ // initPopulationTable( sizeOfPopulation, size, population, storeArr, arr);
  // printfOutThePopulatointable( sizeOfPopulation, size, population);
 
   while (counter < targetNumber){
