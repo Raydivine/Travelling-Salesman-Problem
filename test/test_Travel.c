@@ -817,7 +817,7 @@ void xtest_locateNeighBoursBasedOnGivenNumber_choose_cityJ_given_5_city_should_l
 *                  cityH<---cityG    cityF--->cityE--->cityD                        *
 *-----------------------------------------------------------------------------------*
 */
-void test_mock_doMutation_given_mock_the_random_city_as_cityA_and_cityF_should_do_mutate(void){
+void xtest_mock_doMutation_given_mock_the_random_city_as_cityA_and_cityF_should_do_mutate(void){
   int size = 8;
   City eightCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH};
   Path path;
@@ -875,7 +875,7 @@ void test_mock_doMutation_given_mock_the_random_city_as_cityA_and_cityF_should_d
 *                                                                       (near  to    far )                *
 *                                                                                                         *
 *---------------------------------------------------------------------------------------------------------*/
-void test_mock_doCrossover_given_mock_the_random_city_as_cityE_should_do_crossover_and_form_new_cities(void){
+void xtest_mock_doCrossover_given_mock_the_random_city_as_cityE_should_do_crossover_and_form_new_cities(void){
   City arr1[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH };
   City arr2[] = { cityC,cityD,cityE,cityH,cityG,cityB,cityF,cityA };
   City array[8];
@@ -901,8 +901,7 @@ void test_mock_doCrossover_given_mock_the_random_city_as_cityE_should_do_crossov
   clearCityList(cross.cities);
 }
 
-
-void xtest_travelInShortestPath_given_10_City_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
+void test_travelInShortestPath_given_10_City_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
   int sizeOfPopulation = 15, sizeOfCity = 10, maxNumGeneration = 20;
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 

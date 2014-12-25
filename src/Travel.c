@@ -474,6 +474,40 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
     clearCityList(population[i].cities);
 }
 
+Path mock_doMutation( Path path, City arr[], int size){
+  City mut1, mut2 ;
+  int numOfShortDistanceCity, percent;
+  
+  if( size > 30) 
+    percent = 10;
+  else  percent = 30;
+    
+  numOfShortDistanceCity = percent * size / 100; 
+  City shortDistanceArr[numOfShortDistanceCity];
+
+  mut1 = arr[random(size)];
+  locateNeighBoursBasedOnGivenNumber( shortDistanceArr, arr, mut1, numOfShortDistanceCity, size);
+  mut2 = shortDistanceArr[random(numOfShortDistanceCity)];
+
+  printf("mut1 : %d\n", mut1.ID);
+  printf("mut2 : %d\n", mut2.ID);
+  
+  if( checkingFor2opt( path.cities, mut1, mut2))
+    path = MutationCities( path, mut1, mut2);
+
+  return path;
+  // printf("numOfShortDistanceCity : %d\n  ", numOfShortDistanceCity);
+  // printf("size : %d\n", size);
+}
+
+Path mock_doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
+  City cityToCrossover = arr[random(size)];
+  Path crossoverPath;
+  //printf("rand1 : %d\n", rand.ID);
+  crossoverPath = crossoverCities( path1, path2, cityToCrossover, crossArr);
+  return crossoverPath;
+}
+
 /** Input: array of all cities, size of population, size of cities
 *
 *   Process: 1. The function is combined mutation and crossover 
@@ -497,12 +531,41 @@ Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGener
   clearCityArray( crossArr, sizeC); // To ensure crossArr is empty 
   initPopulationTable( population, arr, sizeP, sizeC);
   //printfOutPopulatointable( population, sizeP);
-  printf(" maxNumGeneration : %d\n", maxNumGeneration);
-   while (counter < 20){
-  //for( i =0;  i< 10; i ++){
+
+  
+  
+  
+  
+   while (counter < maxNumGeneration){
     a = rand()%sizeP;
     population[a] = doMutation( population[a], arr, sizeC);
+    
+    do{  
+        b = rand()%sizeP;
+        c = rand()%sizeP;
+      } while ( b == c );
+    crossPath = doCrossover( population[b], population[c], arr, crossArr, sizeC);
+
+    if( crossPath.distance < population[b].distance  &&  crossPath.distance < population[c].distance)
+      population[b] = InitPathFromTheGivenArrayByUsingLocalElement( crossArr, arr, sizeC); 
+    clearCityArray( crossArr, sizeC);   
   
+    pre  = population[0].distance;
+    bubbleSortForPath (population, sizeOfPopulation);
+    post = population[0].distance;
+    if( post < pre )
+      counter = 0 ; 
+    else counter = counter + 1;   
+
+      printf( "Distance : %f\n", population[0].distance);
+  }
+
+  //printfOutPopulatointable( population, sizeP);
+}
+
+  //printf(" maxNumGeneration : %d\n", maxNumGeneration);
+
+
     // do{  b = rand()%sizeP;
          // c = rand()%sizeP;
       // } while ( b == c );
@@ -512,19 +575,21 @@ Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGener
       // population[b] = InitPathFromTheGivenArrayByUsingLocalElement( crossArr, arr, sizeC); 
     // clearCityArray( crossArr, sizeC);   
   
-    pre  = population[0].distance;
-    bubbleSortForPath (population, sizeOfPopulation);
-    post = population[0].distance;
-    if( post < pre )
-      counter = 0 ; 
-    else counter = counter + 1;   
+    // pre  = population[0].distance;
+    // bubbleSortForPath (population, sizeOfPopulation);
+    // post = population[0].distance;
+    // if( post < pre )
+      // counter = 0 ; 
+    // else counter = counter + 1;   
     
-    printf( "Distance : %f\n", population[0].distance);
-    
-  }
+    // printf( "Distance : %f\n", population[0].distance);
 
-  //printfOutPopulatointable( population, sizeP);
-}
+
+
+
+
+
+
 
 // for( j =0 ; j <sizeC ; j++)
         // printf(" %d ", crossArr[j].ID);
@@ -560,7 +625,7 @@ void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], Ci
 
 Path doMutation( Path path, City arr[], int size){
   City mut1, mut2 ;
-  int A,B, numOfShortDistanceCity, percent;
+  int numOfShortDistanceCity, percent;
 
   if( size > 20) 
     percent = 10;
@@ -580,45 +645,10 @@ Path doMutation( Path path, City arr[], int size){
 }
 
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
-  int  A = rand()%size;
-  City rand = arr[A];
+  City cityToCrossover = arr[rand()%size];
   Path crossoverPath;
   //printf("rand1 : %d\n", rand.ID);
-  crossoverPath = crossoverCities( path1, path2, rand, crossArr);
+  crossoverPath = crossoverCities( path1, path2, cityToCrossover, crossArr);
   return crossoverPath;
 }
 
-Path mock_doMutation( Path path, City arr[], int size){
-  City mut1, mut2 ;
-  int numOfShortDistanceCity, percent;
-  
-  if( size > 30) 
-    percent = 10;
-  else  percent = 30;
-    
-  numOfShortDistanceCity = percent * size / 100; 
-  City shortDistanceArr[numOfShortDistanceCity];
-
-  mut1 = arr[random(size)];
-  locateNeighBoursBasedOnGivenNumber( shortDistanceArr, arr, mut1, numOfShortDistanceCity, size);
-  mut2 = shortDistanceArr[random(numOfShortDistanceCity)];
-
-  printf("mut1 : %d\n", mut1.ID);
-  printf("mut2 : %d\n", mut2.ID);
-  
-  if( checkingFor2opt( path.cities, mut1, mut2))
-    path = MutationCities( path, mut1, mut2);
-
-  return path;
-  // printf("numOfShortDistanceCity : %d\n  ", numOfShortDistanceCity);
-  // printf("size : %d\n", size);
-}
-
-Path mock_doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
-
-  City rand = arr[random(size)];
-  Path crossoverPath;
-  //printf("rand1 : %d\n", rand.ID);
-  crossoverPath = crossoverCities( path1, path2, rand, crossArr);
-  return crossoverPath;
-}
