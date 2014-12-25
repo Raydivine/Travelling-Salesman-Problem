@@ -10,13 +10,14 @@ void addCityToBack  (City arr[], City target, int range, int endID);
 void addCityOfNeighbour (City arr[], City lastCityInArr, City *cities, int stop, int range);
 void bubbleSortForNeighBour( NeighBour route[], int size);
 void bubbleSortForPath( Path path[], int size);
-void shuffleArray( City randArr[], int size);
 void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, int size);
-void printfOutPopulatointable(Path population[], int sizeOfPopulation);
 void freePopulationTable(Path population[], int sizeOfPopulation);
+void printfOutPopulatointable(Path population[], int sizeOfPopulation);
 void printOutCitiesID( City *cities);
 void copyArray( City clone[], City arr[], int size);
 void clearCityArray(City arr[], int size);
+void shuffleArray( City randArr[], int size);
+void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City MutateCity, int numOfShortDistanceCity, int size);
 City getFrontCity(City *cities, City target);
 City getBackCity (City *cities, City target);
 City copyCity    ( City city);
@@ -28,6 +29,8 @@ Path crossoverCities (Path path1, Path path2, City target, City arr[]);
 Path InitPathFromTheGivenArrayByUsingLocalElement( City sampleArr[], City localArr[], int size);
 Path doMutation ( Path path, City arr[], int size);
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size);
-Path travelInShortestPath( City arr[], int sizeOfPopulation, int size);
+Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGeneration);
+
+Path mock_doMutation( Path path, City arr[], int size);
 
 #endif // Travel_H

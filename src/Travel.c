@@ -434,6 +434,7 @@ Path InitPathFromTheGivenArrayByUsingLocalElement( City sampleArr[], City localA
     } 
   }
   addCityList(&path.cities, head);
+  path = getDistanceFromPath( path);
   return path;
 }
 
@@ -458,6 +459,7 @@ void initPopulationTable( Path population[], City arr[], int sizeOfPopulation, i
 
 void printfOutPopulatointable(Path population[], int sizeOfPopulation){
   int i;
+  printf("\n");
   for( i=0 ; i<sizeOfPopulation; i++){
     printf("path %d : ", i);
     printOutCitiesID( population[i].cities);
@@ -471,30 +473,6 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
   for( i = 0 ; i < sizeOfPopulation ; i++)
     clearCityList(population[i].cities);
 }
-
-/** Input  : shortDistanceArr, local city array , mutateCity, size of targetCIty to do mutation , size of cities
-*   Process : Used to locate the near distance city, from the complete city array, 
-*             1. set a neighBour type array and calculate the distance between mutate city
-*             2. sort the neighBour array according distance
-*             3. pass in the shortDistance city to shortDistanceArr, based on the given number
-*    Output: shortDistanceArr, which contain the cities are shortest distance between MutateCity
-*/ 
-void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City MutateCity, int numOfTargetCity, int size){
-  NeighBour near[size];
-  int i; 
-  for ( i=0 ; i<size ; i++){
-    if( arr[i].ID == MutateCity.ID)   // To skip the mutateCity
-      i++;
-    near[i].neighBour = arr[i];
-  }   
-  for ( i=0 ; i<size ; i++)
-    near[i].distance = findDistance( &MutateCity, &near[i].neighBour);
-  bubbleSortForNeighBour( near, size);
-  
-  for ( i=0 ; i<numOfTargetCity ; i++)
-    shortDistanceArr[i] =  near[i].neighBour;
-}
-
 
 /** Input: array of all cities, size of population, size of cities
 *
@@ -510,30 +488,30 @@ void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], Ci
 *            7. Record table[0] as shortest path, and return it.
 *   Output: path of compute shortest distance
 */
-Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
-  Path population[sizeOfPopulation], crossPath, shortestPath;
-  City storeArr[sizeOfPopulation][size], tempArr[sizeOfPopulation][size], crossArr[size], shortestArr[size]; // those arrays are use to store the element for the population table 
-  int  targetNumber = sizeOfPopulation + size, counter = 0, i = 0 ,a, b, c;
+Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGeneration){
+  int  counter = 0, i, a, b, c, sizeP = sizeOfPopulation, sizeC = sizeOfCity;
   float pre , post;
+  Path population[sizeP], crossPath, shortestPath;
+  City crossArr[sizeC], shortestArr[sizeC]; // those arrays are use to store the element for the population table 
+
+  clearCityArray( crossArr, sizeC); // To ensure crossArr is empty 
+  initPopulationTable( population, arr, sizeP, sizeC);
+  //printfOutPopulatointable( population, sizeP);
+  printf(" maxNumGeneration : %d\n", maxNumGeneration);
+   while (counter < 20){
+  //for( i =0;  i< 10; i ++){
+    a = rand()%sizeP;
+    population[a] = doMutation( population[a], arr, sizeC);
   
-  clearCityArray( crossArr, 8); // To ensure crossArr is empty
- // initPopulationTable( sizeOfPopulation, size, population, storeArr, arr);
- // printfOutThePopulatointable( sizeOfPopulation, size, population);
+    // do{  b = rand()%sizeP;
+         // c = rand()%sizeP;
+      // } while ( b == c );
+    // crossPath = doCrossover( population[b], population[c], arr, crossArr, sizeC);
 
-  while (counter < targetNumber){
-    a = rand()%sizeOfPopulation;
-    population[a] = doMutation( population[a], arr, size);
-
-    do{  b = rand()%sizeOfPopulation;
-         c = rand()%sizeOfPopulation;
-      } while ( b == c );
-    crossPath = doCrossover( population[b], population[c], arr, crossArr, size);
-
-    if( crossPath.distance < population[b].distance &&  crossPath.distance < population[c].distance){
-      population[b] = copyPath ( crossPath, tempArr[i]);
-      i++;
-    } clearCityArray( crossArr, size);
-
+    // if( crossPath.distance < population[b].distance &&  crossPath.distance < population[c].distance)
+      // population[b] = InitPathFromTheGivenArrayByUsingLocalElement( crossArr, arr, sizeC); 
+    // clearCityArray( crossArr, sizeC);   
+  
     pre  = population[0].distance;
     bubbleSortForPath (population, sizeOfPopulation);
     post = population[0].distance;
@@ -542,35 +520,94 @@ Path travelInShortestPath( City arr[], int sizeOfPopulation, int size){
     else counter = counter + 1;   
     
     printf( "Distance : %f\n", population[0].distance);
-  }  
- // printfOutThePopulatointable( sizeOfPopulation, size, population);
- 
-  shortestPath = copyPath(population[0], shortestArr);
-  return shortestPath; 
+    
+  }
+
+  //printfOutPopulatointable( population, sizeP);
+}
+
+// for( j =0 ; j <sizeC ; j++)
+        // printf(" %d ", crossArr[j].ID);
+        // printf("\n");
+
+// printf("cross : %f , population[b] : %f , population[c] : %f\n", crossPath.distance, population[b].distance , population[c].distance);
+
+/** Input  : shortDistanceArr, local city array , mutateCity, size of targetCIty to do mutation , size of cities
+*   Process : Used to locate the near distance city, from the complete city array, 
+*             1. set a neighBour type array and calculate the distance between mutate city
+*             2. sort the neighBour array according distance
+*             3. pass in the shortDistance city to shortDistanceArr, based on the given number
+*    Output: shortDistanceArr, which contain the cities are shortest distance between MutateCity
+*/ 
+void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City MutateCity, int numOfShortDistanceCity, int size){
+  NeighBour near[size];
+  int i; 
+  for ( i=0 ; i<size ; i++){
+    if( arr[i].ID == MutateCity.ID)   // To skip the mutateCity
+      i++;
+    near[i].neighBour = arr[i];
+  }   
+  for ( i=0 ; i<size ; i++)
+    near[i].distance = findDistance( &MutateCity, &near[i].neighBour);
+  bubbleSortForNeighBour( near, size);
+  
+  for ( i=0 ; i<numOfShortDistanceCity ; i++)
+    shortDistanceArr[i] =  near[i].neighBour;
 }
 
 Path doMutation( Path path, City arr[], int size){
-  City rand1, rand2;
-  int A,B;
+  City mut1, mut2 ;
+  int A,B, numOfShortDistanceCity, percent;
 
-  do{
-      A = rand()%size;
-      B = rand()%size;
-    } while ( A == B);
-  rand1 = arr[A];
-  rand2 = arr[B];
+  if( size > 20) 
+    percent = 10;
+  else  percent = 50;
+    
+  numOfShortDistanceCity = percent * size / 100; 
+  City shortDistanceArr[numOfShortDistanceCity];
 
-  if( checkingFor2opt( path.cities, rand1, rand2))
-    path = MutationCities( path, rand1, rand2);
+  mut1 = arr[rand()%size];
+  locateNeighBoursBasedOnGivenNumber( shortDistanceArr, arr, mut1, numOfShortDistanceCity, size);
+  mut2 = shortDistanceArr[rand()%numOfShortDistanceCity];
+
+  if( checkingFor2opt( path.cities, mut1, mut2))
+    path = MutationCities( path, mut1, mut2);
   return path;
+  // printf("numOfShortDistanceCity : %d\n  ", numOfShortDistanceCity);
 }
 
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
   int  A = rand()%size;
   City rand1 = arr[A];
   Path crossoverPath;
-
+  //printf("rand1 : %d\n", rand1.ID);
   crossoverPath = crossoverCities( path1, path2, rand1, crossArr);
   return crossoverPath;
 }
 
+Path mock_doMutation( Path path, City arr[], int size){
+  City mut1, mut2 ;
+  int A,B, numOfShortDistanceCity, percent;
+  
+  if( size > 20) 
+    percent = 10;
+  else  percent = 50;
+    
+  numOfShortDistanceCity = percent * size / 100; 
+  City shortDistanceArr[numOfShortDistanceCity];
+
+  mut1 = arr[random( size)];
+  locateNeighBoursBasedOnGivenNumber( shortDistanceArr, arr, mut1, numOfShortDistanceCity, size);
+  mut2 = shortDistanceArr[random(numOfShortDistanceCity)];
+
+  printf("mut1 : %d\n", mut1.ID);
+  printf("mut2 : %d\n", mut2.ID);
+  
+  if( checkingFor2opt( path.cities, mut1, mut2)){
+    path = MutationCities( path, mut1, mut2);
+    printf("in\n");
+    }
+  return path;
+  // printf("numOfShortDistanceCity : %d\n  ", numOfShortDistanceCity);
+  // printf("size : %d\n", size);
+}

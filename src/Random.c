@@ -1,6 +1,6 @@
 #include "Random.h"
 
 int random( int num){
-
- return rand()%num;
+  int value = rand()%num;
+ return value;
 }

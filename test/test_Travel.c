@@ -704,6 +704,28 @@ void xtest_InitPathFromTheGivenArray_given_a_sampleArray_should_init_the_path_an
   clearCityList(path.cities);
 }
 
+void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15(void){
+  int sizeOfPopulation = 15, sizeOfCity = 10;
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  Path population[sizeOfPopulation];
+  City tour[sizeOfPopulation][sizeOfCity];
+
+  initPopulationTable( population, tenCity, sizeOfPopulation, sizeOfCity);
+  //printfOutPopulatointable( population, sizeOfPopulation);
+  freePopulationTable( population, sizeOfPopulation);
+}
+
+void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x20(void){
+  int sizeOfPopulation = 20, sizeOfCity = 10;
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
+  Path population[sizeOfPopulation];
+  City tour[sizeOfPopulation][sizeOfCity];
+
+  initPopulationTable( population, tenCity, sizeOfPopulation, sizeOfCity);
+  //printfOutPopulatointable( population, sizeOfPopulation);
+  freePopulationTable( population, sizeOfPopulation);
+}
+
 /**
 *10|   G(2,10)
 *  |
@@ -731,7 +753,7 @@ void xtest_InitPathFromTheGivenArray_given_a_sampleArray_should_init_the_path_an
 * Given the target is cityB, and choose 3 city , so cityB will locate the 3 mutation target of cityH,F,E,which are near distance to cityB, 
 * For the complete mutation functions, the number of city to do mutated will be calculate by certain percentage 
 */
-void test_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_locate_cityH_cityG_cityE_as_neighbour(void){
+void xtest_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_locate_cityH_cityG_cityE_as_neighbour(void){
   int  sizeOfCity = 10, numOfTargetCity = 3;
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ }, shortDistanceArr[numOfTargetCity];
   
@@ -742,47 +764,71 @@ void test_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_lo
 }
 
 
-
-
-
-
-
-void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15(void){
-  int sizeOfPopulation = 15, sizeOfCity = 10;
-  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  Path population[sizeOfPopulation];
-  City tour[sizeOfPopulation][sizeOfCity];
-
-  initPopulationTable( population, tenCity, sizeOfPopulation, sizeOfCity);
-  //printfOutPopulatointable( population, sizeOfPopulation);
-  freePopulationTable( population, sizeOfPopulation);
-}
-
-void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x20(void){
-  int sizeOfPopulation = 20, sizeOfCity = 10;
-  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
-  Path population[sizeOfPopulation];
-  City tour[sizeOfPopulation][sizeOfCity];
-
-  initPopulationTable( population, tenCity, sizeOfPopulation, sizeOfCity);
-  //printfOutPopulatointable( population, sizeOfPopulation);
-  freePopulationTable( population, sizeOfPopulation);
+/**
+*-----------------------------------------------------------------------------------
+* 1.Original Path      $                                                            *
+*                   cityA--->cityB-->cityC--->cityD                                 *
+*                     ^                          |                                  *
+*                     |                $          v                                 *
+*                  cityH<---cityG<---cityF<---cityE                                 *
+*                                                                                   *
+*-----------------------------------------------------------------------------------*
+* 2. select cityA and cityF as target , reverse the link between them               *
+*                                                                                   *
+*                                                                                   *
+*                                 NULL                                              *
+*                                 ^                                                 *
+*                                 |                                                 *
+*                   (cityA)--->cityB<---cityC<---cityD                              *
+*                     ^                            ^                                *
+*                     |                            |                                *
+*                  cityH<---cityG   (cityF)----->cityE                              *
+*                                                                                   *
+*-----------------------------------------------------------------------------------*
+* 3.Mutation                                                                        *
+*                                                                                   *
+*                   cityA--->cityB    cityC<---cityD                                *
+*                     ^          \    /           |                                 *
+*                     |           \ /             |                                 *
+*                     |           / \             |                                 *
+*                     |          v   v            v                                 *
+*                  cityH<---cityG    cityF--->cityE                                 *
+*-----------------------------------------------------------------------------------*
+*/
+void test_mock_doMutation_given_mock_the_random_city_as_cityA_and_cityF_should_do_mutate(void){
+  int size = 8;
+  City eightCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH};
+  Path path;
+  City *head =  cityListNew(&cityA);  // assign cityA as head
+  addCityList(&head, &cityB);
+  addCityList(&head, &cityC);
+  addCityList(&head, &cityD);
+  addCityList(&head, &cityE);
+  addCityList(&head, &cityF);
+  addCityList(&head, &cityG);
+  addCityList(&head, &cityH);
+  addCityList(&head, &cityA);
+  path.cities = head;
+  
+  random_ExpectAndReturn ( 8 , 0 );
+  random_ExpectAndReturn ( 4 , 2 );
+  //mock_doMutation( path, eightCity, size);
 }
 
 void xtest_travelInShortestPath_given_10_City_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
-  int sizeOfPopulation = 15, sizeOfCity = 10;
+  int sizeOfPopulation = 15, sizeOfCity = 10, maxNumGeneration = 20;
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
 
   Path shortestPath;
-  printf("\nGiven 10 city and 15 population\n");
-  travelInShortestPath( tenCity, sizeOfPopulation, sizeOfCity);
+  //printf("\nGiven 10 city and 15 population\n");
+  solveTSP( tenCity, sizeOfPopulation, sizeOfCity, maxNumGeneration);
 }
 
 void xtest_travelInShortestPath_given_20_city_should_get_the_shortest_travel_path(void){
-  int sizeOfPopulation = 20, sizeOfCity = 20;
-  City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
-                        cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
-  Path shortestPath;
-  printf("\nGiven 20 city and 20 population\n");
-  shortestPath = travelInShortestPath( twentyCity, sizeOfPopulation, sizeOfCity);
+  // int sizeOfPopulation = 20, sizeOfCity = 20;
+  // City twentyCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ,
+                        // cityK,cityL,cityM,cityN,cityO,cityP,cityQ,cityR,cityS,cityT};
+  // Path shortestPath;
+  // printf("\nGiven 20 city and 20 population\n");
+  // shortestPath = travelInShortestPath( twentyCity, sizeOfPopulation, sizeOfCity);
 }
