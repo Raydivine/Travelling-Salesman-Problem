@@ -31,7 +31,7 @@ Path doMutation ( Path path, City arr[], int size);
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size);
 Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGeneration);
 
-Path mock_doMutation( Path path, City arr[], int size);
+Path mock_doMutation( Path path, City arr[], int size);    
 Path mock_doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size);
 
 #endif // Travel_H
