@@ -30,8 +30,4 @@ Path doMutation ( Path path, City arr[], int size);
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size);
 Path travelInShortestPath( City arr[], int sizeOfPopulation, int size);
 
-
-
-//Path initPopulationTable(City arr[], int sizeOfPopulation, int size);
-
 #endif // Travel_H

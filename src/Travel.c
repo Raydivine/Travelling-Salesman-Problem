@@ -472,6 +472,30 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
     clearCityList(population[i].cities);
 }
 
+/** Input  : shortDistanceArr, local city array , mutateCity, size of targetCIty to do mutation , size of cities
+*   Process : Used to locate the near distance city, from the complete city array, 
+*             1. set a neighBour type array and calculate the distance between mutate city
+*             2. sort the neighBour array according distance
+*             3. pass in the shortDistance city to shortDistanceArr, based on the given number
+*    Output: shortDistanceArr, which contain the cities are shortest distance between MutateCity
+*/ 
+void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City MutateCity, int numOfTargetCity, int size){
+  NeighBour near[size];
+  int i; 
+  for ( i=0 ; i<size ; i++){
+    if( arr[i].ID == MutateCity.ID)   // To skip the mutateCity
+      i++;
+    near[i].neighBour = arr[i];
+  }   
+  for ( i=0 ; i<size ; i++)
+    near[i].distance = findDistance( &MutateCity, &near[i].neighBour);
+  bubbleSortForNeighBour( near, size);
+  
+  for ( i=0 ; i<numOfTargetCity ; i++)
+    shortDistanceArr[i] =  near[i].neighBour;
+}
+
+
 /** Input: array of all cities, size of population, size of cities
 *
 *   Process: 1. The function is combined mutation and crossover 
@@ -549,3 +573,4 @@ Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size)
   crossoverPath = crossoverCities( path1, path2, rand1, crossArr);
   return crossoverPath;
 }
+

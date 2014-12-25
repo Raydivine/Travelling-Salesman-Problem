@@ -704,6 +704,42 @@ void xtest_InitPathFromTheGivenArray_given_a_sampleArray_should_init_the_path_an
   clearCityList(path.cities);
 }
 
+/**
+*10|   G(2,10)
+*  |
+* 9|                                      C(10,9)
+*  |
+* 8|           H(4,8)
+*  |
+* 7|                *B(5,7)
+*  |
+* 6|         F(3,6)
+*  |
+* 5|                            E(8,5)
+*  |
+* 4|                                      J(10,4)
+*  |
+* 3|                         D(7,3)
+*  |
+* 2|                                 I(9,2)
+*  |
+* 1| A(1,1)
+*  |______________________________________________> x
+* 0   1   2   3   4   5   6   7   8   9   10  11 
+*
+* This function is used to support mutation process, to let the process will ways choose the near distance of mutation targets
+* Given the target is cityB, and choose 3 city , so cityB will locate the 3 mutation target of cityH,F,E,which are near distance to cityB, 
+* For the complete mutation functions, the number of city to do mutated will be calculate by certain percentage 
+*/
+void test_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_locate_cityH_cityG_cityE_as_neighbour(void){
+  int  sizeOfCity = 10, numOfTargetCity = 3;
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ }, shortDistanceArr[numOfTargetCity];
+  
+  locateNeighBoursBasedOnGivenNumber( shortDistanceArr, tenCity, cityB, numOfTargetCity, sizeOfCity);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[0].ID, cityH.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[1].ID, cityF.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[2].ID, cityE.ID);
+}
 
 
 
@@ -711,29 +747,26 @@ void xtest_InitPathFromTheGivenArray_given_a_sampleArray_should_init_the_path_an
 
 
 
-
-void test_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15(void){
+void xtest_initPopulationTable_given_population_size_15_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x15(void){
   int sizeOfPopulation = 15, sizeOfCity = 10;
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path population[sizeOfPopulation];
   City tour[sizeOfPopulation][sizeOfCity];
 
   initPopulationTable( population, tenCity, sizeOfPopulation, sizeOfCity);
-  printfOutPopulatointable( population, sizeOfPopulation);
-//printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
-//  freePopulationTable( population, sizeOfPopulation);
+  //printfOutPopulatointable( population, sizeOfPopulation);
+  freePopulationTable( population, sizeOfPopulation);
 }
 
 void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_should_set_the_population_table_randomize_accroding_10x20(void){
   int sizeOfPopulation = 20, sizeOfCity = 10;
-
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ };
   Path population[sizeOfPopulation];
   City tour[sizeOfPopulation][sizeOfCity];
 
- // initPopulationTable( sizeOfPopulation, sizeOfCity, population, tour, tenCity);
-//printfOutThePopulatointable( sizeOfPopulation, sizeOfCity, population);
-//  freePopulationTable( population, sizeOfPopulation);
+  initPopulationTable( population, tenCity, sizeOfPopulation, sizeOfCity);
+  //printfOutPopulatointable( population, sizeOfPopulation);
+  freePopulationTable( population, sizeOfPopulation);
 }
 
 void xtest_travelInShortestPath_given_10_City_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
