@@ -17,7 +17,7 @@ void printOutCitiesID( City *cities);
 void copyArray( City clone[], City arr[], int size);
 void clearCityArray(City arr[], int size);
 void shuffleArray( City randArr[], int size);
-void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City MutateCity, int numOfShortDistanceCity, int size);
+void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City cityLookingForNeighBour, int numOfShortDistanceCity, int size);
 City getFrontCity(City *cities, City target);
 City getBackCity (City *cities, City target);
 City copyCity    ( City city);
@@ -32,5 +32,6 @@ Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size)
 Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGeneration);
 
 Path mock_doMutation( Path path, City arr[], int size);
+Path mock_doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size);
 
 #endif // Travel_H

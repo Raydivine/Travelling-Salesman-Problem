@@ -532,28 +532,31 @@ Path solveTSP( City arr[], int sizeOfPopulation, int sizeOfCity, int maxNumGener
 
 // printf("cross : %f , population[b] : %f , population[c] : %f\n", crossPath.distance, population[b].distance , population[c].distance);
 
-/** Input  : shortDistanceArr, local city array , mutateCity, size of targetCIty to do mutation , size of cities
+/** Input  : shortDistanceArr, city array , cityLookingForNeighBour, numOfShortDistanceCity , size of cities
 *   Process : Used to locate the near distance city, from the complete city array, 
-*             1. set a neighBour type array and calculate the distance between mutate city
+*             1. set a neighBour type array and calculate the distance between cityLookingForNeighBour, the neighBour type array will skip the cityLookingForNeighBour
 *             2. sort the neighBour array according distance
-*             3. pass in the shortDistance city to shortDistanceArr, based on the given number
+*             3. pass in the shortDistance city to shortDistanceArr, based on numOfShortDistanceCity
 *    Output: shortDistanceArr, which contain the cities are shortest distance between MutateCity
 */ 
-void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City MutateCity, int numOfShortDistanceCity, int size){
-  NeighBour near[size];
-  int i; 
-  for ( i=0 ; i<size ; i++){
-    if( arr[i].ID == MutateCity.ID)   // To skip the mutateCity
+void locateNeighBoursBasedOnGivenNumber( City shortDistanceArr[], City arr[], City cityLookingForNeighBour, int numOfShortDistanceCity, int size){
+  int num = size - 1; // minus target it self 
+  NeighBour near[num];
+  int i,j=0; 
+  for ( i=0 ; i< size ; i++){
+    if( arr[i].ID == cityLookingForNeighBour.ID)   // To skip the mutateCity
       i++;
-    near[i].neighBour = arr[i];
-  }   
-  for ( i=0 ; i<size ; i++)
-    near[i].distance = findDistance( &MutateCity, &near[i].neighBour);
-  bubbleSortForNeighBour( near, size);
+    near[j].neighBour = arr[i];
+    j++;
+  }  
+  for ( i=0 ; i<num ; i++)
+    near[i].distance = findDistance( &cityLookingForNeighBour, &near[i].neighBour);
+  bubbleSortForNeighBour( near, num);
   
   for ( i=0 ; i<numOfShortDistanceCity ; i++)
     shortDistanceArr[i] =  near[i].neighBour;
 }
+// printf("near[0].neighBour.ID : %d\n" , near[0].neighBour.ID);
 
 Path doMutation( Path path, City arr[], int size){
   City mut1, mut2 ;
@@ -578,36 +581,44 @@ Path doMutation( Path path, City arr[], int size){
 
 Path doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
   int  A = rand()%size;
-  City rand1 = arr[A];
+  City rand = arr[A];
   Path crossoverPath;
-  //printf("rand1 : %d\n", rand1.ID);
-  crossoverPath = crossoverCities( path1, path2, rand1, crossArr);
+  //printf("rand1 : %d\n", rand.ID);
+  crossoverPath = crossoverCities( path1, path2, rand, crossArr);
   return crossoverPath;
 }
 
 Path mock_doMutation( Path path, City arr[], int size){
   City mut1, mut2 ;
-  int A,B, numOfShortDistanceCity, percent;
+  int numOfShortDistanceCity, percent;
   
-  if( size > 20) 
+  if( size > 30) 
     percent = 10;
-  else  percent = 50;
+  else  percent = 30;
     
   numOfShortDistanceCity = percent * size / 100; 
   City shortDistanceArr[numOfShortDistanceCity];
 
-  mut1 = arr[random( size)];
+  mut1 = arr[random(size)];
   locateNeighBoursBasedOnGivenNumber( shortDistanceArr, arr, mut1, numOfShortDistanceCity, size);
   mut2 = shortDistanceArr[random(numOfShortDistanceCity)];
 
   printf("mut1 : %d\n", mut1.ID);
   printf("mut2 : %d\n", mut2.ID);
   
-  if( checkingFor2opt( path.cities, mut1, mut2)){
+  if( checkingFor2opt( path.cities, mut1, mut2))
     path = MutationCities( path, mut1, mut2);
-    printf("in\n");
-    }
+
   return path;
   // printf("numOfShortDistanceCity : %d\n  ", numOfShortDistanceCity);
   // printf("size : %d\n", size);
+}
+
+Path mock_doCrossover( Path path1, Path path2, City arr[], City crossArr[], int size){
+
+  City rand = arr[random(size)];
+  Path crossoverPath;
+  //printf("rand1 : %d\n", rand.ID);
+  crossoverPath = crossoverCities( path1, path2, rand, crossArr);
+  return crossoverPath;
 }

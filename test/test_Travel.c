@@ -615,7 +615,7 @@ void xtest_corssoverCities_given_2_cities_and_choose_cityE_should_do_crossover_a
   City arr1[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH };
   City arr2[] = { cityC,cityD,cityE,cityH,cityG,cityB,cityF,cityA };
   City array[8];
-  clearCityArray( array, 8);  // To ensure the array is empty element, because sometimes it will randomly generate some value if simply declare
+  clearCityArray( array, 8);  // To ensure the array is empty element, because sometimes it will randomly generate some value
   Path path1 = convertArrayToPath( arr1, 8);
   Path path2 = convertArrayToPath( arr2, 8);
   Path cross;
@@ -749,11 +749,11 @@ void xtest_initPopulationTable_given_population_size_20_and_cities_size_10_shoul
 *  |______________________________________________> x
 * 0   1   2   3   4   5   6   7   8   9   10  11 
 *
-* This function is used to support mutation process, to let the process will ways choose the near distance of mutation targets
+* This function is used to support mutation process, to let the process will ways choose the near distance of mutation city
 * Given the target is cityB, and choose 3 city , so cityB will locate the 3 mutation target of cityH,F,E,which are near distance to cityB, 
 * For the complete mutation functions, the number of city to do mutated will be calculate by certain percentage 
 */
-void xtest_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_locate_cityH_cityG_cityE_as_neighbour(void){
+void Xtest_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_locate_cityH_cityG_cityE_as_neighbour(void){
   int  sizeOfCity = 10, numOfTargetCity = 3;
   City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ }, shortDistanceArr[numOfTargetCity];
   
@@ -763,6 +763,28 @@ void xtest_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_l
   TEST_ASSERT_EQUAL ( shortDistanceArr[2].ID, cityE.ID);
 }
 
+void Xtest_locateNeighBoursBasedOnGivenNumber_choose_cityA_given_4_city_should_locate_cityF_cityD_cityB_cityH_as_neighbour(void){
+  int  sizeOfCity = 10, numOfTargetCity = 4;
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ }, shortDistanceArr[numOfTargetCity];
+  
+  locateNeighBoursBasedOnGivenNumber( shortDistanceArr, tenCity, cityA, numOfTargetCity, sizeOfCity);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[0].ID, cityF.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[1].ID, cityD.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[2].ID, cityB.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[3].ID, cityH.ID);
+}
+
+void xtest_locateNeighBoursBasedOnGivenNumber_choose_cityJ_given_5_city_should_locate_cityE_cityI_cityD_cityC_cityB_as_neighbour(void){
+  int  sizeOfCity = 10, numOfTargetCity = 5;
+  City tenCity[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH,cityI,cityJ }, shortDistanceArr[numOfTargetCity];
+  
+  locateNeighBoursBasedOnGivenNumber( shortDistanceArr, tenCity, cityJ, numOfTargetCity, sizeOfCity);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[0].ID, cityE.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[1].ID, cityI.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[2].ID, cityD.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[3].ID, cityC.ID);
+  TEST_ASSERT_EQUAL ( shortDistanceArr[4].ID, cityB.ID);
+}
 
 /**
 *-----------------------------------------------------------------------------------
@@ -787,12 +809,12 @@ void xtest_locateNeighBoursBasedOnGivenNumber_choose_cityB_given_3_city_should_l
 *-----------------------------------------------------------------------------------*
 * 3.Mutation                                                                        *
 *                                                                                   *
-*                   cityA--->cityB    cityC<---cityD                                *
-*                     ^          \    /           |                                 *
-*                     |           \ /             |                                 *
-*                     |           / \             |                                 *
-*                     |          v   v            v                                 *
-*                  cityH<---cityG    cityF--->cityE                                 *
+*                      ----->cityA      cityB<---cityC --                           *
+*                     |          \    /                 |                           *
+*                     |           \ /                   |                           *
+*                     |           / \                   |                           *
+*                     |          v   v                  v                           *
+*                  cityH<---cityG    cityF--->cityE--->cityD                        *
 *-----------------------------------------------------------------------------------*
 */
 void test_mock_doMutation_given_mock_the_random_city_as_cityA_and_cityF_should_do_mutate(void){
@@ -811,9 +833,74 @@ void test_mock_doMutation_given_mock_the_random_city_as_cityA_and_cityF_should_d
   path.cities = head;
   
   random_ExpectAndReturn ( 8 , 0 );
-  random_ExpectAndReturn ( 4 , 2 );
-  //mock_doMutation( path, eightCity, size);
+  random_ExpectAndReturn ( 2 , 0 );
+  path = mock_doMutation( path, eightCity, size);
+  TEST_ASSERT_EQUAL( path.cities->ID                                                , cityA.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->ID                                          , cityF.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->ID                                    , cityE.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->ID                              , cityD.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->ID                        , cityC.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->ID                  , cityB.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->ID            , cityG.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->ID      , cityH.ID);
+  TEST_ASSERT_EQUAL( path.cities->next->next->next->next->next->next->next->next->ID, cityA.ID);
+  clearCityList(head);
+  clearCityList(path.cities);
 }
+
+/**--------------------------------------------------------------------------------------------------------
+* 1) The 2 chromosome cities shown below, and cityE is choose to do crossover ,                           *
+*     it should break loop at cityB                                                                       *
+*                                                                                                         *
+*                    -----------left-----------------$$$$$                                                *
+*     CityA------> CityB----->CityC------>CityD----->CityE----->CityF------>CityG----->CityH              *
+*                  same                                                                                   *
+*                                                                                                         *
+*                              $$$$$ ---------Right-------------                                          *
+*      CityC------> CityD----->CityE----->CityH------>CityG----->CityB----->CityF------>CityA             *
+*                                                                 same                                    *
+*                                                                                                         *
+*----------------------------------------------------------------------------------------------------------
+* 2) Select cityE as mid, fill the city 1by1 from chromose1'left and chromose2'Right,                     *
+*    if the coming cityB is is already exists, then stop and form a crossover link                        *
+*                                                                                                         *
+*                                                mid                                                      *
+*             CityB----->CityC------>CityD----->CityE----->CityH------>CityG   (cityB)                    *
+*                                                                                                         *
+*                                                                                                         *
+*----------------------------------------------------------------------------------------------------------
+*  3) add the rest of city to behind cityG, the added city's sequence is based of the distance to cityG   *
+*                                                             $                                           *
+*  CityB----->CityC------>CityD----->CityE----->CityH------>CityG------>CityF------->cityA                *
+*                                                                       (near  to    far )                *
+*                                                                                                         *
+*---------------------------------------------------------------------------------------------------------*/
+void test_mock_doCrossover_given_mock_the_random_city_as_cityE_should_do_crossover_and_form_new_cities(void){
+  City arr1[] = { cityA,cityB,cityC,cityD,cityE,cityF,cityG,cityH };
+  City arr2[] = { cityC,cityD,cityE,cityH,cityG,cityB,cityF,cityA };
+  City array[8];
+  clearCityArray( array, 8);  // To ensure the array is empty element, because sometimes it will randomly generate some value 
+  Path path1 = convertArrayToPath( arr1, 8);
+  Path path2 = convertArrayToPath( arr2, 8);
+  Path cross;
+  path1.size   = 8;
+  path2.size   = 8;
+
+  random_ExpectAndReturn ( 8 , 4 );
+  cross = mock_doCrossover( path1, path2, arr1, array, 8);
+  clearCityList(path1.cities);
+  clearCityList(path2.cities);
+  TEST_ASSERT_EQUAL( cross.cities->ID                                                , cityB.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->ID                                          , cityC.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->ID                                    , cityD.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->ID                              , cityE.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->ID                        , cityH.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->next->ID                  , cityG.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->next->next->ID            , cityF.ID);
+  TEST_ASSERT_EQUAL( cross.cities->next->next->next->next->next->next->next->ID      , cityA.ID);
+  clearCityList(cross.cities);
+}
+
 
 void xtest_travelInShortestPath_given_10_City_should_create_the_population_15_should_find_the_shortest_travel_distance(void){
   int sizeOfPopulation = 15, sizeOfCity = 10, maxNumGeneration = 20;
