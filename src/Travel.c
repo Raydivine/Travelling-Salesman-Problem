@@ -11,11 +11,11 @@
 
 void printOutACities( City *cities){
   int stop = cities->ID;
-  printf("%d\n",cities->ID);
+  printf("%d  ",cities->ID);
 
   cities = cities->next;
   while(cities->ID != stop){
-    printf("%d\n",cities->ID);
+    printf("%d  ",cities->ID);
     cities = cities->next;
   }
 }
@@ -394,6 +394,49 @@ void copyArray( City clone[], City arr[], int size){
   }
 }
 
+void shuffleArray( City randArr[], int size){
+  int i,x;
+  City temp;
+  for( i=0 ; i < size ; i++){   
+    x = rand()%(size);
+    temp = randArr[x];
+    randArr[x] = randArr[i];
+    randArr[i] = temp;
+  }
+}
+
+/** Input  : sample array, local array, 
+*   Process: This function is used to init path from the given array, but the path is using local array as element
+*            1. Initialize the head of tour, and the head is using element from localArr
+*            2. add rest of city to tour, and using element from localArr
+*            3. Point back the tail of tour to head of tour, produce a complete path
+*
+*   Output : The path which has tour as the sequence of sample array, but it is using local array as element          
+*/
+Path InitPathFromTheGivenArrayByUsingLocalElement( City sampleArr[], City localArr[], int size){
+  int i,j;
+  Path path;
+  path.cities = NULL;
+  
+  for( j=0 ; j<size ; j++){
+    if( localArr[j].ID == sampleArr[0].ID ){
+      localArr[j].next = NULL;
+      path.cities =  cityListNew(&localArr[j]);
+    }
+  }
+  City *head = path.cities;
+  for( i=1 ; i<size ; i++){
+    for( j=0 ; j<size ; j++){
+      if( localArr[j].ID == sampleArr[i].ID ){
+        localArr[j].next = NULL;
+        addCityList(&path.cities, &localArr[j]);
+      }
+    } 
+  }
+  addCityList(&path.cities, head);
+  return path;
+}
+
 void initPopulationTable( int sizeOfPopulation, int size, Path population[], City tour[sizeOfPopulation][size], City arr[]){
   City temp;
   int i,j,x;
@@ -442,9 +485,7 @@ void freePopulationTable(Path population[], int sizeOfPopulation){
   City *cities;
   for( i = 0 ; i < sizeOfPopulation ; i++)
     clearCityList(population[i].cities);
-  
 }
-
 
 /** Input: array of all cities, size of population, size of cities
 *
